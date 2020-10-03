@@ -1,8 +1,8 @@
 /* eslint-disable */
-import healsFunc from './healsFunc'
+import healsFuncMonk from './healsFuncMonk'
 
 export default {
-    mixins: [healsFunc],
+    mixins: [healsFuncMonk],
     data() {
         return {
         }
@@ -10,9 +10,6 @@ export default {
     methods: {
         createHeals(healSpec) {
             let heals = []
-            if (healSpec=="") {
-                healSpec = "mistweaver"
-            }
 
             class Heal {
                 constructor(name,manaCost,timeCast,cooldown,charges,hasteCdReduce,healFunc) {
@@ -23,8 +20,13 @@ export default {
                     this.charges = charges
                     this.healFunc = healFunc
                 }
-
-
+                critChance(statCrit) {
+                    let critChance = (Math.random()*100)
+                    if (critChance < statCrit) {
+                        return 2
+                    }
+                    return 1
+                }
             }
 
             //MW Monk
