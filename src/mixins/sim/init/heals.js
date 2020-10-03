@@ -11,6 +11,8 @@ export default {
         createHeals(healSpec) {
             let heals = []
 
+            this.vivMain
+
             class Heal {
                 constructor(name,manaCost,timeCast,cooldown,charges,hasteCdReduce,healFunc) {
                     this.name = name
@@ -32,7 +34,7 @@ export default {
             //MW Monk
             switch(healSpec) {
                 case "mistweaver":
-                    heals = [{vivify:new Heal("Vivify",4.1,1.5,0,1,0,this.healFuncViv)},
+                    heals = [{vivify:new Heal("Vivify",4.1,1.5,0,1,0,this.healFuncViv())},
                         {},
                         {},
                         {},
