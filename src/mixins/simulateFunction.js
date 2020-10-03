@@ -1,10 +1,14 @@
+import heals from "./sim/init/heals"
 export default {
+    mixins:[heals],
     data() {
         return {
         }
     },
     methods: {
         simulate(settings) {
+           this.heals = this.createHeals("mistweaver")
+            console.log(this.heals)
             let buffs = this.$store.state.buffs
 
             let mode = settings.simMode
