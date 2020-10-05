@@ -28,11 +28,11 @@ export default {
 
                     //-------heal-------
                     crit1 = this.critChance(stats.crit)
-                    let mainHeal = (((stats.int * (stats.mastery / 100)) * (+(hots.efTargets.includes(target[0])) + 1)) * crit1)
+                    let mainHeal = (((stats.int * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit1)
 
                     returnData.healingToTargets = [{id: target[0], heal: mainHeal}]
 
-                    returnData.hotData = {heal: (stats.int * emHeal), duration: emDuration, name: "Enveloping Mist"}
+                    returnData.hotData = {heal: (stats.int * emHeal), duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}
 
                     this.setCd()
 

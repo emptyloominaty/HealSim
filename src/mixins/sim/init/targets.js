@@ -7,15 +7,19 @@ export default {
     },
     methods: {
         createTargets() {
-            class Target {  //TODO: ENEMY / FRIENDLY
+            class Target {
                 constructor(name,health,type) {
                     this.name = name
-                    this.health = health
+                    this.health = health/2
                     this.maxHealth = health
                     this.type = type
                     //----
                     this.buffs = []
-                    this.hots = []
+                    if (type==="friendly") {    //TODO DELETE THIS IS ONLY FOR TEST
+                        this.hots = [{heal: 1000, duration: 20, name: "Renewing Mist",maxDuration: 20}]
+                    } else {
+                        this.hots = []
+                    }
                     this.dots = []
                 }
 
@@ -33,8 +37,8 @@ export default {
                     }
                 }
 
-                applyHot() {
-
+                applyHot(hotData) {
+                    this.hots.push(hotData)
                 }
 
                 applyDot() {

@@ -27,22 +27,22 @@ export default {
                     crit1 = this.critChance(stats.crit)
                     crit2 = this.critChance(stats.crit)
 
-                    let mainHeal = ((stats.int * vivMain) * crit1) + (((stats.int * (stats.mastery / 100)) * (+(hots.efTargets.includes(target[0])) + 1)) * crit2)
+                    let mainHeal = ((stats.int * vivMain) * crit1) + (((stats.int * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit2)
                     let cleaveHeal = (stats.int * vivCleave)
                     let tomHeal = (stats.int * vivTearofMorning)
 
                     //rem loop
                     let cleaveTargets = []
-                    for (let i = 0; i < hots.remTargets.length; i++) {
+                    for (let i = 0; i < hots["Renewing Mist"].length; i++) {
                         crit1 = this.critChance(stats.crit)
-                        cleaveTargets.push({id: hots.remTargets[i], heal: (cleaveHeal * crit1)})
+                        cleaveTargets.push({id: hots["Renewing Mist"][i], heal: (cleaveHeal * crit1)})
                     }
 
                     //tom loop
                     let tomTargets = []
-                    for (let i = 0; i < hots.tomTargets.length; i++) {
+                    for (let i = 0; i < hots["Tear of Morning"].length; i++) {
                         crit1 = this.critChance(stats.crit)
-                        tomTargets.push({id: hots.tomTargets[i], heal: (tomHeal * crit1)})
+                        tomTargets.push({id: hots["Tear of Morning"][i], heal: (tomHeal * crit1)})
                     }
 
                     returnData.healingToTargets = [{id: target[0], heal: mainHeal}, cleaveTargets, tomTargets]
