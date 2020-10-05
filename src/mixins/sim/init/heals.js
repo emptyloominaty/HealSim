@@ -1,8 +1,9 @@
 /* eslint-disable */
-import healsFuncMonk from './healsFuncMonk'
+import hfviv from './mistweaver/vivify'
+import hfem from './mistweaver/envelopingMist'
 
 export default {
-    mixins: [healsFuncMonk],
+    mixins: [hfviv,hfem],
     data() {
         return {
         }
@@ -11,17 +12,40 @@ export default {
         createHeals(healSpec) {
             let heals = []
 
-            this.vivMain
-
             class Heal {
                 constructor(name,manaCost,timeCast,cooldown,charges,hasteCdReduce,healFunc) {
                     this.name = name
                     this.manaCost = manaCost
                     this.timeCast = timeCast
                     this.cooldown = cooldown
+                    this.maxCooldown = cooldown
+                    this.hasteCdReduce = hasteCdReduce
                     this.charges = charges
+                    this.maxCharges = charges
                     this.healFunc = healFunc
                 }
+
+                incCd(gcd,stats) {
+                   if (this.cooldown<this.maxCooldown) {
+                       if (this.hasteCdReduce===1) {
+                           this.cooldown += gcd * (1 + (stats.haste / 100))
+                       } else {
+                           this.cooldown += gcd
+                       }
+                       //charges
+                       if (this.maxCharges>1) {
+                           if (this.maxCharges<this.charges) {
+                               this.charges++
+                               this.cooldown=0
+                           }
+                       }
+                   }
+                }
+
+                setCd() {
+                    this.cooldown = 0
+                }
+
                 critChance(statCrit) {
                     let critChance = (Math.random()*100)
                     if (critChance < statCrit) {
@@ -31,11 +55,11 @@ export default {
                 }
             }
 
-            //MW Monk
             switch(healSpec) {
+                //MW Monk
                 case "mistweaver":
                     heals = [{vivify:new Heal("Vivify",4.1,1.5,0,1,0,this.healFuncViv())},
-                        {},
+                        {envelopingMist:new Heal("Enveloping Mist",6.0,2.0,0,1,0,this.healFuncEm())},
                         {},
                         {},
                         {},
@@ -50,7 +74,7 @@ export default {
                         {},]
 
 
-                    new Heal("Enveloping Mist",6.0,2.0,0,1,0)
+
                     new Heal("Soothing Mist",0.4,1,0,1,0)
                     new Heal("Renewing Mist",2.2,1.5,9,2,0)
                     new Heal("Revival",4.374,1.5,180,1,0)

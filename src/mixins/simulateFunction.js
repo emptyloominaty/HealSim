@@ -1,18 +1,16 @@
-import heals from "./sim/init/heals"
+import main from "./sim/main"
 export default {
-    mixins:[heals],
+    mixins:[main],
     data() {
         return {
         }
     },
     methods: {
         simulate(settings) {
-           this.heals = this.createHeals("mistweaver")
-            console.log(this.heals)
-            console.log(this.heals[0]["vivify"].healFunc({int:1000,haste:10,crit:10,vers:10,mastery:50}, 0, this.heals[0]["vivify"].manaCost, this.heals[0]["vivify"].timeCast,0,0,0))
 
+            this.mainSim() // <-----------------------------------------------DEBUG HealSim
 
-
+            //RemSim
             let buffs = this.$store.state.buffs
 
             let mode = settings.simMode
