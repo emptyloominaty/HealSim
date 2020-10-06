@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Debug/>
     <Settings/>
     <Timeline/>
     <Chart :chart-data="remsData" :options="chartOptionsRems"  />
@@ -15,6 +16,7 @@
 import Timeline from './components/Timeline.vue'
 import Settings from './components/Settings.vue'
 import Chart from './components/chart.vue'
+import Debug from './components/debugConsole.vue'
 
 import chartOptions from './mixins/chartOptions'
 
@@ -24,7 +26,8 @@ export default {
     components: {
         Timeline,
         Settings,
-        Chart
+        Chart,
+        Debug
     },
     data() {
         return {

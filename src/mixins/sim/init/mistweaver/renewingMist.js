@@ -6,7 +6,7 @@ export default {
     },
     methods: {
         healFuncRM() {
-            return function(stats,target,healMod,hots,mistwrap) {
+            return function(stats,target,healMod,hots) {
                 if (this.cooldown>=this.maxCooldown) {
                     //config
                     let rmHeal = 2.25

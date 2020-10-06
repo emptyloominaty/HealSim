@@ -14,6 +14,7 @@ export default new Vuex.Store({
         chartDataHeal: {},
         chartDataHaste: {},
         buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0},{stat:"haste",increase:20,ppm:3,duration:6,lastproc:0,proc:60/3,procced:0}],
+        db : []
     },
     mutations: {
         setData(state, newData) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
         },
         setChartDataHaste(state, newData) {
             state.chartDataHaste = newData
+        },
+        debug(state, newData) {
+            state.db = newData
         }
     },
     actions: {
