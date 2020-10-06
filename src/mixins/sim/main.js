@@ -10,29 +10,44 @@ export default {
     mixins: [heals,targets,healai,hots,init,sim],
     data() {
         return {
+            stats:{int:1000,haste:10,crit:10,vers:10,mastery:50},
+            targets:[]
         }
     },
     methods: {
         mainSim() {
             // heal sim test-------------------------------------------------------
             //Init
-            let stats = {int:1000,haste:10,crit:10,vers:10,mastery:50}      //TEST
+            this.stats = {int:1000,haste:10,crit:10,vers:10,mastery:50}
+            this.targets = this.createTargets()
             let heals = this.createHeals("mistweaver")
-            let targets = this.createTargets() //20 + 1 Boss
-            let hots = {"Renewing Mist":[2,5,9,10,11], "Enveloping Mist":[2], "Essence Font":[1,2,3,5,12,13,15,16,18,19,20], "Tear of Morning":[2]} //TEST
+            this.hotsData = {"Renewing Mist":[2,5,9,10,11], "Enveloping Mist":[2], "Essence Font":[1,2,3,5,12,13,15,16,18,19,20], "Tear of Morning":[2]} //TEST
             let gcd = 1.5 //test
+            let usedAbility
             //Loop Init
-            for (let xd = 0; xd < 15; xd++ ) { //TEST TEST TEST
-                gcd = 1.5 / (1 + (stats.haste / 100))
-                hots = this.getHots(targets)
-                targets = this.healHots(targets,stats,gcd)
-                console.log(targets[1].health)
+            for (let xd = 0; xd < 17; xd++ ) { //TEST TEST TEST
+                gcd = 1.5 / (1 + (this.stats.haste / 100))
+                this.getHots()
+                this.healHots(gcd)
+            }
+
+            //loop
+            usedAbility = heals[0]["vivify"].healFunc( this.stats, [1], 0, this.hotsData )
+            console.log(usedAbility)
+            if (usedAbility.type==="heal") {
+
+            } else if  (usedAbility.type==="damage") {
 
             }
-            console.log(hots)
-            //loop
-            console.log(heals[0]["vivify"].healFunc( stats, [1], 0, hots ))
-            console.log(heals[1]["envelopingMist"].healFunc( stats, [1], 0, hots, 1 ))
+            else if  (usedAbility.type==="ability") {
+
+            }
+
+           console.log(this.targets)
+
+
+
+            usedAbility = heals[1]["envelopingMist"].healFunc( this.stats, [1], 0, this.hotsData, 1 )
 
 
 

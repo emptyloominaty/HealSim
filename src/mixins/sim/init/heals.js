@@ -1,9 +1,10 @@
 /* eslint-disable */
 import hfviv from './mistweaver/vivify'
 import hfem from './mistweaver/envelopingMist'
+import hfrm from './mistweaver/renewingMist'
 
 export default {
-    mixins: [hfviv,hfem],
+    mixins: [hfviv,hfem,hfrm],
     data() {
         return {
         }
@@ -60,7 +61,7 @@ export default {
                 case "mistweaver":
                     heals = [{vivify:new Heal("Vivify",4.1,1.5,0,1,0,this.healFuncViv())},
                         {envelopingMist:new Heal("Enveloping Mist",6.0,2.0,0,1,0,this.healFuncEm())},
-                        {},
+                        {renewingMist:  new Heal("Renewing Mist",2.2,1.5,9,2,0,this.healFuncRM())},
                         {},
                         {},
                         {},
@@ -76,7 +77,7 @@ export default {
 
 
                     new Heal("Soothing Mist",0.4,1,0,1,0)
-                    new Heal("Renewing Mist",2.2,1.5,9,2,0)
+
                     new Heal("Revival",4.374,1.5,180,1,0)
                     new Heal("Life Cocoon",2.4,1.5,120,1,0)
                     new Heal("Essence Font",7.2,3.0,12,1,0)     //time cast upwelling 6sec

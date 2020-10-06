@@ -7,9 +7,7 @@ export default {
     },
     methods: {
         simulate(settings) {
-
             this.mainSim() // <-----------------------------------------------DEBUG HealSim
-
             //RemSim
             let buffs = this.$store.state.buffs
 

@@ -16,7 +16,7 @@ export default {
                     //init
                     let crit1;
                     let crit2;
-                    let returnData = {manaUsed: 0, healingToTargets: [], gcd: 0, runAfterHeal: function () {return 0}, hotData: 0, name: ""}
+                    let returnData = {type:"heal",manaUsed: 0, healingToTargets: [], gcd: 0, runAfterHeal: function () {return 0}, hotData: 0, name: ""}
                     stats.int = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //return data

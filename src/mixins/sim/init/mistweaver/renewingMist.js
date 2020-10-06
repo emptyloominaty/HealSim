@@ -5,16 +5,12 @@ export default {
         }
     },
     methods: {
-        healFuncEm() {
+        healFuncRM() {
             return function(stats,target,healMod,hots,mistwrap) {
                 if (this.cooldown>=this.maxCooldown) {
                     //config
-                    let emHeal = 3.60 //360% sp
-                    let emDuration = 6
-
-                    if (mistwrap===1) {
-                        emDuration = 7
-                    }
+                    let rmHeal = 2.25
+                    let rmDuration = 20
 
                     //init
                     let crit1;
@@ -32,7 +28,7 @@ export default {
 
                     returnData.healingToTargets = [{id: target[0], heal: mainHeal}]
 
-                    returnData.hotData = {heal: (stats.int * emHeal), duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}
+                    returnData.hotData = {heal: (stats.int * rmHeal), duration: rmDuration, maxDuration: rmDuration, name: "Renewing Mist"}
 
                     this.setCd()
 
