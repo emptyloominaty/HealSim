@@ -11,34 +11,32 @@ export default {
                     this.type = type
                     //----
                     this.buffs = []
-                    if (type==="friendly") {    //TODO DELETE THIS IS ONLY FOR TEST
-                        this.hots = [{heal: 1000, duration: 20, name: "Renewing Mist",maxDuration: 20}]
-                    } else {
-                        this.hots = []
-                    }
+                    this.hots = []
+
                     this.dots = []
                 }
 
                 dealDamage(amount) {
-                    this.health -= amount
+                    this.health = Math.round(this.health - amount)
                     if (this.health<0) {
                         this.health = 0
                     }
                 }
 
                 heal(amount) {
-                    this.health += amount
+                    this.health = Math.round(this.health + amount)
                     if (this.health>this.maxHealth) {
                         this.health = this.maxHealth
                     }
                 }
 
                 applyHot(hotData) {
+                    //TODO: DISABLE APPLYING MULTIPLE HOTS
                     this.hots.push(hotData)
                 }
 
-                applyDot() {
-
+                applyDot(dotData) {
+                    this.dots.push(dotData)
                 }
 
             }

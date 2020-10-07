@@ -12,56 +12,51 @@ export default {
         mainSim() {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
-            this.stats = {int:1000,haste:10,crit:10,vers:10,mastery:50}
-            this.targets = this.createTargets()
-            this.heals = this.createHeals("mistweaver")
-            this.hotsData = {"Renewing Mist":[2,5,9,10,11], "Enveloping Mist":[2], "Essence Font":[1,2,3,5,12,13,15,16,18,19,20], "Tear of Morning":[2]} //TEST
-            let usedAbility
+            //Config
+            this.healerMana = 100
             let fightLength = 20
+            this.stats = {int:13900,haste:10,crit:10,vers:10,mastery:70}
+            this.character = {mana:100, spec: "mistweaver"}
+
+            this.time = 0
+            this.targets = this.createTargets()  //TODO: raid / dung /
+            this.heals = this.createHeals(this.character.spec)
+            this.hotsData = {}
+            this.usedAbility = {manaUsed:0,gcd:0}
+
+            //test vars
+            this.manaUsed = 0
+            this.healingDone = 0
+            this.healingFromHots = 0
 
             this.db.push(this.stats)
             for (let fl = 0; fl<fightLength; fl++) {
-                //-----------------------------------------------------Loop Init--------------------------------------------
-                this.loopInit() //calc gcd, hots,CDs,  TODO: BUFFs, mana regen,
-
-
+                //-----------------------------------------------------Loop Init----------------------------------------
+                this.loopInit() //calc gcd, hots,CDs, mana regen,  TODO: BUFFs,
 
                 this.db.push(this.hotsData)
-
-                //-------------------------------------------------------loop-----------------------------------------------
+                //-------------------------------------------------------loop-------------------------------------------
                 // TODO: healAi,Heals,Damages,Abilities,
-                // usedAbility = this.heals[0].healFunc( this.stats, [1], 0, this.hotsData )
-                usedAbility = this.heals[0].healFunc(this.stats, [5], 0, this.hotsData)
-                if (usedAbility.type === "heal") {
-                    //get target
-                    let target = usedAbility.healingToTargets[0].id
-                    // hot
-                    if (usedAbility.hotData !== 0) {
-                        this.targets[target].hots = usedAbility.hotData
-                    }
-                    // heal
-                    if (usedAbility.healingToTargets[0].heal > 0) {
-                        this.targets[target].heal(usedAbility.healingToTargets[0].heal)
-                    }
-                    //heal to other targets
-                    
-                } else if (usedAbility.type === "damage") {
+                this.usedAbility = this.heals[1].healFunc(this.stats, [fl], 0, this.hotsData,1) //TODO: ONLY ONE FUNCTION FOR ALL HEALS!
+                this.useAbility()                                                               //TODO: RENEWING MIST NOT WORKING + RENEWING MIST JUMPING!
+                this.db.push(this.character.mana)
 
-                } else if (usedAbility.type === "ability") {
-
-                }
 
                 //TEST GET HEALTH OF TARGETS---------------------------------
-                this.db.push("T" + 5 + " : " + this.targets[5].health)
-                this.db.push("T" + 6 + " : " + this.targets[6].health)
+                /*this.db.push("T" + 5 + " : " + this.targets[5].health)
+                this.db.push("T" + 6 + " : " + this.targets[6].health)*/
                 //------------------------------------------------------------------
 
-                //usedAbility = heals[1]["envelopingMist"].healFunc( this.stats, [1], 0, this.hotsData, 1 )
 
 
             }
             //------------------------------------------------end (create charts, redraw timeline)----------------------
+            let totalHealingDone = this.healingFromHots + Math.round(this.healingDone)
+            this.db.push("----------------------------------------------")
+            this.db.push("Mana Used: "+ Math.round(this.manaUsed*100)/100)
+            this.db.push("Healing Done: "+ Math.round(this.healingDone)+" Hots: ("+this.healingFromHots+") + Total: "+ totalHealingDone)
             this.$store.commit('debug',this.db)
+
         }
     }
 }

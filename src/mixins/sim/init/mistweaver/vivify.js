@@ -13,7 +13,7 @@ export default {
                     let crit1;
                     let crit2;
                     let returnData = {type:"heal",manaUsed: 0, healingToTargets: [], gcd: 0, runAfterHeal: function () {return 0}, hotData: 0, name: ""}
-                    stats.int = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
+                    let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //return data
                     returnData.name = this.name
@@ -23,9 +23,9 @@ export default {
                     crit1 = this.critChance(stats.crit)
                     crit2 = this.critChance(stats.crit)
 
-                    let mainHeal = ((stats.int * vivMain) * crit1) + (((stats.int * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit2)
-                    let cleaveHeal = (stats.int * vivCleave)
-                    let tomHeal = (stats.int * vivTearofMorning)
+                    let mainHeal = ((spellpower * vivMain) * crit1) + (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit2)
+                    let cleaveHeal = (spellpower * vivCleave)
+                    let tomHeal = (spellpower * vivTearofMorning)
 
                     //rem loop
                     let cleaveTargets = []
@@ -41,7 +41,7 @@ export default {
                         tomTargets.push({id: hots["Tear of Morning"][i], heal: (tomHeal * crit1)})
                     }
 
-                    returnData.healingToTargets = [{id: target[0], heal: mainHeal}, cleaveTargets, tomTargets]
+                    returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets, tomTargets]
 
                     this.setCd()
 
