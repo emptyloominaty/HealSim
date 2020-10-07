@@ -1,9 +1,5 @@
 /* eslint-disable */
 export default {
-    data() {
-        return {
-        }
-    },
     methods: {
         healFuncRM() {
             return function(stats,target,healMod,hots) {

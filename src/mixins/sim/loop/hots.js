@@ -1,10 +1,6 @@
 /* eslint-disable */
 
 export default {
-    data() {
-        return {
-        }
-    },
     methods: {
         getHots() {
             let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[]}
@@ -26,7 +22,7 @@ export default {
                         //+ gcd
                         this.targets[i].hots[a].duration = this.targets[i].hots[a].duration - gcd
                         //crit chance
-                        let crit = this.heals[0]["vivify"].critChance(stats.crit)
+                        let crit = this.heals[0].critChance(stats.crit)
                         //heal the target
                         this.targets[i].heal((((this.targets[i].hots[a].heal * (1 + (stats.haste / 100))) / this.targets[i].hots[a].maxDuration) * gcd)*crit)
                         //expire hot

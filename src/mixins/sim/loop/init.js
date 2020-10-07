@@ -1,10 +1,6 @@
 /* eslint-disable */
 
 export default {
-    data() {
-        return {
-        }
-    },
     methods: {
         loopInit() {
             this.gcd = 1.5 / (1 + (this.stats.haste / 100))
