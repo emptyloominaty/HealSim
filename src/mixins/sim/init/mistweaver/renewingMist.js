@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncRM() {
             return function(stats,target,healMod,hots) {
-                if (this.cooldown>=this.maxCooldown) {
+                if (this.charges>0) {
                     //config
                     let rmHeal = 2.25
                     let rmDuration = 20

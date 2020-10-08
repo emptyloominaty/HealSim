@@ -2,7 +2,7 @@
 
 export default {
     methods: {
-        createTargets() {
+        createTargets(friendly,enemy) {
             class Target {
                 constructor(name,health,type) {
                     this.name = name
@@ -24,10 +24,13 @@ export default {
                 }
 
                 heal(amount) {
+                    let overhealing = 0
                     this.health = Math.round(this.health + amount)
                     if (this.health>this.maxHealth) {
+                        overhealing = this.health-this.maxHealth
                         this.health = this.maxHealth
                     }
+                    return overhealing
                 }
 
                 applyHot(hotData) {
@@ -41,29 +44,13 @@ export default {
 
             }
 
-           let targets = [
-               new Target("T1",1000000,"friendly"),
-               new Target("T2",1000000,"friendly"),
-               new Target("T3",1000000,"friendly"),
-               new Target("T4",1000000,"friendly"),
-               new Target("T5",1000000,"friendly"),
-               new Target("T6",1000000,"friendly"),
-               new Target("T7",1000000,"friendly"),
-               new Target("T8",1000000,"friendly"),
-               new Target("T9",1000000,"friendly"),
-               new Target("T10",1000000,"friendly"),
-               new Target("T11",1000000,"friendly"),
-               new Target("T12",1000000,"friendly"),
-               new Target("T13",1000000,"friendly"),
-               new Target("T14",1000000,"friendly"),
-               new Target("T15",1000000,"friendly"),
-               new Target("T16",1000000,"friendly"),
-               new Target("T17",1000000,"friendly"),
-               new Target("T18",1000000,"friendly"),
-               new Target("T19",1000000,"friendly"),
-               new Target("T20",1000000,"friendly"),
-               new Target("Boss",100000000,"enemy")
-           ]
+           let targets = []
+            for(let f = 0; f<friendly; f++) {
+                targets.push(new Target("T"+f,1000000,"friendly"))
+            }
+            for(let e = 0; e<enemy; e++) {
+                targets.push(new Target("Enemy"+e,10000000,"enemy"))
+            }
 
             return targets
         },

@@ -31,7 +31,7 @@ export default {
                        }
                        //charges
                        if (this.maxCharges>1) {
-                           if (this.maxCharges<this.charges) {
+                           if (this.maxCharges>this.charges && this.cooldown>=this.maxCooldown ) {
                                this.charges++
                                this.cooldown=0
                            }
@@ -41,6 +41,7 @@ export default {
 
                 setCd() {
                     this.cooldown = 0
+                    this.charges --
                 }
 
                 critChance(statCrit) {

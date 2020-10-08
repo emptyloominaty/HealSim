@@ -4,7 +4,7 @@ export default {
     methods: {
         loopInit() {
             //gcd
-            if (this.usedAbility.gcd===0) {
+            if (this.usedAbility.gcd===0 || this.usedAbility==0 ) {
                 this.gcd = 1.5 / (1 + (this.stats.haste / 100))
             } else {
                 this.gcd = this.usedAbility.gcd
@@ -18,7 +18,6 @@ export default {
             if (this.character.mana>100) {
                 this.character.mana=100
             }
-
                 //get hots
             this.getHots()
             //heal with hots
