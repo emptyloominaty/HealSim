@@ -8,7 +8,21 @@ export default {
                 if (this.usedAbility.type === "heal") {
                     // hot
                     if (this.usedAbility.hotData !== 0) {
-                        this.targets[this.usedAbility.healingToTargets[0][0].id].applyHot(this.usedAbility.hotData)
+                        let ripHot =  this.targets[this.usedAbility.healingToTargets[0][0].id].applyHot(this.usedAbility.hotData)
+                        if (ripHot!==0) {
+                            if (this.injuredTargets.length>0) { //TODO TEST !!!!!!
+                                let canHot = []
+                                for(let t=0 ; t<this.injuredTargets.length; t++) {
+                                    for(let h=0 ; h<this.targets[this.injuredTargets[t]].hots.length; h++) {
+                                        if (this.targets[this.injuredTargets[t]].hots[h].name !== this.usedAbility.hotData.name) {
+                                            canHot.push(this.injuredTargets[t])
+                                        }
+                                    }
+                                }
+                                        this.targets[canHot[0]].applyHot(ripHot)
+                                        console.log("jumped to " + t)
+                            }
+                        }
                     }
                     // heal
                     for (let i = 0; i < this.usedAbility.healingToTargets.length; i++) {
@@ -27,8 +41,7 @@ export default {
                 this.manaUsed += this.usedAbility.manaUsed
                 this.character.mana -= this.usedAbility.manaUsed
             } else {
-
-                console.log("Cant cast ability")
+                console.log("Rip") //TODO
             }
 
 

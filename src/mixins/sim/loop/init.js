@@ -13,15 +13,26 @@ export default {
                 this.gcd=0.75
             }
             this.time += this.gcd
+
             //mana regen
             this.character.mana+= 0.8 * this.gcd
             if (this.character.mana>100) {
                 this.character.mana=100
             }
-                //get hots
+
+            //get injured targets
+            this.injuredTargets = []
+            for (let a = 0; a<this.targets.length; a++) {
+                if (this.targets[a].health<this.targets[a].maxHealth) {
+                    this.injuredTargets.push(a)
+                }
+            }
+            //get hots
             this.getHots()
+
             //heal with hots
             this.healHots(this.gcd)
+
             //cd
             for (let i = 0; i < this.heals.length ; i++) {
                 this.heals[i].incCd(this.gcd,this.stats)
