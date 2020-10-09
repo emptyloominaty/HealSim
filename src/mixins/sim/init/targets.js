@@ -2,11 +2,11 @@
 
 export default {
     methods: {
-        createTargets(friendly,enemy,friendlyhp,enemyhp,infinitehp) {
+        createTargets(friendly,enemy,friendlyhp,enemyhp,infinitehp,healthRatio) {
             class Target {
-                constructor(name,health,type,infinitehp) {
+                constructor(name,health,type,infinitehp,healthRatio) {
                     this.name = name
-                    this.health = health/1.2
+                    this.health = health/healthRatio
                     this.maxHealth = health
                     this.type = type
                     //----
@@ -63,10 +63,10 @@ export default {
 
            let targets = []
             for(let f = 0; f<friendly; f++) {
-                targets.push(new Target("T"+f, friendlyhp,"friendly",infinitehp))
+                targets.push(new Target("T"+f, friendlyhp,"friendly",infinitehp,healthRatio))
             }
             for(let e = 0; e<enemy; e++) {
-                targets.push(new Target("Enemy"+e, enemyhp,"enemy",infinitehp))
+                targets.push(new Target("Enemy"+e, enemyhp,"enemy",infinitehp,healthRatio))
             }
 
             return targets

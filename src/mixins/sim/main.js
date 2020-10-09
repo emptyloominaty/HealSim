@@ -16,18 +16,20 @@ export default {
             let fightLength = 22
             this.stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             this.character = {mana:100, spec: "mistweaver"}
-            this.targets = this.createTargets(20,1,500000,10000000,0)
+            this.targets = this.createTargets(20,1,500000,10000000,0,2)
 
             this.injuredTargets = []
             this.time = 0
             this.heals = this.createHeals(this.character.spec)
             this.hotsData = {}
             this.usedAbility = {manaUsed:0,gcd:0}
-            //test vars
+
+            //------------------------
             this.overhealingDone = 0
             this.manaUsed = 0
             this.healingDone = 0
             this.healingFromHots = 0
+            //------------------------
 
             this.db.push(this.stats)
             for (let fl = 0; fl<fightLength; fl++) {

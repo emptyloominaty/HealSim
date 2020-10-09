@@ -30,7 +30,7 @@ export default {
                             let jumpTo = (Math.floor(Math.random()*canJumpOn.length))
                             this.targets[canJumpOn[jumpTo]].applyHot(remHot)
                             jumped = 1
-                            this.db.push("ReM JUMPED FROM "+i+" TO "+jumpTo)
+                            this.db.push("ReM JUMPED FROM "+i+" TO "+canJumpOn[jumpTo])
                         }
                     }
                 }
