@@ -6,7 +6,7 @@ export default {
             class Target {
                 constructor(name,health,type) {
                     this.name = name
-                    this.health = health/2
+                    this.health = health/1.2
                     this.maxHealth = health
                     this.type = type
                     //----

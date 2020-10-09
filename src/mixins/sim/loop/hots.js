@@ -13,7 +13,12 @@ export default {
                         if (hotName==="Renewing Mist" && this.targets[i].health === this.targets[i].maxHealth) {
                             let remHot = this.targets[i].hots[a]
                             this.targets[i].hots.splice(a, 1)
-                            this.targets[this.injuredTargets[0]].applyHot(remHot)
+
+                            let injuredTargetsLength = this.injuredTargets.length
+                            let jumpTo = (Math.floor(Math.random()*injuredTargetsLength))-1
+                            if (jumpTo<0) { jumpTo = 0 }
+                            this.targets[jumpTo].applyHot(remHot)
+                            this.db.push("ReM JUMPED FROM "+i+" TO "+jumpTo)
                         }
 
                     }

@@ -31,7 +31,7 @@ export default {
 
             this.db.push(this.stats)
             for (let fl = 0; fl<fightLength; fl++) {
-                //-----------------------------------------------------Loop Init----------------------------------------//TODO: RENEWING MIST JUMPING!
+                //-----------------------------------------------------Loop Init----------------------------------------
                 this.loopInit() //calc gcd, hots,CDs, mana regen,  TODO: BUFFs,
                 this.db.push(this.hotsData)
                 //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
