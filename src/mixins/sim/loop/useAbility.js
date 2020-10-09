@@ -4,7 +4,6 @@ export default {
     methods: {
         useAbility() {
             if (this.usedAbility!==0) {
-
                 if (this.usedAbility.type === "heal") {
                     // hot
                     if (this.usedAbility.hotData !== 0) {

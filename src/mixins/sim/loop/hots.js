@@ -9,6 +9,13 @@ export default {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {
                         let hotName = this.targets[i].hots[a].name
                         targetsHots[hotName].push(i)
+                        //renewing mist jump when full health
+                        if (hotName==="Renewing Mist" && this.targets[i].health === this.targets[i].maxHealth) {
+                            let remHot = this.targets[i].hots[a]
+                            this.targets[i].hots.splice(a, 1)
+                            this.targets[this.injuredTargets[0]].applyHot(remHot)
+                        }
+
                     }
                 }
             }
