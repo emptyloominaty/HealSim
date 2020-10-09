@@ -10,7 +10,7 @@ export default {
                     if (this.usedAbility.hotData !== 0) {
                         let ripHot =  this.targets[this.usedAbility.healingToTargets[0][0].id].applyHot(this.usedAbility.hotData)
                         if (ripHot!==0) {
-                            if (this.injuredTargets.length>0) { //TODO TEST !!!!!!
+                            if (this.injuredTargets.length>0) {
                                 let canHot = []
                                 for(let t=0 ; t<this.injuredTargets.length; t++) {
                                     for(let h=0 ; h<this.targets[this.injuredTargets[t]].hots.length; h++) {
@@ -18,9 +18,11 @@ export default {
                                             canHot.push(this.injuredTargets[t])
                                         }
                                     }
+                                    if (this.targets[this.injuredTargets[t]].hots.length===0) {
+                                        canHot.push(this.injuredTargets[t])
+                                    }
                                 }
-                                        this.targets[canHot[0]].applyHot(ripHot)
-                                        console.log("jumped to " + t)
+                                this.targets[canHot[0]].applyHot(ripHot)
                             }
                         }
                     }
