@@ -26,11 +26,9 @@ export default {
                                 }
                             }
                             canJumpOn = this.injuredTargets.filter(val => !cantJumpOn.includes(val))
-                            this.db.push(canJumpOn)
-                            this.db.push(cantJumpOn)
-                            let jumpTo = (Math.floor(Math.random()*canJumpOn.length))-1
-                            if (jumpTo<0) { jumpTo = 0 }
-                            this.targets[jumpTo].applyHot(remHot)
+
+                            let jumpTo = (Math.floor(Math.random()*canJumpOn.length))
+                            this.targets[canJumpOn[jumpTo]].applyHot(remHot)
                             jumped = 1
                             this.db.push("ReM JUMPED FROM "+i+" TO "+jumpTo)
                         }
