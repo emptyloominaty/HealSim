@@ -3,6 +3,7 @@
 export default {
     methods: {
         getHots() {
+            let jumped = 0
             let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Soothing Mist": []}
             for (let i = 0; i < this.targets.length; i++ ) {
                 if (this.targets[i].hots.length>0) {
@@ -11,20 +12,34 @@ export default {
                         targetsHots[hotName].push(i)
                         //renewing mist jump when full health
                         if (hotName==="Renewing Mist" && this.targets[i].health === this.targets[i].maxHealth) {
+                            let canJumpOn = []
+                            let cantJumpOn = []
+                            let injuredTargetsLength = this.injuredTargets.length
                             let remHot = this.targets[i].hots[a]
                             this.targets[i].hots.splice(a, 1)
 
-                            let injuredTargetsLength = this.injuredTargets.length
-                            let jumpTo = (Math.floor(Math.random()*injuredTargetsLength))-1
+                            for (let b=0; b<injuredTargetsLength; b++) {
+                                for (let hh=0; hh<this.targets[this.injuredTargets[b]].hots.length; hh++) {
+                                    if (this.targets[this.injuredTargets[b]].hots[hh].name === "Renewing Mist" || this.targets[this.injuredTargets[b]].health===this.targets[this.injuredTargets[b]].maxHealth) {
+                                        cantJumpOn.push(this.injuredTargets[b])
+                                    }
+                                }
+                            }
+                            canJumpOn = this.injuredTargets.filter(val => !cantJumpOn.includes(val))
+                            this.db.push(canJumpOn)
+                            this.db.push(cantJumpOn)
+                            let jumpTo = (Math.floor(Math.random()*canJumpOn.length))-1
                             if (jumpTo<0) { jumpTo = 0 }
                             this.targets[jumpTo].applyHot(remHot)
+                            jumped = 1
                             this.db.push("ReM JUMPED FROM "+i+" TO "+jumpTo)
                         }
-
                     }
                 }
             }
             this.hotsData = targetsHots
+
+            return jumped
         },
         healHots(gcd) {
             let stats = this.stats

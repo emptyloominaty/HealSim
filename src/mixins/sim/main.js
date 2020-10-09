@@ -16,7 +16,7 @@ export default {
             let fightLength = 22
             this.stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             this.character = {mana:100, spec: "mistweaver"}
-            this.targets = this.createTargets(20,1)
+            this.targets = this.createTargets(20,1,500000,10000000,0)
 
             this.injuredTargets = []
             this.time = 0
@@ -40,7 +40,7 @@ export default {
                 this.usedAbility = this.heals[2].healFunc(this.stats, [randomTarget], 0, this.hotsData)
 
                 if (this.usedAbility===0) {
-                    this.usedAbility = this.heals[0].healFunc(this.stats, [19], 0, this.hotsData)
+                    this.usedAbility = this.heals[0].healFunc(this.stats, [1], 0, this.hotsData)
                 } else {
                     this.db.push("Used ReM on "+ randomTarget)
                 }

@@ -2,9 +2,9 @@
 
 export default {
     methods: {
-        createTargets(friendly,enemy) {
+        createTargets(friendly,enemy,friendlyhp,enemyhp,infinitehp) {
             class Target {
-                constructor(name,health,type) {
+                constructor(name,health,type,infinitehp) {
                     this.name = name
                     this.health = health/1.2
                     this.maxHealth = health
@@ -12,14 +12,17 @@ export default {
                     //----
                     this.buffs = []
                     this.hots = []
-
                     this.dots = []
+                    this.infinitehp = infinitehp
                 }
 
                 dealDamage(amount) {
                     this.health = Math.round(this.health - amount)
                     if (this.health<0) {
                         this.health = 0
+                    }
+                    if (this.infinitehp===1) {
+                        this.health = 100
                     }
                 }
 
@@ -29,6 +32,9 @@ export default {
                     if (this.health>this.maxHealth) {
                         overhealing = this.health-this.maxHealth
                         this.health = this.maxHealth
+                    }
+                    if (this.infinitehp===1) {
+                        this.health = 100
                     }
                     return overhealing
                 }
@@ -57,10 +63,10 @@ export default {
 
            let targets = []
             for(let f = 0; f<friendly; f++) {
-                targets.push(new Target("T"+f,1000000,"friendly"))
+                targets.push(new Target("T"+f, friendlyhp,"friendly",infinitehp))
             }
             for(let e = 0; e<enemy; e++) {
-                targets.push(new Target("Enemy"+e,10000000,"enemy"))
+                targets.push(new Target("Enemy"+e, enemyhp,"enemy",infinitehp))
             }
 
             return targets

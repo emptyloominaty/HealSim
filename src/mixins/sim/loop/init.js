@@ -28,7 +28,11 @@ export default {
                 }
             }
             //get hots
-            this.getHots()
+            let runGetHotsAgain = 0
+            do {
+                runGetHotsAgain = this.getHots()
+            } while (runGetHotsAgain===1)
+
 
             //heal with hots
             this.healHots(this.gcd)
