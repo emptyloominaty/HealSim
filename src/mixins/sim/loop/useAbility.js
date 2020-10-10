@@ -26,6 +26,8 @@ export default {
                         }
                     }
                     // heal
+                 /*   console.log(this.usedAbility.healingToTargets)
+                    console.log(this.targets)*/
                     for (let i = 0; i < this.usedAbility.healingToTargets.length; i++) {
                         for (let j = 0; j < this.usedAbility.healingToTargets[i].length; j++) {
                             let healing = this.usedAbility.healingToTargets[i][j].heal

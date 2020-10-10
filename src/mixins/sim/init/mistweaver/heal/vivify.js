@@ -10,15 +10,11 @@ export default {
                     let vivTearofMorning = vivMain / 4  //25%
 
                     //init
-                    let crit1;
-                    let crit2;
-                    let returnData = {type:"heal",manaUsed: 0, healingToTargets: [], gcd: 0, runAfterHeal: function () {return 0}, hotData: 0, name: ""}
+                    let crit1
+                    let crit2
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: function () {return 0}, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
-                    //return data
-                    returnData.name = this.name
-                    returnData.manaUsed = this.manaCost
-                    returnData.gcd = this.timeCast / (1 + (stats.haste / 100))
                     //-------heal-------
                     crit1 = this.critChance(stats.crit)
                     crit2 = this.critChance(stats.crit)
