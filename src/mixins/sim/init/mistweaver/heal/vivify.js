@@ -12,7 +12,7 @@ export default {
                     //init
                     let crit1
                     let crit2
-                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: function () {return 0}, hotData: 0, name: this.name}
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------

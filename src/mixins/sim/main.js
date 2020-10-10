@@ -52,7 +52,7 @@ export default {
             this.db.push(this.stats)
             for (let fl = 0; fl<fightLength; fl++) {
                 //-----------------------------------------------------Loop Init----------------------------------------
-                this.loopInit() //calc gcd, hots,CDs, mana regen,  TODO: BUFFs,
+                this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs,   TODO: BUFFs(Healer),
                 this.db.push(this.hotsData)
                 //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
                 //TEST TEST TEST TEST           //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
@@ -65,14 +65,17 @@ export default {
 
                 if (this.usedAbility===0) {
                     this.usedAbility = this.heals[0].healFunc(this.stats, [1], 0, this.hotsData)
-                } else {
-                    this.db.push("Used ReM on "+ randomTarget)
                 }
                 //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
                                                                                             //TODO: ONLY ONE FUNCTION FOR ALL HEALS! (DONT!!!???)
 
 
                 this.useAbility()
+
+                this.targets[0].dealDamage(10000)
+                console.log("---------------")
+                console.log(this.targets[0].absorb)
+                console.log(this.targets[0].health)
 
                 this.db.push(this.character.mana)
 

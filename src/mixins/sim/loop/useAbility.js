@@ -4,6 +4,7 @@ export default {
     methods: {
         useAbility() {
             if (this.usedAbility!==0) {
+                this.db.push("Casted: <b style=\"color:#4fff61\">"+this.usedAbility.name +"</b>")
                 if (this.usedAbility.type === "heal") {
                     // hot
                     if (this.usedAbility.hotData !== 0) {
@@ -25,9 +26,6 @@ export default {
                             }
                         }
                     }
-                    // heal
-                 /*   console.log(this.usedAbility.healingToTargets)
-                    console.log(this.targets)*/
                     for (let i = 0; i < this.usedAbility.healingToTargets.length; i++) {
                         for (let j = 0; j < this.usedAbility.healingToTargets[i].length; j++) {
                             let healing = this.usedAbility.healingToTargets[i][j].heal
@@ -40,6 +38,23 @@ export default {
                 } else if (this.usedAbility.type === "ability") {
 
                 }
+
+            //buffs + dispell
+            if(this.usedAbility.runAfterHeal!==0) {
+                let runAfterHeal = this.usedAbility.runAfterHeal()
+                console.log(runAfterHeal)
+                for (let i=0; i<runAfterHeal.length; i++) {
+                    if (runAfterHeal[i] === "absorb") { //TODO: FIX? length?
+                        for (let t=0; t<runAfterHeal[i+2].length; t++) {
+                                this.targets[runAfterHeal[i+2][t]].applyBuff({type:"absorb",maxAmount:runAfterHeal[i+1] , amount:runAfterHeal[i+1], duration:runAfterHeal[i+3] })
+                        }
+                    }
+                }
+
+
+
+
+            }
 
                 this.manaUsed += this.usedAbility.manaUsed
                 this.character.mana -= this.usedAbility.manaUsed

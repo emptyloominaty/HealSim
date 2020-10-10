@@ -1,7 +1,7 @@
 <template>
     <div>
-        <ul v-for="item in text" v-bind:key="item.id">
-            <li>{{item}}</li>
+        <ul>
+            <li v-for="item in text" v-bind:key="item.id" v-html="item" ></li>
         </ul>
     </div>
 </template>
@@ -27,12 +27,12 @@
     div {
         margin-top: -30px;
     }
-    ul {
-        margin:10px;
-    }
     li {
+        margin:10px;
         color: #ddd;
         text-align:left;
-        font-size:14px;
+        font-size:15px;
+        border-bottom: 1px solid #333;
     }
-</style>
+
+  </style>

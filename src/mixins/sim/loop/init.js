@@ -37,6 +37,10 @@ export default {
             //heal with hots
             this.healHots(this.gcd)
 
+            //buffs on targets
+            for (let i = 0; i < this.targets.length ; i++) {
+                this.targets[i].checkBuffs(this.gcd)
+            }
             //cd
             for (let i = 0; i < this.heals.length ; i++) {
                 this.heals[i].incCd(this.gcd,this.stats)
