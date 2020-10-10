@@ -3,9 +3,10 @@ import hfviv from './mistweaver/heal/vivify'
 import hfem from './mistweaver/heal/envelopingMist'
 import hfrm from './mistweaver/heal/renewingMist'
 import hfrev from './mistweaver/heal/revival'
+import hflc from './mistweaver/heal/lifeCocoon'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc],
     methods: {
         createHeals(healSpec) {
             let heals = []
@@ -61,7 +62,7 @@ export default {
                         new Heal("Enveloping Mist",6.0,2.0,0,1,0,this.healFuncEm()),
                         new Heal("Renewing Mist",2.2,1.5,9,2,0,this.healFuncRM()),
                         new Heal("Revival",4.374,1.5,180,1,0,this.healFuncRevival()),
-                        new Heal("Life Cocoon",2.4,1.5,120,1,0),
+                        new Heal("Life Cocoon",2.4,1.5,120,1,0,this.healFuncLifeCocoon()),
                         new Heal("Essence Font",7.2,3.0,12,1,0) ,        //time cast upwelling 6sec
                         new Heal("Soothing Mist",0.4,1,0,1,0),
                         new Heal("Yu'lon",5.0,1.5,180,1,0),

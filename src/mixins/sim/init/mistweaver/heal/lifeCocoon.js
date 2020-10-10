@@ -1,25 +1,27 @@
 /* eslint-disable */
 export default {
     methods: {
-        healFuncRevival() {
+        healFuncLifeCocoon() {
 
-            return function(stats,target,healMod,hots) {
+            return function(stats,target,healMod,hots,healer) {
                 if (this.charges>0) {
                     //config
-                    let revHeal = 3.15
-
+                    let absorb = 60 //60%
+                    let duration = 12
                     //init
-                    let crit1
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
-                    let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
+                    let spellpower = (((healer.maxHealth*absorb)/100) * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
 
-                    let mainHeal = spellpower * revHeal
+                    let mainHeal = spellpower
 
                     for (let i = 0; i<target.length; i++) {
-                        crit1 = this.critChance(stats.crit)
-                        returnData.healingToTargets[0].push({id: i, heal: mainHeal*crit1})
+                        returnData.healingToTargets[0].push({id: i, heal: 0})
+                    }
+
+                    returnData.runAfterHeal = function () {
+                        return ["absorb",mainHeal,[target[0]],duration]
                     }
 
                     this.setCd()

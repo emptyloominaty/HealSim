@@ -42,7 +42,6 @@ export default {
             //buffs + dispell
             if(this.usedAbility.runAfterHeal!==0) {
                 let runAfterHeal = this.usedAbility.runAfterHeal()
-                console.log(runAfterHeal)
                 for (let i=0; i<runAfterHeal.length; i++) {
                     if (runAfterHeal[i] === "absorb") { //TODO: FIX? length?
                         for (let t=0; t<runAfterHeal[i+2].length; t++) {

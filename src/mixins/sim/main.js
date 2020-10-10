@@ -15,7 +15,7 @@ export default {
             //Config
             let fightLength = 22
             this.stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
-            this.character = {mana:100, spec: "mistweaver"}
+            this.character = {mana:100, spec: "mistweaver",target: 0}
             this.targets = this.createTargets(20,1,500000,10000000,0,2)
             this.friendlyTargets = []
 
@@ -31,7 +31,6 @@ export default {
             this.usedAbility = {manaUsed:0,gcd:0}
 
             /* TODO:
-                10-10-2020  One Heal function / More Heals??
                 11-10-2020  Damages??? / More Heals
                 12-10-2020  HealAI / Damages
                 13-10-2020  HealAI + Buffs
@@ -60,6 +59,10 @@ export default {
                 this.usedAbility = this.heals[2].healFunc(this.stats, [randomTarget], 0, this.hotsData)
 
                 if (this.usedAbility===0) {
+                    this.usedAbility = this.heals[4].healFunc(this.stats, [1], 0, this.hotsData, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
+                }
+
+                if (this.usedAbility===0) {
                     this.usedAbility = this.heals[3].healFunc(this.stats, this.friendlyTargets, 0, this.hotsData)
                 }
 
@@ -67,16 +70,17 @@ export default {
                     this.usedAbility = this.heals[0].healFunc(this.stats, [1], 0, this.hotsData)
                 }
                 //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-                                                                                            //TODO: ONLY ONE FUNCTION FOR ALL HEALS! (DONT!!!???)
+
 
 
                 this.useAbility()
 
-                this.targets[0].dealDamage(10000)
-                console.log("---------------")
+                this.targets[1].dealDamage(30000)
+                /*console.log("---------------")
                 console.log(this.targets[0].absorb)
-                console.log(this.targets[0].health)
-
+                console.log(this.targets[0].health)*/
+                console.log(this.targets[1].absorb)
+                console.log(this.targets[1].health)
                 this.db.push(this.character.mana)
 
 
