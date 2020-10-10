@@ -4,7 +4,7 @@ export default {
     methods: {
         useAbility() {
             if (this.usedAbility!==0) {
-                this.db.push("Casted: <b style=\"color:#4fff61\">"+this.usedAbility.name +"</b>")
+                this.db.push("Casted: <b style=\"color:#4fff61\">"+this.usedAbility.name +"</b> ----- Target: <b style=\"color:#ff000f\">"+this.usedAbility.healingToTargets[0][0].id+"</b>")
                 if (this.usedAbility.type === "heal") {
                     // hot
                     if (this.usedAbility.hotData !== 0) {

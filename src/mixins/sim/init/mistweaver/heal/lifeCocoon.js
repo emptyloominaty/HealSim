@@ -16,9 +16,9 @@ export default {
 
                     let mainHeal = spellpower
 
-                    for (let i = 0; i<target.length; i++) {
-                        returnData.healingToTargets[0].push({id: i, heal: 0})
-                    }
+
+                    returnData.healingToTargets[0].push({id: target[0], heal: 0})
+
 
                     returnData.runAfterHeal = function () {
                         return ["absorb",mainHeal,[target[0]],duration]
