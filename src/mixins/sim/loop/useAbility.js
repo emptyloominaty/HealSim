@@ -5,16 +5,11 @@ export default {
         useAbility() {
             if (this.usedAbility!==0) {
 
-
-
                 let targets = [];
                 for(let i = 0; i<this.usedAbility.healingToTargets[0].length; i++) {
                     targets.push(this.usedAbility.healingToTargets[0][i].id)
                 }
-
                 this.db.push("Casted: <b style=\"color:#4fff61\">"+this.usedAbility.name +"</b> ----- Target: <b style=\"color:#ff000f\">"+ targets +"</b>")
-
-
 
 
                 if (this.usedAbility.type === "heal") {

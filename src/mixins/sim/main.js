@@ -14,7 +14,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 22 //sec
-            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 0, risingMist: 0 }
+            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 1, risingMist: 0 }
             let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             let mana = 100
             let spec = "mistweaver"
@@ -61,7 +61,7 @@ export default {
                 this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs,   TODO: BUFFs(Healer),
                 this.db.push(this.hotsData)
                 //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
-                //TEST TEST TEST TEST           //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
+                //TEST TEST TEST TEST                                                                                    //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
                 let randomTarget = Math.floor(Math.random()*4)
 
                 //Renewing Mist

@@ -5,9 +5,9 @@ import hfrm from './mistweaver/heal/renewingMist'
 import hfrev from './mistweaver/heal/revival'
 import hflc from './mistweaver/heal/lifeCocoon'
 import hfef from './mistweaver/heal/essenceFont'
-
+import hfrjw from './mistweaver/heal/refreshingJadeWind'
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -59,12 +59,14 @@ export default {
 
                 doEveryGcd(gcd) {
                     if (this.name==="Essence Font" && this.talents.upwelling===1) {
-                        if (this.spec.upwellingStacks<18) {
-                            this.spec.upwellingStacks+=gcd
-                        } else {
-                            this.spec.upwellingStacks=18
+                        if (this.cooldown>=this.maxCooldown) {
+                            if (this.spec.upwellingStacks < 18) {
+                                this.spec.upwellingStacks += gcd
+                            } else {
+                                this.spec.upwellingStacks = 18
+                            }
                         }
-
+                        console.log(this.spec.upwellingStacks)
                     }
                 }
 
@@ -78,8 +80,8 @@ export default {
                         new Heal("Renewing Mist",2.2,1.5,9,2,0,talents,this.healFuncRM()),
                         new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival()),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon()),
-                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,                //TODO: time cast upwelling 6sec
-                        new Heal("Soothing Mist",0.4,1,0,1,0,talents,),
+                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,
+                        new Heal("Soothing Mist",0.4,1,0,1,0,talents,this.healFuncRJW()),
                         new Heal("Yu'lon",5.0,1.5,180,1,0,talents,),
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,),
                         //talents

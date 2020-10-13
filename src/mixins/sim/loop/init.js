@@ -44,6 +44,7 @@ export default {
             //cd
             for (let i = 0; i < this.heals.length ; i++) {
                 this.heals[i].incCd(this.gcd,this.character.stats)
+                this.heals[i].doEveryGcd(this.gcd)
             }
 
 
