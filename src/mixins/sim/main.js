@@ -14,7 +14,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 22 //sec
-            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 1, risingMist: 0 }
+            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 1, risingMist: 0, refreshingJadeWind:1, chiJi: 0, jadeStatue: 0 }
             let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             let mana = 100
             let spec = "mistweaver"
@@ -36,6 +36,7 @@ export default {
             this.hotsData = {}
             this.usedAbility = {manaUsed:0,gcd:0}
 
+            console.log(this.heals)
             /* TODO:
                 ---10-2020  EssenceFont,Refreshing Jade Wind(hot + jump?), Damages(TP,BK,RSK),
                 ---10-2020  Rising Mist,Chi Burst,Expel Harm, Yu'lon, Soothing Mist-Statue, Chi-ji, Legendaries
@@ -68,10 +69,6 @@ export default {
                 this.usedAbility = this.heals[2].healFunc(this.character.stats, [randomTarget], 0, this.hotsData)
 
 
-                if (this.usedAbility===0) { //Essence Font
-                    this.usedAbility = this.heals[5].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
-                }
-
                 if (this.usedAbility===0) { //Life Cocoon
                     this.usedAbility = this.heals[4].healFunc(this.character.stats, [1], 0, this.hotsData, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
                 }
@@ -79,6 +76,14 @@ export default {
                 if (this.usedAbility===0) { //Revival
                     this.usedAbility = this.heals[3].healFunc(this.character.stats, this.friendlyTargets, 0, this.hotsData)
                 }
+
+                if (this.usedAbility===0) { //Refreshing Jade Wind
+                    this.usedAbility = this.heals[9].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                }
+                if (this.usedAbility===0) { //Essence Font
+                    this.usedAbility = this.heals[5].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                }
+
 
                 if (this.usedAbility===0) { //Vivify
                     this.usedAbility = this.heals[0].healFunc(this.character.stats, [1], 0, this.hotsData)

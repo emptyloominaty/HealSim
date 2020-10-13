@@ -66,7 +66,6 @@ export default {
                                 this.spec.upwellingStacks = 18
                             }
                         }
-                        console.log(this.spec.upwellingStacks)
                     }
                 }
 
@@ -75,17 +74,17 @@ export default {
             switch(healSpec) {
                 //MW Monk
                 case "mistweaver":
-                    heals = [new Heal("Vivify",4.1,1.5,0,1,0,talents,this.healFuncViv(),),
+                    heals = [new Heal("Vivify",4.1,1.5,0,1,0,talents,this.healFuncViv(),), //0
                         new Heal("Enveloping Mist",6.0,2.0,0,1,0,talents,this.healFuncEm()),
                         new Heal("Renewing Mist",2.2,1.5,9,2,0,talents,this.healFuncRM()),
                         new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival()),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon()),
-                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,
-                        new Heal("Soothing Mist",0.4,1,0,1,0,talents,this.healFuncRJW()),
+                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) , //5
+                        new Heal("Soothing Mist",0.4,1,0,1,0,),
                         new Heal("Yu'lon",5.0,1.5,180,1,0,talents,),
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,),
                         //talents
-                        new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,),
+                        new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,this.healFuncRJW()),
                         new Heal("Chi Burst",0,1.5,0,1,0,talents,),
                         //passive
                         new Heal("Soothing Mist-Statue",0,0,0,1,0,talents,),              //TODO: activate with ability
