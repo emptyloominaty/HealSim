@@ -4,7 +4,7 @@ export default {
         healFuncLifeCocoon() {
 
             return function(stats,target,healMod,hots,healer) {
-                if (this.charges>0) {
+                if (this.cooldown>=this.maxCooldown) {
                     //config
                     let absorb = 60 //60%
                     let duration = 12
@@ -15,7 +15,6 @@ export default {
                     //-------heal-------
 
                     let mainHeal = spellpower
-
 
                     returnData.healingToTargets[0].push({id: target[0], heal: 0})
 

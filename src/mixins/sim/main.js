@@ -13,9 +13,14 @@ export default {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
             //Config
-            let fightLength = 22
-            this.stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
-            this.character = {mana:100, spec: "mistweaver",target: 0}
+            let fightLength = 22 //sec
+            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 0, risingMist: 0 }
+            let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
+            let mana = 100
+            let spec = "mistweaver"
+            let target = 0
+
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats}
             this.targets = this.createTargets(20,1,500000,10000000,0,2)
             this.friendlyTargets = []
 
@@ -24,18 +29,19 @@ export default {
                     this.friendlyTargets.push(this.targets[i])
                 }
             }
+
             this.injuredTargets = []
             this.time = 0
-            this.heals = this.createHeals(this.character.spec)
+            this.heals = this.createHeals(this.character.spec,this.character.talents)
             this.hotsData = {}
             this.usedAbility = {manaUsed:0,gcd:0}
 
             /* TODO:
-                11-10-2020  Damages??? / More Heals
-                12-10-2020  HealAI / Damages
-                13-10-2020  HealAI + Buffs
+                ---10-2020  EssenceFont,Refreshing Jade Wind(hot + jump?), Damages(TP,BK,RSK),
+                ---10-2020  Rising Mist,Chi Burst,Expel Harm, Yu'lon, Soothing Mist-Statue, Chi-ji, Legendaries
+                13-10-2020  HealAI + Buffs (Stats)
                 14-10-2020  HealAI
-                15-10-2020  Charts
+                15-10-2020  HealAI + Charts
                 16-10-2020  Rotations
                 17-10-2020  Mana/HPS Tables
                 18-10-2020  Bug Fixes + Release
@@ -48,7 +54,8 @@ export default {
             this.healingFromHots = 0
             //------------------------
 
-            this.db.push(this.stats)
+
+            this.db.push(this.character.stats)
             for (let fl = 0; fl<fightLength; fl++) {
                 //-----------------------------------------------------Loop Init----------------------------------------
                 this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs,   TODO: BUFFs(Healer),
@@ -56,18 +63,25 @@ export default {
                 //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
                 //TEST TEST TEST TEST           //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
                 let randomTarget = Math.floor(Math.random()*4)
-                this.usedAbility = this.heals[2].healFunc(this.stats, [randomTarget], 0, this.hotsData)
 
-                if (this.usedAbility===0) {
-                    this.usedAbility = this.heals[4].healFunc(this.stats, [1], 0, this.hotsData, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
+                //Renewing Mist
+                this.usedAbility = this.heals[2].healFunc(this.character.stats, [randomTarget], 0, this.hotsData)
+
+
+                if (this.usedAbility===0) { //Essence Font
+                    this.usedAbility = this.heals[5].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
                 }
 
-                if (this.usedAbility===0) {
-                    this.usedAbility = this.heals[3].healFunc(this.stats, this.friendlyTargets, 0, this.hotsData)
+                if (this.usedAbility===0) { //Life Cocoon
+                    this.usedAbility = this.heals[4].healFunc(this.character.stats, [1], 0, this.hotsData, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
                 }
 
-                if (this.usedAbility===0) {
-                    this.usedAbility = this.heals[0].healFunc(this.stats, [1], 0, this.hotsData)
+                if (this.usedAbility===0) { //Revival
+                    this.usedAbility = this.heals[3].healFunc(this.character.stats, this.friendlyTargets, 0, this.hotsData)
+                }
+
+                if (this.usedAbility===0) { //Vivify
+                    this.usedAbility = this.heals[0].healFunc(this.character.stats, [1], 0, this.hotsData)
                 }
                 //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
@@ -75,12 +89,7 @@ export default {
 
                 this.useAbility()
 
-                this.targets[1].dealDamage(30000)
-                /*console.log("---------------")
-                console.log(this.targets[0].absorb)
-                console.log(this.targets[0].health)*/
-                console.log(this.targets[1].absorb)
-                console.log(this.targets[1].health)
+               // this.targets[1].dealDamage(30000)
                 this.db.push(this.character.mana)
 
 

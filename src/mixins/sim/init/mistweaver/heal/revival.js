@@ -4,7 +4,7 @@ export default {
         healFuncRevival() {
 
             return function(stats,target,healMod,hots) {
-                if (this.charges>0) {
+                if (this.cooldown>=this.maxCooldown) {
                     //config
                     let revHeal = 3.15
 

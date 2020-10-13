@@ -8,7 +8,7 @@ export default {
                     let emHeal = 3.60 //360% sp
                     let emDuration = 6
 
-                    if (mistwrap===1) {
+                    if (this.talents.mistwrap===1) {
                         emDuration = 7
                     }
 
