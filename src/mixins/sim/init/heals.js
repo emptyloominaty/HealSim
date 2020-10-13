@@ -93,7 +93,9 @@ export default {
                         //legendary
                         new Heal("Ancient Teachings of the Monastery",0,0,0,1,0,talents,),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,),
-                        new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,)]
+                        new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,),
+                        //mastery
+                        new Heal ("Gust of Mists",0,0,0,1,0,talents,function() {return 0})]
                     break;
                 //Resto Druid
                 //Resto Shaman

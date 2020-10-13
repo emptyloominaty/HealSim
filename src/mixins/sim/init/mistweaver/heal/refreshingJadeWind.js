@@ -12,7 +12,7 @@ export default {
 
 
                     //init
-                    let crit1
+                    let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: [], name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
@@ -26,7 +26,7 @@ export default {
                             let healed = (Math.floor(Math.random()*targets.length))
                             if (healed<0) {healed=Math.floor(Math.random()*4)}
                             //heal
-                            crit1 = this.critChance(stats.crit)
+                            crit = this.critChance(stats.crit)
                             //hot
                             returnData.hotData.push({targetID:targets[healed],canJump:1,data:{heal: mainHeal, duration: rjwDuration, maxDuration: rjwDuration, name: "Refreshing Jade Wind"}})
                     }

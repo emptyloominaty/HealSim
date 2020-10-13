@@ -68,6 +68,7 @@ export default {
                             let healing = this.usedAbility.healingToTargets[i][j].heal
                             this.overhealingDone += this.targets[this.usedAbility.healingToTargets[i][j].id].heal(healing)
                             this.healingDone += healing
+                            this.healingDoneArr[this.usedAbility.name].push( {time: this.time, heal: Math.floor(this.usedAbility.healingToTargets[i][j].heal)})
                         }
                     }
                 } else if (this.usedAbility.type === "damage") {
@@ -76,7 +77,7 @@ export default {
 
                 }
 
-            //buffs + dispell
+            //buffs + dispell + mw mastery
             if(this.usedAbility.runAfterHeal!==0) {
                 let runAfterHeal = this.usedAbility.runAfterHeal()
                 for (let i=0; i<runAfterHeal.length; i++) {
@@ -84,7 +85,16 @@ export default {
                         for (let t=0; t<runAfterHeal[i+2].length; t++) {
                                 this.targets[runAfterHeal[i+2][t]].applyBuff({type:"absorb",maxAmount:runAfterHeal[i+1] , amount:runAfterHeal[i+1], duration:runAfterHeal[i+3] })
                         }
+                    } else if (runAfterHeal[i] === "heal") {
+                        for (let t=0; t<runAfterHeal[i+2].length; t++) {
+                            this.overhealingDone +=  this.targets[runAfterHeal[i+2][t]].heal(runAfterHeal[i+1])
+                            this.healingDone += runAfterHeal[i+1]
+                            this.healingDoneArr[runAfterHeal[i+3]].push( {time: this.time, heal:Math.floor(runAfterHeal[i+1]) } )
+                        }
                     }
+
+
+
                 }
 
 

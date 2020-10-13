@@ -64,6 +64,7 @@ export default {
                         healing = Math.round(healing)
                         this.healingFromHots += healing
                         this.overhealingDone += this.targets[i].heal(healing)
+                        this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})
                         //expire hot
                         if (hotTimeLeft<0) {
                             this.targets[i].hots.splice(a, 1)

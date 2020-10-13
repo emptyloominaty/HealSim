@@ -9,17 +9,21 @@ export default {
                     let rmDuration = 20
 
                     //init
-                    let crit1
+                    let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
-                    crit1 = this.critChance(stats.crit)
-                    let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit1)
+                    crit = this.critChance(stats.crit)
+                    let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit)
 
-                    returnData.healingToTargets = [[{id: target[0], heal: mainHeal}]]
+                    returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
                     returnData.hotData = {heal: (spellpower * rmHeal), duration: rmDuration, maxDuration: rmDuration, name: "Renewing Mist"}
+
+                    returnData.runAfterHeal = function () {
+                        return ["heal",mainHeal,[target[0]],"Gust of Mists"]
+                    }
 
                     this.setCd()
 

@@ -20,7 +20,7 @@ export default {
                     }
 
                     //init
-                    let crit1
+                    let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: [], name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
@@ -34,8 +34,8 @@ export default {
                             let healed = (Math.floor(Math.random()*targets2.length))
                             if (healed<0) {healed=Math.floor(Math.random()*4)}
                             //heal
-                            crit1 = this.critChance(stats.crit)
-                            returnData.healingToTargets[0].push({id: targets2[healed], heal: mainHeal*crit1})
+                            crit = this.critChance(stats.crit)
+                            returnData.healingToTargets[0].push({id: targets2[healed], heal: mainHeal*crit})
                             //hot
                             returnData.hotData.push({targetID:targets2[healed],canJump:0,data:{heal: (spellpower * efHotHeal), duration: efDuration, maxDuration: efDuration, name: "Essence Font"}})
 

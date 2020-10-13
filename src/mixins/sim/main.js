@@ -29,7 +29,6 @@ export default {
                     this.friendlyTargets.push(this.targets[i])
                 }
             }
-
             this.injuredTargets = []
             this.time = 0
             this.heals = this.createHeals(this.character.spec,this.character.talents)
@@ -53,6 +52,13 @@ export default {
             this.manaUsed = 0
             this.healingDone = 0
             this.healingFromHots = 0
+            this.healingDoneArr = []
+
+            for (let i = 0; i<this.heals.length; i++) {
+                this.healingDoneArr[this.heals[i].name] = []
+            }
+            console.log(this.healingDoneArr)
+
             //------------------------
 
 
