@@ -37,14 +37,14 @@ export default {
 
             console.log(this.heals)
             /* TODO:
-                ---10-2020  EssenceFont,Refreshing Jade Wind(hot + jump?), Damages(TP,BK,RSK),
-                ---10-2020  Rising Mist,Chi Burst,Expel Harm, Yu'lon, Soothing Mist-Statue, Chi-ji, Legendaries
-                13-10-2020  HealAI + Buffs (Stats)
-                14-10-2020  HealAI
-                15-10-2020  HealAI + Charts
-                16-10-2020  Rotations
-                17-10-2020  Mana/HPS Tables
-                18-10-2020  Bug Fixes + Release
+                14-10-2020  Damages(TP,BK,RSK),
+                14-10-2020  Rising Mist,Chi Burst,Expel Harm, Yu'lon, Soothing Mist-Statue, Chi-ji, Legendaries
+                15-10-2020  Buffs (Stats)
+                16-10-2020  HealAI
+                17-10-2020  HealAI + Charts
+                19-10-2020  Rotations
+                20-10-2020  Mana/HPS Tables
+                21-10-2020  Bug Fixes + Release
              */
 
             //------------------------
@@ -52,13 +52,11 @@ export default {
             this.manaUsed = 0
             this.healingDone = 0
             this.healingFromHots = 0
-            this.healingDoneArr = []
+            this.healingDoneArr = []                    //TODO: ADD DAMAGES TOO LMAO
 
             for (let i = 0; i<this.heals.length; i++) {
                 this.healingDoneArr[this.heals[i].name] = []
             }
-            console.log(this.healingDoneArr)
-
             //------------------------
 
 
@@ -112,6 +110,7 @@ export default {
 
 
             }
+            console.log(this.healingDoneArr)
             //------------------------------------------------end (create charts, redraw timeline)----------------------
             let totalHealingDone = (this.healingFromHots + Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")

@@ -41,7 +41,7 @@ export default {
                     returnData.runAfterHeal = function () {
                         return ["heal",masteryHeal,[target[0]],"Gust of Mists"]
                     }
-                                       
+
 
                     this.setCd()
 
