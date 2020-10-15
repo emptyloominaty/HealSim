@@ -14,7 +14,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 22 //sec
-            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 1, risingMist: 0, refreshingJadeWind:1, chiJi: 0, jadeStatue: 0 }
+            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 0, risingMist: 0, refreshingJadeWind:0, chiJi: 0, jadeStatue: 0 }
             let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             let mana = 100
             let spec = "mistweaver"
@@ -82,8 +82,21 @@ export default {
                 }
 
                 if (this.usedAbility===0) { //Refreshing Jade Wind
-                    this.usedAbility = this.heals[9].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                    this.usedAbility = this.heals[10].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
                 }
+
+                if (this.usedAbility===0) { //Yu'Lon
+                    this.usedAbility = this.heals[7].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                }
+
+                /*if (this.usedAbility===0) { //Soothing Mist
+                    this.usedAbility = this.heals[6].healFunc(this.character.stats, [randomTarget], 0, this.hotsData)
+                }*/
+
+
+
+
+
                 if (this.usedAbility===0) { //Essence Font
                     this.usedAbility = this.heals[5].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
                 }

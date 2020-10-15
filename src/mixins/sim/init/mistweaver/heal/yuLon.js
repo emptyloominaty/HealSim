@@ -1,14 +1,14 @@
 /* eslint-disable */
 export default {
     methods: {
-        healFuncRJW() {
+        healFuncYulon() {
             return function(stats,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && this.talents.refreshingJadeWind===1) {
+                if (this.cooldown>=this.maxCooldown && this.talents.chiJi!==1) {
 
                     //config
-                    let rjwHeal = 0.116
-                    let rjwtargets = 6
-                    let rjwDuration = 9 / (1 + (stats.haste/100))
+                    let yulonHeal = 5.83333  //   105% over 4.5sec --- 583.333%  over 25sec
+                    let yulonTargets = 3
+                    let yulonDuration = 25
 
 
                     //init
@@ -17,15 +17,15 @@ export default {
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
-                    let mainHeal = (spellpower * rjwHeal)*13
+                    let mainHeal = (spellpower * yulonHeal)
 
 
                     returnData.healingToTargets[0].push({id: targets[0], heal: 0})
 
-                    for (let h = 0; h<rjwtargets; h++) {
+                    for (let h = 0; h<yulonTargets; h++) {
                             let healed = (Math.floor(Math.random()*targets.length))
                             //hot
-                            returnData.hotData.push({targetID:targets[healed], canJump:1, scaleWithHaste: 0, data:{heal: mainHeal, duration: rjwDuration, maxDuration: rjwDuration, name: "Refreshing Jade Wind"}})
+                            returnData.hotData.push({targetID:targets[healed], canJump:1, scaleWithHaste: 1, data:{heal: mainHeal, duration: yulonDuration, maxDuration: yulonDuration, name: "Soothing Mist - Yu'Lon"}})
                     }
 
                     this.setCd()

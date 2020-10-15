@@ -9,7 +9,6 @@ export default {
                     let efHeal = 0.472
                     let efBolts = 6
                     let efBoltsMax = 18 + Math.floor(this.spec.upwellingStacks)
-
                     let efHotHeal = 0.168
                     let efDuration = 8
 
@@ -37,7 +36,7 @@ export default {
                             crit = this.critChance(stats.crit)
                             returnData.healingToTargets[0].push({id: targets2[healed], heal: mainHeal*crit})
                             //hot
-                            returnData.hotData.push({targetID:targets2[healed],canJump:0,data:{heal: (spellpower * efHotHeal), duration: efDuration, maxDuration: efDuration, name: "Essence Font"}})
+                            returnData.hotData.push({targetID:targets2[healed], canJump:0, scaleWithHaste: 1, data:{heal: (spellpower * efHotHeal), duration: efDuration, maxDuration: efDuration, name: "Essence Font"}})
 
                             targets2.splice(healed,1)
                         }

@@ -23,7 +23,7 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
-                    returnData.hotData = {heal: (spellpower * emHeal), duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}
+                    returnData.hotData = {heal: (spellpower * emHeal), canJump:0, scaleWithHaste: 1, duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}
 
                     returnData.runAfterHeal = function () {
                         return ["heal",mainHeal,[target[0]],"Gust of Mists"]

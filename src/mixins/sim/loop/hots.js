@@ -22,22 +22,17 @@ export default {
                 let jumpTo = (Math.floor(Math.random()*canJumpOn.length))
                 targets[canJumpOn[jumpTo]].applyHot(remHot)
                 jumped = 1
-                db.push(hot+" JUMPED FROM "+i+" TO "+canJumpOn[jumpTo])
             }
 
             let jumped = 0
-            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Soothing Mist": [], "Refreshing Jade Wind": []}
+            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Refreshing Jade Wind": [], "Soothing Mist - Statue": [], "Soothing Mist - Yu'Lon": []}
             for (let i = 0; i < this.targets.length; i++ ) {
                 if (this.targets[i].hots.length>0) {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {
                         let hotName = this.targets[i].hots[a].name
                         targetsHots[hotName].push(i)
-                        //renewing mist jump when full health
-                        if (hotName==="Renewing Mist" && this.targets[i].health === this.targets[i].maxHealth) { //|| hotName==="Refreshing Jade Wind"
-                            hotJump(i,a,this.targets,this.injuredTargets,this.db,"Renewing Mist")
-                        }
-                        if (hotName==="Refreshing Jade Wind" && this.targets[i].health === this.targets[i].maxHealth) { //|| hotName==="Refreshing Jade Wind"
-                            hotJump(i,a,this.targets,this.injuredTargets,this.db,"Refreshing Jade Wind")
+                        if (this.targets[i].hots[a].canJump===1 && this.targets[i].health === this.targets[i].maxHealth) {
+                            hotJump(i,a,this.targets,this.injuredTargets,this.db,hotName)
                         }
                     }
                 }
@@ -56,8 +51,14 @@ export default {
                         let hotTimeLeft = this.targets[i].hots[a].duration
                         //crit chance
                         let crit = this.heals[0].critChance(stats.crit)
+                        let healing = 0
                         //heal the target
-                        let healing = (((this.targets[i].hots[a].heal * (1 + (stats.haste / 100))) / this.targets[i].hots[a].maxDuration) * gcd)*crit
+                        if (this.targets[i].hots[a].scaleWithHaste===1) {
+                            healing = (((this.targets[i].hots[a].heal * (1 + (stats.haste / 100))) / this.targets[i].hots[a].maxDuration) * gcd)*crit
+                        } else {
+                            healing = (((this.targets[i].hots[a].heal) / this.targets[i].hots[a].maxDuration) * gcd)*crit
+                        }
+
                         if (hotTimeLeft<gcd) {
                             healing = healing / (gcd/hotTimeLeft)
                         }

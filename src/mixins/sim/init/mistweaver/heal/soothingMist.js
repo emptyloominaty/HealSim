@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncSM() {
             return function(stats,target,healMod,hots) {
-                if (this.charges>0) {
+                if (this.cooldown>=this.maxCooldown) {
                     //config
                     let smHeal = 0.55
 
@@ -32,7 +32,7 @@ export default {
                     }
 
                     if (this.talents.jadeStatue===1) {
-                        returnData.hotData = {heal: (spellpower * statueHeal), duration: statueDuration* (1 + (stats.haste / 100)), maxDuration: statueDuration* (1 + (stats.haste / 100)), name: "Soothing Mist"}
+                        returnData.hotData = {heal: (spellpower * statueHeal), canJump:0, scaleWithHaste: 1, duration: statueDuration / (1 + (stats.haste / 100)), maxDuration: statueDuration / (1 + (stats.haste / 100)), name: "Soothing Mist - Statue"}
                     }
 
                     this.setCd()

@@ -72,22 +72,17 @@ export default {
                             }
                         }
                     }
-
                 }
 
                 applyHot(hotData) {
-                    let refreshHot = 0
+                    //cant apply hot
                     for (let a = 0; a < this.hots.length; a++) {
                         if (hotData.name === this.hots[a].name) {
-                            refreshHot = 1
-                            this.hots[a].duration = this.hots[a].maxDuration
                             return hotData
                         }
                     }
-                    //
-                    if (refreshHot === 0) {
-                        this.hots.push(hotData)
-                    }
+                    //can apply hot
+                    this.hots.push(hotData)
                     return 0
                 }
 

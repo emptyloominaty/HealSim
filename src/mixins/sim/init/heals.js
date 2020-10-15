@@ -7,9 +7,10 @@ import hflc from './mistweaver/heal/lifeCocoon'
 import hfef from './mistweaver/heal/essenceFont'
 import hfrjw from './mistweaver/heal/refreshingJadeWind'
 import hfsm from './mistweaver/heal/soothingMist'
+import hfyul from './mistweaver/heal/yuLon'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -81,22 +82,26 @@ export default {
                         new Heal("Renewing Mist",2.2,1.5,9,2,0,talents,this.healFuncRM()),
                         new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival()),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon()),
-                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) , //5
-                        new Heal("Soothing Mist",0.4,1,0,1,0,talents,this.healFuncSM()),
-                        new Heal("Yu'lon",5.0,1.5,180,1,0,talents,),
+                        new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,
+                        new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM()), //cooldown only for the statue
+                        new Heal("Yu'lon",5.0,1.5,180,1,0,talents,this.healFuncYulon()),
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,),
+                        new Heal("Chi-Ji",5.0,1.5,180,1,0,talents,),
                         //talents
                         new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,this.healFuncRJW()),
                         new Heal("Chi Burst",0,1.5,0,1,0,talents,),
                         //passive
-                        new Heal("Chi-Ji",0,0,0,1,0,talents,)  ,                        //TODO: wotc  mana cost = 5k activate
-                        new Heal("Rising Mist",0,0,0,1,0,talents,),
+                        new Heal("Gust of Mists - Chi-Ji",0,0,0,1,0,talents,function() {return 0})  ,
+                        new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0}),
+                        new Heal("Soothing Mist - Yu'Lon",0,0,0,1,0,talents,function() {return 0}),
+                        new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0}),
                         //legendary
                         new Heal("Ancient Teachings of the Monastery",0,0,0,1,0,talents,),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,),
                         new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,),
                         //mastery
-                        new Heal ("Gust of Mists",0,0,0,1,0,talents,function() {return 0})]
+                        new Heal ("Gust of Mists",0,0,0,1,0,talents,function() {return 0}),
+                    ]
                     break;
                 //Resto Druid
                 //Resto Shaman
