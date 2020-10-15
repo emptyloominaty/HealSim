@@ -1,5 +1,6 @@
 /* eslint-disable */
 import heals from './init/heals'
+import damages from './init/damages'
 import targets from './init/targets'
 import healai from './loop/healAI'
 import hots from './loop/hots'
@@ -7,34 +8,40 @@ import init from './loop/init'
 import useAbility from './loop/useAbility'
 
 export default {
-    mixins: [heals,targets,healai,hots,init,useAbility],
+    mixins: [heals,damages,targets,healai,hots,init,useAbility],
     methods: {
         mainSim() {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
-            //Config
+            //Config    //TODO: THUNDER FOCUS TEA!!
             let fightLength = 22 //sec
-            let talents = {mistwrap: 0, chiBurst: 0, upwelling: 0, risingMist: 0, refreshingJadeWind:0, chiJi: 0, jadeStatue: 0 }
+            let talents = {mistwrap: 0, chiBurst: 0,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 0, upwelling: 0, risingMist: 0 }
             let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
             let mana = 100
             let spec = "mistweaver"
             let target = 0
 
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats}
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: []}
             this.targets = this.createTargets(20,1,500000,10000000,0,2)
             this.friendlyTargets = []
+            this.enemyTargets = []
 
             for (let i = 0; i<this.targets.length; i++) {
                 if (this.targets[i].type==="friendly") {
                     this.friendlyTargets.push(this.targets[i])
                 }
+                if (this.targets[i].type==="enemy") {
+                    this.enemyTargets.push(this.targets[i])
+                }
             }
+
             this.injuredTargets = []
             this.time = 0
             this.heals = this.createHeals(this.character.spec,this.character.talents)
+            this.damages = this.createDamages(this.character.spec,this.character.talents)
             this.hotsData = {}
             this.usedAbility = {manaUsed:0,gcd:0}
-
+            console.log(this.targets)
             console.log(this.heals)
             /* TODO:
                 14-10-2020  Damages(TP,BK,RSK),
@@ -53,10 +60,17 @@ export default {
             this.healingDone = 0
             this.healingFromHots = 0
             this.healingDoneArr = []                    //TODO: ADD DAMAGES TOO LMAO
+            this.damageDone = 0
+            this.damageDoneArr = []
 
             for (let i = 0; i<this.heals.length; i++) {
                 this.healingDoneArr[this.heals[i].name] = []
             }
+
+            for (let i = 0; i<this.damages.length; i++) {
+                this.damageDoneArr[this.damages[i].name] = []
+            }
+
             //------------------------
 
 
@@ -67,43 +81,47 @@ export default {
                 this.db.push(this.hotsData)
                 //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
                 //TEST TEST TEST TEST                                                                                    //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
-                let randomTarget = Math.floor(Math.random()*4)
-
+                //let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
+                let randomTarget = Math.floor(Math.random()*3)
                 //Renewing Mist
-                this.usedAbility = this.heals[2].healFunc(this.character.stats, [randomTarget], 0, this.hotsData)
+                this.usedAbility = this.heals[2].healFunc(this.character, [randomTarget], 0, this.hotsData, this.injuredTargets)
 
 
                 if (this.usedAbility===0) { //Life Cocoon
-                    this.usedAbility = this.heals[4].healFunc(this.character.stats, [1], 0, this.hotsData, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
+                    this.usedAbility = this.heals[4].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
                 }
 
                 if (this.usedAbility===0) { //Revival
-                    this.usedAbility = this.heals[3].healFunc(this.character.stats, this.friendlyTargets, 0, this.hotsData)
+                    this.usedAbility = this.heals[3].healFunc(this.character, this.friendlyTargets, 0, this.hotsData, this.injuredTargets)
                 }
 
                 if (this.usedAbility===0) { //Refreshing Jade Wind
-                    this.usedAbility = this.heals[10].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                    this.usedAbility = this.heals[10].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
                 }
 
                 if (this.usedAbility===0) { //Yu'Lon
-                    this.usedAbility = this.heals[7].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                    this.usedAbility = this.heals[7].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
                 }
 
+
+                if (this.usedAbility===0) { //Tiger Palm
+                    this.usedAbility = this.damages[2].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
+                }
+
+
+
                 /*if (this.usedAbility===0) { //Soothing Mist
-                    this.usedAbility = this.heals[6].healFunc(this.character.stats, [randomTarget], 0, this.hotsData)
+                    this.usedAbility = this.heals[6].healFunc(this.character.stats, [randomTarget], 0, this.hotsData, this.injuredTargets)
                 }*/
 
 
-
-
-
                 if (this.usedAbility===0) { //Essence Font
-                    this.usedAbility = this.heals[5].healFunc(this.character.stats, [0], 0, this.hotsData, this.injuredTargets)
+                    this.usedAbility = this.heals[5].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
                 }
 
 
                 if (this.usedAbility===0) { //Vivify
-                    this.usedAbility = this.heals[0].healFunc(this.character.stats, [1], 0, this.hotsData)
+                    this.usedAbility = this.heals[0].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets)
                 }
                 //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 

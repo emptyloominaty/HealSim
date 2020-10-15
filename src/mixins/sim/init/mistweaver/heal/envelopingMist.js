@@ -2,8 +2,9 @@
 export default {
     methods: {
         healFuncEm() {
-            return function(stats,target,healMod,hots,mistwrap) {
-                if (this.cooldown>=this.maxCooldown) {
+            return function(character,target,healMod,hots,targets) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                    let stats = character.stats
                     //config
                     let emHeal = 3.60 //360% sp
                     let emDuration = 6
@@ -14,7 +15,7 @@ export default {
 
                     //init
                     let crit
-                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
@@ -23,9 +24,9 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
-                    returnData.hotData = {heal: (spellpower * emHeal), canJump:0, scaleWithHaste: 1, duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}
+                    returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * emHeal) , duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}}]
 
-                    returnData.runAfterHeal = function () {
+                    returnData.runAfter = function () {
                         return ["heal",mainHeal,[target[0]],"Gust of Mists"]
                     }
 

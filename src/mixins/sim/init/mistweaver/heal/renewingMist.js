@@ -2,15 +2,16 @@
 export default {
     methods: {
         healFuncRM() {
-            return function(stats,target,healMod,hots) {
-                if (this.charges>0) {
+            return function(character,target,healMod,hots,targets) {
+                if (this.charges>0 && targets.length > 0) {
+                    let stats = character.stats
                     //config
                     let rmHeal = 2.25
                     let rmDuration = 20
 
                     //init
                     let crit
-                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
@@ -19,9 +20,9 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
-                    returnData.hotData = {heal: (spellpower * rmHeal), canJump:1, scaleWithHaste: 1, duration: rmDuration, maxDuration: rmDuration, name: "Renewing Mist"}
+                    returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * rmHeal), duration: rmDuration, maxDuration: rmDuration, name: "Renewing Mist"}}]
 
-                    returnData.runAfterHeal = function () {
+                    returnData.runAfter = function () {
                         return ["heal",mainHeal,[target[0]],"Gust of Mists"]
                     }
 

@@ -3,7 +3,7 @@
 export default {
     methods: {
         getHots() {
-            function hotJump(i,a,targets,injuredTargets,db,hot)  {
+            function hotJump(i,a,targets,injuredTargets,db,hot,friendlytargets)  {
                 let canJumpOn = []
                 let cantJumpOn = []
                 let injuredTargetsLength = injuredTargets.length
@@ -20,6 +20,7 @@ export default {
                 canJumpOn = injuredTargets.filter(val => !cantJumpOn.includes(val))
 
                 let jumpTo = (Math.floor(Math.random()*canJumpOn.length))
+                if (canJumpOn[jumpTo]===undefined) { canJumpOn[jumpTo] = Math.floor(Math.random()*friendlytargets.length) }
                 targets[canJumpOn[jumpTo]].applyHot(remHot)
                 jumped = 1
             }
@@ -30,9 +31,10 @@ export default {
                 if (this.targets[i].hots.length>0) {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {
                         let hotName = this.targets[i].hots[a].name
+
                         targetsHots[hotName].push(i)
                         if (this.targets[i].hots[a].canJump===1 && this.targets[i].health === this.targets[i].maxHealth) {
-                            hotJump(i,a,this.targets,this.injuredTargets,this.db,hotName)
+                            hotJump(i,a,this.targets,this.injuredTargets,this.db,hotName,this.friendlyTargets)
                         }
                     }
                 }

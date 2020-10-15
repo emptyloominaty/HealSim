@@ -3,13 +3,14 @@ export default {
     methods: {
         healFuncLifeCocoon() {
 
-            return function(stats,target,healMod,hots,healer) {
-                if (this.cooldown>=this.maxCooldown) {
+            return function(character,target,healMod,hots,targets,healer) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                    let stats = character.stats
                     //config
                     let absorb = 60 //60%
                     let duration = 12
                     //init
-                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
                     let spellpower = (((healer.maxHealth*absorb)/100) * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
@@ -19,7 +20,7 @@ export default {
                     returnData.healingToTargets[0].push({id: target[0], heal: 0})
 
 
-                    returnData.runAfterHeal = function () {
+                    returnData.runAfter = function () {
                         return ["absorb",mainHeal,[target[0]],duration]
                     }
 

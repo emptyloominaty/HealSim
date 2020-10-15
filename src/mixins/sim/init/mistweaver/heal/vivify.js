@@ -2,8 +2,9 @@
 export default {
     methods: {
         healFuncViv() {
-            return function(stats,target,healMod,hots) {
-                if (this.cooldown>=this.maxCooldown) {
+            return function(character,target,healMod,hots,targets) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                    let stats = character.stats
                     //config
                     let vivMain = 1.04 //104% sp
                     let vivCleave = 0.74 //74% sp
@@ -11,7 +12,7 @@ export default {
 
                     //init
                     let crit
-                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfterHeal: 0, hotData: 0, name: this.name}
+                    let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     //-------heal-------
@@ -38,7 +39,7 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets, tomTargets]
 
-                    returnData.runAfterHeal = function () {
+                    returnData.runAfter = function () {
                         return ["heal",masteryHeal,[target[0]],"Gust of Mists"]
                     }
 

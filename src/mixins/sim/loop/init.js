@@ -20,18 +20,31 @@ export default {
                 this.character.mana=100
             }
 
-            //get injured targets
+            //get injured targets and friendly targets
             this.injuredTargets = []
+            this.friendlyTargets = []
+            this.enemyTargets = []
             for (let a = 0; a<this.targets.length; a++) {
-                if (this.targets[a].health<this.targets[a].maxHealth) {
+                if (this.targets[a].health<this.targets[a].maxHealth && this.targets[a].type==="friendly" ) {
                     this.injuredTargets.push(a)
                 }
+                if (this.targets[a].type==="friendly") {
+                    this.friendlyTargets.push(a)
+                }
+                if (this.targets[a].type==="enemy") {
+                    this.enemyTargets.push(a)
+                }
             }
+
+
+
             //get hots
             let runGetHotsAgain = 0
+            let loops = 0
             do {
                 runGetHotsAgain = this.getHots()
-            } while (runGetHotsAgain===1)
+                loops++
+            } while (runGetHotsAgain===1 && loops < 10)
 
 
             //heal with hots
