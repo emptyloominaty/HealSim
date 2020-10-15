@@ -64,7 +64,7 @@ export default {
                     //deal damage
                     for (let i = 0; i < this.usedAbility.damageToTargets.length; i++) {
                         for (let j = 0; j < this.usedAbility.damageToTargets[i].length; j++) {
-                            let damage = this.usedAbility.damageToTargets[i][j].damage
+                            let damage = Math.floor(this.usedAbility.damageToTargets[i][j].damage)
                             if (this.usedAbility.damageToTargets[i][j].id===undefined || isNaN(this.usedAbility.damageToTargets[i][j].id)) {
                                 this.usedAbility.damageToTargets[i][j].id = this.friendlyTargets + +Math.floor(Math.random()*this.enemyTargets.length)
                             }
@@ -78,13 +78,11 @@ export default {
 
                 }
 
-
-
             //buffs + dispell + mw mastery
             if(this.usedAbility.runAfter!==0) {
                 let runAfter = this.usedAbility.runAfter()
                 for (let i=0; i<runAfter.length; i++) {
-                    if (runAfter[i] === "absorb") { //TODO: FIX? length?
+                    if (runAfter[i] === "absorb") {
                         for (let t=0; t<runAfter[i+2].length; t++) {
                                 this.targets[runAfter[i+2][t]].applyBuff({type:"absorb",maxAmount:runAfter[i+1] , amount:runAfter[i+1], duration:runAfter[i+3] })
                         }
@@ -94,15 +92,15 @@ export default {
                             this.healingDone += runAfter[i+1]
                             this.healingDoneArr[runAfter[i+3]].push( {time: this.time, heal:Math.floor(runAfter[i+1]) } )
                         }
+                    } else if (runAfter[i] === "resetCooldown") {
+                        for (let t=0; t<this.damages.length; t++) {
+                            if (runAfter[i+1]===this.damages[t].name) {
+                                this.damages[t].cooldown=this.damages[t].maxCooldown
+                            }
+                        }
                     }
 
-
-
                 }
-
-
-
-
             }
 
                 this.manaUsed += this.usedAbility.manaUsed

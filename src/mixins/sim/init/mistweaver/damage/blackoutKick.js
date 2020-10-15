@@ -1,41 +1,45 @@
 /* eslint-disable */
 export default {
     methods: {
-        damageFuncTigerPalm() {
+        damageFuncblackOutKick() {
             return function(character,target,dmgMod,hots,enemyTargets) {
                 if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0) {
                     let stats = character.stats
 
                     //config
-                    let tpDamage = 0.27027
-                    let totmDuration = 15
+                    let bokDamage = 0.847
 
                     //init
                     let crit
                     let returnData = {type:"damage",manaUsed: this.manaCost, damageToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, dotData: 0, name: this.name}
                     let spellpower = (stats.int * (1 + (dmgMod / 100))) * (1 + (stats.vers / 100))
 
-                    //-------heal-------
-                    crit = this.critChance(stats.crit)
-                    let mainDmg = ((spellpower * tpDamage) * crit)
+                    //-------damage-------
+                    let mainDmg = (spellpower * bokDamage)
 
-                    returnData.damageToTargets = [[{id: target[0], damage: mainDmg}]]
 
-                    //totm buff
-                    let buffExtended = 0
+
+                    //check totm buff
+                    let totm = 0
                     for (let i = 0; i<character.buffs.length; i++) {
                         if (character.buffs[i].name==="Teaching of the Monastery" ) {
-                            if (character.buffs[i].value<3) {
-                                character.buffs[i].value++
-                            }
-                            character.buffs[i].duration = totmDuration
-                            buffExtended = 1
+                               totm = character.buffs[i].value
                         }
+                            character.buffs.splice(i,1)
                     }
-                    if (buffExtended===0) {
-                        character.buffs.push({name:"Teaching of the Monastery", type:"buff", value:1, duration:totmDuration, maxDuration:totmDuration,})
+                    //totm dmg
+                    for (let m = 0; m<totm+1; m++ ) {
+                        crit = this.critChance(stats.crit)
+                        returnData.damageToTargets.push([{id: target[0], damage: mainDmg*crit}])
                     }
 
+                    //reset rsk
+                    let resetChance = (Math.random())*100
+                    if (resetChance < totm*15) {
+                        returnData.runAfter =function () {
+                            return ["resetCooldown", "Rising Sun Kick"]
+                        }
+                    }
 
                     this.setCd()
 

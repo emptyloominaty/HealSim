@@ -44,9 +44,8 @@ export default {
             console.log(this.targets)
             console.log(this.heals)
             /* TODO:
-                14-10-2020  Damages(TP,BK,RSK),
-                14-10-2020  Rising Mist,Chi Burst,Expel Harm, Yu'lon, Soothing Mist-Statue, Chi-ji, Legendaries
                 15-10-2020  Buffs (Stats)
+                15-10-2020  Rising Mist,Chi Burst,Expel Harm, Chi-ji, Legendaries
                 16-10-2020  HealAI
                 17-10-2020  HealAI + Charts
                 19-10-2020  Rotations
@@ -59,7 +58,7 @@ export default {
             this.manaUsed = 0
             this.healingDone = 0
             this.healingFromHots = 0
-            this.healingDoneArr = []                    //TODO: ADD DAMAGES TOO LMAO
+            this.healingDoneArr = []
             this.damageDone = 0
             this.damageDoneArr = []
 
@@ -79,10 +78,10 @@ export default {
                 //-----------------------------------------------------Loop Init----------------------------------------
                 this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs,   TODO: BUFFs(Healer),
                 this.db.push(this.hotsData)
-                //-------------------------------------------------------loop------------------------------------------- // TODO: healAi,Heals,Damages,Abilities,
-                //TEST TEST TEST TEST                                                                                    //TODO: USEDABILITY WILL BE RETURNING TO HEALAI AND IF IT RETURN 0 GO TO NEXT????  //CAN ONLY CAST WHEN I HAVE MANA
-                //let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
-                let randomTarget = Math.floor(Math.random()*3)
+
+                //-------------------------------------------------------loop-------------------------------------------
+                //TEST TEST TEST TEST
+                let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
                 //Renewing Mist
                 this.usedAbility = this.heals[2].healFunc(this.character, [randomTarget], 0, this.hotsData, this.injuredTargets)
 
@@ -101,6 +100,14 @@ export default {
 
                 if (this.usedAbility===0) { //Yu'Lon
                     this.usedAbility = this.heals[7].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+                }
+
+                if (this.usedAbility===0) { //Rising Sun Kick
+                    this.usedAbility = this.damages[0].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
+                }
+
+                if (this.usedAbility===0) { //Blackout Kick
+                    this.usedAbility = this.damages[1].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
                 }
 
 
@@ -142,14 +149,15 @@ export default {
 
             }
             console.log(this.healingDoneArr)
+            console.log(this.damageDoneArr)
             //------------------------------------------------end (create charts, redraw timeline)----------------------
             let totalHealingDone = (this.healingFromHots + Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")
             this.db.push("Mana Used: "+ Math.round(this.manaUsed*100)/100)
             this.db.push("Healing Done: "+ totalHealingDone)
             this.db.push("OverHealing Done: "+this.overhealingDone)
-
-
+            this.db.push("-----------")
+            this.db.push("Damage Done: "+this.damageDone)
 
             this.$store.commit('debug',this.db)
 

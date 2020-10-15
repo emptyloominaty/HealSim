@@ -1,9 +1,10 @@
 /* eslint-disable */
 import dfTigerPalm from './mistweaver/damage/tigerPalm'
-
+import dfBlackoutKick from './mistweaver/damage/blackoutKick'
+import dfRisingSunKick from './mistweaver/damage/risingSunKick'
 
 export default {
-    mixins: [dfTigerPalm,],
+    mixins: [dfTigerPalm,dfBlackoutKick,dfRisingSunKick],
     methods: {
         createDamages(healSpec,talents) {
             let damages = []
@@ -61,8 +62,8 @@ export default {
             switch(healSpec) {
                 //MW Monk
                 case "mistweaver":
-                    damages = [new Damage("Rising Sun Kick",1.5,1.5,12,1,1,talents,),
-                        new Damage("Blackout Kick",0,1.5,3,1,1,talents,),
+                    damages = [new Damage("Rising Sun Kick",1.5,1.5,12,1,1,talents,this.damageFuncRisingSunKick()),
+                        new Damage("Blackout Kick",0,1.5,3,1,1,talents,this.damageFuncblackOutKick()),
                         new Damage("Tiger Palm",0,1.5,0,1,0,talents,this.damageFuncTigerPalm()),
                         new Damage("Chi-Ji",0,0,0,1,0,talents,), //passive
                         new Damage("Touch of Death",0,0,0,1,0,talents,), //

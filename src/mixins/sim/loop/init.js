@@ -60,6 +60,10 @@ export default {
                 this.heals[i].doEveryGcd(this.gcd)
             }
 
+            for (let i = 0; i < this.damages.length ; i++) {
+                this.damages[i].incCd(this.gcd, this.character.stats)
+                this.damages[i].doEveryGcd(this.gcd)
+            }
 
         }
     }
