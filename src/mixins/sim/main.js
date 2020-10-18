@@ -14,15 +14,17 @@ export default {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
             //Config    //TODO: THUNDER FOCUS TEA!!
-            let fightLength = 22 //sec
-            let talents = {mistwrap: 0, chiBurst: 0,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 0, upwelling: 0, risingMist: 0 }
-            let stats = {int:13900,haste:30,crit:44,vers:10,mastery:54}
-            let mana = 100
+            let fightLength = 30 //sec
+            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1 }
+            let stats = {int:679, haste:25.8, crit:38.8, vers:3.12, mastery:105.2}
+            let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
+            let buffs = [{stat:"haste",increase:20,ppm:6,duration:6,lastproc:0,proc:60/2/*ppm*/,procced:0}] //proc stats
+            let buffs2 = {everyGcd:["chiJi","yuLon"],chiJi:0,chiJiEnveloping:0,yuLon:0,}                        //other buffs
 
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: []}
-            this.targets = this.createTargets(20,1,500000,10000000,0,2)
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: []}
+            this.targets = this.createTargets(20,1,20000,100000,0,2)
             this.friendlyTargets = []
             this.enemyTargets = []
 
@@ -44,13 +46,12 @@ export default {
             console.log(this.targets)
             console.log(this.heals)
             /* TODO:
-                15-10-2020  Buffs (Stats)
-                15-10-2020  Rising Mist,Chi Burst,Expel Harm, Chi-ji, Legendaries
-                16-10-2020  HealAI
-                17-10-2020  HealAI + Charts
-                19-10-2020  Rotations
-                20-10-2020  Mana/HPS Tables
-                21-10-2020  Bug Fixes + Release
+                  Enveloping Breath,  Legendaries , Conduits , Covenants
+                  HealAI
+                  Charts
+                  Rotations
+                  Mana/HPS Tables
+                  Expel Harm
              */
 
             //------------------------
@@ -71,13 +72,13 @@ export default {
             }
 
             //------------------------
-
+            //TODO: CREATE LIST OF HEALS / DAMAGES WITH NAME AND ID  Heals{vivify:0,rRenewingMist:2,lifeCocoon:4}
 
             this.db.push(this.character.stats)
             for (let fl = 0; fl<fightLength; fl++) {
                 //-----------------------------------------------------Loop Init----------------------------------------
-                this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs,   TODO: BUFFs(Healer),
-                this.db.push(this.hotsData)
+                this.loopInit() //calc gcd, hots,CDs, mana regen, Target Buffs, Buffs(Healer), //TODO: stat buffs with duration
+                this.db.push("Time: "+Math.round(this.time*10)/10+" <b>Hots:</b> "+JSON.stringify(this.hotsData))
 
                 //-------------------------------------------------------loop-------------------------------------------
                 //TEST TEST TEST TEST
@@ -87,7 +88,7 @@ export default {
 
 
                 if (this.usedAbility===0) { //Life Cocoon
-                    this.usedAbility = this.heals[4].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])                 //TODO ADD Increase healing EM + LifeCocoon
+                    this.usedAbility = this.heals[4].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])     //TODO ADD Increase healing EM + LifeCocoon
                 }
 
                 if (this.usedAbility===0) { //Revival
@@ -102,10 +103,18 @@ export default {
                     this.usedAbility = this.heals[7].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
                 }
 
-                if (this.usedAbility===0) { //Rising Sun Kick
-                    this.usedAbility = this.damages[0].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
+                if (this.usedAbility===0) { //Chi Ji
+                    this.usedAbility = this.heals[9].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+
                 }
 
+                if (this.usedAbility===0) { //Rising Sun Kick
+                    this.usedAbility = this.damages[0].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
+                }
+                if (this.usedAbility===0) { //Chi Burst
+                    this.usedAbility = this.damages[3].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets,this.friendlyTargets)
+                }
+/*
                 if (this.usedAbility===0) { //Blackout Kick
                     this.usedAbility = this.damages[1].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
                 }
@@ -114,7 +123,7 @@ export default {
                 if (this.usedAbility===0) { //Tiger Palm
                     this.usedAbility = this.damages[2].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
                 }
-
+*/
 
 
                 /*if (this.usedAbility===0) { //Soothing Mist
@@ -132,21 +141,9 @@ export default {
                 }
                 //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
 
-
-
                 this.useAbility()
 
-               // this.targets[1].dealDamage(30000)
-                this.db.push(this.character.mana)
-
-
-                //TEST GET HEALTH OF TARGETS---------------------------------
-                /*this.db.push("T" + 5 + " : " + this.targets[5].health)
-                this.db.push("T" + 6 + " : " + this.targets[6].health)*/
-                //------------------------------------------------------------------
-
-
-
+                this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
             }
             console.log(this.healingDoneArr)
             console.log(this.damageDoneArr)

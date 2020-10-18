@@ -2,9 +2,10 @@
 import dfTigerPalm from './mistweaver/damage/tigerPalm'
 import dfBlackoutKick from './mistweaver/damage/blackoutKick'
 import dfRisingSunKick from './mistweaver/damage/risingSunKick'
+import dfChiBurst from './mistweaver/damage/chiBurst'
 
 export default {
-    mixins: [dfTigerPalm,dfBlackoutKick,dfRisingSunKick],
+    mixins: [dfTigerPalm,dfBlackoutKick,dfRisingSunKick,dfChiBurst],
     methods: {
         createDamages(healSpec,talents) {
             let damages = []
@@ -65,9 +66,10 @@ export default {
                     damages = [new Damage("Rising Sun Kick",1.5,1.5,12,1,1,talents,this.damageFuncRisingSunKick()),
                         new Damage("Blackout Kick",0,1.5,3,1,1,talents,this.damageFuncblackOutKick()),
                         new Damage("Tiger Palm",0,1.5,0,1,0,talents,this.damageFuncTigerPalm()),
+                        new Damage("Chi Burst",0,1,30,1,0,talents, this.damageFuncChiBurst()), //
                         new Damage("Chi-Ji",0,0,0,1,0,talents,), //passive
-                        new Damage("Touch of Death",0,0,0,1,0,talents,), //
-                        new Damage("Chi Burst",0,0,0,1,0,talents,), //
+                        new Damage("Touch of Death",0,0,0,1,0,talents,), //no
+
                     ]
                     break;
                 //Resto Druid

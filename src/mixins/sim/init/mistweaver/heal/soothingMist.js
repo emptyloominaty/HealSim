@@ -27,9 +27,7 @@ export default {
                     //TODO: (DECK)
                     let masteryRng = Math.floor(Math.random()*7)
                     if (masteryRng===0) {
-                        returnData.runAfter = function () {
-                            return ["heal",masteryHeal,[target[0]],"Gust of Mists"]
-                        }
+                        returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
                     }
 
                     if (this.talents.jadeStatue===1) {

@@ -39,9 +39,8 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets, tomTargets]
 
-                    returnData.runAfter = function () {
-                        return ["heal",masteryHeal,[target[0]],"Gust of Mists"]
-                    }
+                    returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
+
 
 
                     this.setCd()

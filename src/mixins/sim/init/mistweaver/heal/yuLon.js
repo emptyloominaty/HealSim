@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncYulon() {
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && this.talents.chiJi!==1 && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && this.talents.chiJi===0 && targets.length > 0) {
                     let stats = character.stats
 
                     //config
@@ -29,6 +29,7 @@ export default {
                             returnData.hotData.push({targetID:targets[healed], canJump:1, scaleWithHaste: 1, data:{heal: mainHeal, duration: yulonDuration, maxDuration: yulonDuration, name: "Soothing Mist - Yu'Lon"}})
                     }
 
+                    character.buffs2.yuLon=yulonDuration
                     this.setCd()
 
                     return returnData

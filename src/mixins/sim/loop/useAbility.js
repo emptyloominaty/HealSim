@@ -80,7 +80,7 @@ export default {
 
             //buffs + dispell + mw mastery
             if(this.usedAbility.runAfter!==0) {
-                let runAfter = this.usedAbility.runAfter()
+                let runAfter = this.usedAbility.runAfter
                 for (let i=0; i<runAfter.length; i++) {
                     if (runAfter[i] === "absorb") {
                         for (let t=0; t<runAfter[i+2].length; t++) {
@@ -96,6 +96,18 @@ export default {
                         for (let t=0; t<this.damages.length; t++) {
                             if (runAfter[i+1]===this.damages[t].name) {
                                 this.damages[t].cooldown=this.damages[t].maxCooldown
+                            }
+                        }
+                    } else if (runAfter[i] === "castHeal") {
+                        let castedHeal = this.heals[runAfter[i+1]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+                        //heal
+                        for (let k = 0; k < castedHeal.healingToTargets.length; k++) {
+                            for (let j = 0; j < castedHeal.healingToTargets[k].length; j++) {
+                                let healing = castedHeal.healingToTargets[k][j].heal
+
+                                this.overhealingDone += this.targets[castedHeal.healingToTargets[k][j].id].heal(healing)
+                                this.healingDone += healing
+                                this.healingDoneArr[castedHeal.name].push( {time: this.time, heal: Math.floor(castedHeal.healingToTargets[k][j].heal)})
                             }
                         }
                     }

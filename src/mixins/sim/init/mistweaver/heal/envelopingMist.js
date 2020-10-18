@@ -24,10 +24,18 @@ export default {
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
-                    returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * emHeal) , duration: emDuration, maxDuration: emDuration, name: "Enveloping Mist"}}]
+                    returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * emHeal) , duration: emDuration, maxDuration: emDuration, extended: 0, name: "Enveloping Mist"}}]
 
-                    returnData.runAfter = function () {
-                        return ["heal",mainHeal,[target[0]],"Gust of Mists"]
+                    returnData.runAfter = ["heal",mainHeal,[target[0]],"Gust of Mists"]
+
+
+                    if (this.character.buffs2.chiJiEnveloping>0) {
+                        returnData.manaUsed =  returnData.manaUsed - (((this.character.buffs2.chiJiEnveloping*33)/100)*returnData.manaUsed)
+                        returnData.gcd = returnData.gcd  - (((this.character.buffs2.chiJiEnveloping*33)/100)*returnData.gcd )
+                        if (returnData.gcd < (1.5 / (1 + (stats.haste / 100)))) {
+                            returnData.gcd = (1.5 / (1 + (stats.haste / 100)))
+                        }
+                        this.character.buffs2.chiJiEnveloping=0
                     }
 
 

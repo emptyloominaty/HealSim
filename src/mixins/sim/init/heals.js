@@ -8,9 +8,11 @@ import hfef from './mistweaver/heal/essenceFont'
 import hfrjw from './mistweaver/heal/refreshingJadeWind'
 import hfsm from './mistweaver/heal/soothingMist'
 import hfyul from './mistweaver/heal/yuLon'
+import hfchijiact from './mistweaver/heal/chiJiActivate'
+import hfchiji from './mistweaver/heal/chiJi'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -71,7 +73,6 @@ export default {
                         }
                     }
                 }
-
             }
 
             switch(healSpec) {
@@ -85,16 +86,18 @@ export default {
                         new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,
                         new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM()), //cooldown only for the statue
                         new Heal("Yu'lon",5.0,1.5,180,1,0,talents,this.healFuncYulon()),
-                        new Heal("Expel Harm",3.0,1.5,15,1,0,talents,),
-                        new Heal("Chi-Ji",5.0,1.5,180,1,0,talents,),
+                        new Heal("Expel Harm",3.0,1.5,15,1,0,talents,), //no
+                        new Heal("Chi-Ji Activate",5.0,1.5,180,1,0,talents,this.healFuncChiJiActivate()),
+
                         //talents
                         new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,this.healFuncRJW()),
-                        new Heal("Chi Burst",0,1.5,0,1,0,talents,),
+                        new Heal("Chi Burst",0,0,0,1,0,talents,function() {return 0}),
                         //passive
-                        new Heal("Gust of Mists - Chi-Ji",0,0,0,1,0,talents,function() {return 0})  ,
                         new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Soothing Mist - Yu'Lon",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0}),
+                        new Heal("Chi-Ji",0,0,0,1,0,talents,this.healFuncChiJi()),
+
                         //legendary
                         new Heal("Ancient Teachings of the Monastery",0,0,0,1,0,talents,),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,),
