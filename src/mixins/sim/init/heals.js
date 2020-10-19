@@ -10,9 +10,11 @@ import hfsm from './mistweaver/heal/soothingMist'
 import hfyul from './mistweaver/heal/yuLon'
 import hfchijiact from './mistweaver/heal/chiJiActivate'
 import hfchiji from './mistweaver/heal/chiJi'
+import hftft from './mistweaver/other/thunderFocusTea'
+import hfmt from './mistweaver/other/manaTea'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -84,7 +86,7 @@ export default {
                         new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival()),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon()),
                         new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf()) ,
-                        new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM()), //cooldown only for the statue
+                        new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM()), //cooldown for the statue
                         new Heal("Yu'lon",5.0,1.5,180,1,0,talents,this.healFuncYulon()),
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,), //no
                         new Heal("Chi-Ji Activate",5.0,1.5,180,1,0,talents,this.healFuncChiJiActivate()),
@@ -97,6 +99,7 @@ export default {
                         new Heal("Soothing Mist - Yu'Lon",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Chi-Ji",0,0,0,1,0,talents,this.healFuncChiJi()),
+                        new Heal("Enveloping Breath",0,0,0,1,0,talents,function() {return 0}),
 
                         //legendary
                         new Heal("Ancient Teachings of the Monastery",0,0,0,1,0,talents,),
@@ -104,6 +107,10 @@ export default {
                         new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,),
                         //mastery
                         new Heal ("Gust of Mists",0,0,0,1,0,talents,function() {return 0}),
+                        //tft
+                        new Heal ("Thunder Focus Tea",0,0,30,1,0,talents,this.healFuncTFT()),
+                        new Heal ("Mana Tea",0,0,120,1,0,talents,this.healFuncManaTea()),
+
                     ]
                     break;
                 //Resto Druid

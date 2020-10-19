@@ -10,6 +10,7 @@ export default {
                     this.health = health / healthRatio
                     this.maxHealth = health
                     this.absorb = 0
+                    this.healingBonus = 0
                     //----
                     this.buffs = []
                     this.hots = []

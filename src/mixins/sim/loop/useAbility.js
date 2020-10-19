@@ -49,7 +49,7 @@ export default {
                     //heal
                     for (let i = 0; i < this.usedAbility.healingToTargets.length; i++) {
                         for (let j = 0; j < this.usedAbility.healingToTargets[i].length; j++) {
-                            let healing = this.usedAbility.healingToTargets[i][j].heal
+                            let healing = this.usedAbility.healingToTargets[i][j].heal * (1 + this.targets[this.usedAbility.healingToTargets[i][j].id].healingBonus)
 
                             if (this.usedAbility.healingToTargets[i][j].id===undefined || isNaN(this.usedAbility.healingToTargets[i][j].id)) {
                                 this.usedAbility.healingToTargets[i][j].id = Math.floor(Math.random()*this.friendlyTargets.length)
@@ -57,7 +57,7 @@ export default {
 
                             this.overhealingDone += this.targets[this.usedAbility.healingToTargets[i][j].id].heal(healing)
                             this.healingDone += healing
-                            this.healingDoneArr[this.usedAbility.name].push( {time: this.time, heal: Math.floor(this.usedAbility.healingToTargets[i][j].heal)})
+                            this.healingDoneArr[this.usedAbility.name].push( {time: this.time, heal: Math.floor(healing)})
                         }
                     }
                 } else if (this.usedAbility.type === "damage") { //----------------------------------------------------------------------------------------------------------Damage
@@ -71,11 +71,15 @@ export default {
 
                             this.targets[this.usedAbility.damageToTargets[i][j].id].dealDamage(damage)
                             this.damageDone += damage
-                            this.damageDoneArr[this.usedAbility.name].push( {time: this.time, damage: Math.floor(this.usedAbility.damageToTargets[i][j].damage)})
+                            this.damageDoneArr[this.usedAbility.name].push( {time: this.time, damage: Math.floor(damage)})
                         }
                     }
-                } else if (this.usedAbility.type === "ability") {//----------------------------------------------------------------------------------------------------------Other
+                } else if (this.usedAbility.type === "other") {//----------------------------------------------------------------------------------------------------------Other
+                        if (this.usedAbility.type2 !== "other") {
 
+                        } else {
+
+                        }
                 }
 
             //buffs + dispell + mw mastery
@@ -103,8 +107,7 @@ export default {
                         //heal
                         for (let k = 0; k < castedHeal.healingToTargets.length; k++) {
                             for (let j = 0; j < castedHeal.healingToTargets[k].length; j++) {
-                                let healing = castedHeal.healingToTargets[k][j].heal
-
+                                let healing = castedHeal.healingToTargets[k][j].heal  * (1+this.targets[castedHeal.healingToTargets[k][j].id].healingBonus)
                                 this.overhealingDone += this.targets[castedHeal.healingToTargets[k][j].id].heal(healing)
                                 this.healingDone += healing
                                 this.healingDoneArr[castedHeal.name].push( {time: this.time, heal: Math.floor(castedHeal.healingToTargets[k][j].heal)})
@@ -114,11 +117,12 @@ export default {
 
                 }
             }
-
+            //ManaTea
+            if (this.character.buffs2.manaTea>0) {
+                this.usedAbility.manaUsed=this.usedAbility.manaUsed/2
+            }
                 this.manaUsed += this.usedAbility.manaUsed
                 this.character.mana -= this.usedAbility.manaUsed
-            } else {
-                console.log("Rip") //TODO
             }
 
 

@@ -8,7 +8,7 @@ export default {
                     //config
                     let vivMain = 1.04 //104% sp
                     let vivCleave = 0.74 //74% sp
-                    let vivTearofMorning = vivMain / 4  //25%
+                    let vivTearofMorning = vivMain / 5  //20%
 
                     //init
                     let crit
@@ -41,9 +41,13 @@ export default {
 
                     returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
 
-
-
                     this.setCd()
+
+                    //Thunder Focus Tea
+                    if (character.buffs2.thunderFocusTea===1) {
+                        returnData.manaUsed = 0
+                        character.buffs2.thunderFocusTea = 0
+                    }
 
                     return returnData
                 }

@@ -26,7 +26,7 @@ export default {
             }
 
             let jumped = 0
-            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Refreshing Jade Wind": [], "Soothing Mist - Statue": [], "Soothing Mist - Yu'Lon": []}
+            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Refreshing Jade Wind": [], "Soothing Mist - Statue": [], "Soothing Mist - Yu'Lon": [],"Enveloping Breath": []}
             for (let i = 0; i < this.targets.length; i++ ) {
                 if (this.targets[i].hots.length>0) {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {
@@ -46,9 +46,17 @@ export default {
         healHots(gcd) {
             let stats = this.character.stats
             for (let i = 0; i < this.targets.length; i++ ) {
+                this.targets[i].healingBonus = 0
                 if (this.targets[i].hots.length>0) {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {
+                        //bonus
+                        try {
+                            if (this.targets[i].hots[a].healBonus!==undefined) {
+                                this.targets[i].healingBonus += this.targets[i].hots[a].healBonus
+                            }
+                        } catch { }
                         //+ gcd
+
                         this.targets[i].hots[a].duration -= gcd
                         let hotTimeLeft = this.targets[i].hots[a].duration
                         //crit chance
@@ -60,11 +68,15 @@ export default {
                         } else {
                             healing = (((this.targets[i].hots[a].heal) / this.targets[i].hots[a].maxDuration) * gcd)*crit
                         }
+                        healing = healing * (1+this.targets[i].healingBonus)
 
                         if (hotTimeLeft<gcd) {
-                            healing = healing / (gcd/hotTimeLeft)
+                            healing = healing - (healing / (gcd/hotTimeLeft))
                         }
-                        healing = Math.round(healing)
+
+                        healing = Math.round(healing*this.targets[i].healingBonus)
+
+
                         this.healingFromHots += healing
                         this.overhealingDone += this.targets[i].heal(healing)
                         this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})

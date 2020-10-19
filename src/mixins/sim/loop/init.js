@@ -4,12 +4,12 @@ export default {
     methods: {
         loopInit() {
             //gcd
-            if (this.usedAbility.gcd===0 || this.usedAbility===0 ) {
+            if (this.usedAbility===0) {
                 this.gcd = 1.5 / (1 + (this.character.stats.haste / 100))
             } else {
                 this.gcd = this.usedAbility.gcd
             }
-            if (this.gcd<0.75) {
+            if (this.gcd<0.75 && this.gcd!==0) {
                 this.gcd=0.75
             }
             this.time += this.gcd
@@ -85,9 +85,11 @@ export default {
                                 this.character.stats.int=Math.round((+this.character.stats.int - +this.character.buffs[b].increase)*1000)/1000
                                 break;
                         }
+                        this.character.buffs[b].procced=0
                     }
                     if (this.character.buffs[b].procced>0) {
                         this.character.buffs[b].procced-=this.gcd
+                        if (this.character.buffs[b].procced===0) {this.character.buffs[b].procced= -.1}
                     }
                     //---------------------------
                 }

@@ -37,7 +37,7 @@ export default {
                             crit = this.critChance(stats.crit)
                             returnData.healingToTargets[0].push({id: targets2[healed], heal: mainHeal*crit})
                             //hot
-                            returnData.hotData.push({targetID:targets2[healed], canJump:0, scaleWithHaste: 1, data:{heal: (spellpower * efHotHeal), duration: efDuration, maxDuration: efDuration, extended: 0, name: "Essence Font"}})
+                            returnData.hotData.push({targetID:targets2[healed], canJump:0, scaleWithHaste: 1, data:{heal: hotHeal , duration: efDuration, maxDuration: efDuration, extended: 0, name: "Essence Font"}})
 
                             targets2.splice(healed,1)
                         }

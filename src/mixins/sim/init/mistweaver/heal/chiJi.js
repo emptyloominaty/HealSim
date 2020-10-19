@@ -4,6 +4,7 @@ export default {
         healFuncChiJi() {
             return function(character,target,healMod,hots,targets) {
                     let stats = character.stats
+                    let injuredTargets = targets.slice(0)
                     //config
                     let chiJitargets = 2
 
@@ -16,9 +17,16 @@ export default {
 
                     let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)))
 
+                    if (injuredTargets.length===0) {
+                        injuredTargets = [0,1,2,3,4]
+                    } else if (injuredTargets.length<chiJitargets) {
+                        injuredTargets.push(Math.round(Math.random()*chiJitargets))
+                    }
+
+
                     for (let i = 0; i<chiJitargets; i++) {
                         crit = this.critChance(stats.crit)
-                        returnData.healingToTargets.push([{id: targets[i], heal: mainHeal*crit}])
+                        returnData.healingToTargets.push([{id: injuredTargets[i], heal: mainHeal*crit}])
                     }
 
                     if (character.buffs2.chiJiEnveloping<3) {

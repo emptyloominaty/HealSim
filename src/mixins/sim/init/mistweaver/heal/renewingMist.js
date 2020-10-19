@@ -9,6 +9,12 @@ export default {
                     let rmHeal = 2.25
                     let rmDuration = 20
 
+                    //Thunder Focus Tea
+                    if (character.buffs2.thunderFocusTea===1) {
+                        rmDuration = 30
+                        character.buffs2.thunderFocusTea = 0
+                    }
+
                     //init
                     let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
@@ -26,6 +32,8 @@ export default {
 
 
                     this.setCd()
+
+
 
                     return returnData
                 }
