@@ -1,13 +1,10 @@
-import main from "./sim/main"
 export default {
-    mixins:[main],
     data() {
         return {
         }
     },
     methods: {
         simulate(settings) {
-            this.mainSim() // <-----------------------------------------------DEBUG HealSim
             //RemSim
             let buffs = this.$store.state.buffs
 

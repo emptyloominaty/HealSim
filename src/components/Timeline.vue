@@ -16,10 +16,10 @@
 </template>
 
 <script>
-    import simulateFunction from '../mixins/simulateFunction'
+    import remSim from '../mixins/remSim'
     export default {
         name: "Timeline",
-        mixins: [simulateFunction],
+        mixins: [remSim],
         data() {
             return {
                 time: this.simulate(this.$store.state.remSetting)

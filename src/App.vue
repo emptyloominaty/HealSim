@@ -1,65 +1,12 @@
 <template>
   <div id="app">
-    <Debug/>
-    <Settings/>
-    <Timeline/>
-    <Chart :chart-data="remsData" :options="chartOptionsRems"  />
-    <Chart :chart-data="hasteData" :options="chartOptionsHaste"  />
-    <Chart :chart-data="healData" :options="chartOptionsHeal"  />
-    <Chart :chart-data="damageData" :options="chartOptionsDamage"  />
-    <Chart :chart-data="manaData" :options="chartOptionsMana"  />
-
+    <div id="nav">
+      <router-link to="/">Heal Sim</router-link> |
+      <router-link to="/remSim">Rem Sim</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import Timeline from './components/Timeline.vue'
-import Settings from './components/Settings.vue'
-import Chart from './components/chart.vue'
-import Debug from './components/debugConsole.vue'
-
-import chartOptions from './mixins/chartOptions'
-
-export default {
-    name: 'App',
-    mixins: [chartOptions],
-    components: {
-        Timeline,
-        Settings,
-        Chart,
-        Debug
-    },
-    data() {
-        return {
-            hasteData: [],
-            remsData:[],
-            damageData:[],
-            healData:[],
-            manaData:[]
-        }
-        },
-    methods: {
-    },
-    watch: {
-        '$store.state.chartDataHaste': function() {
-            this.hasteData = this.$store.state.chartDataHaste
-        },
-        '$store.state.chartData': function() {
-          this.remsData = this.$store.state.chartData
-        },
-        '$store.state.chartDataDamage': function() {
-          this.damageData = this.$store.state.chartDataDamage
-        },
-        '$store.state.chartDataHeal': function() {
-          this.healData = this.$store.state.chartDataHeal
-        },
-        '$store.state.chartDataMana': function() {
-          this.manaData = this.$store.state.chartDataMana
-        }
-
-    }
-}
-</script>
 
 <style>
   html {
@@ -71,6 +18,32 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #1f1d24;
-    margin-top: 60px;
+    margin-top: 30px;
   }
+
+#nav {
+  padding: 15px;
+}
+
+#nav a {
+  font-size:1.2rem;
+  font-weight: bold;
+  color: #976e00;
+  padding: 5px;
+  border: 1px solid #976e00;
+  text-decoration: none;
+}
+
+#nav a.router-link-exact-active {
+  color: #d9b100;
+  text-shadow: 0 0 3px #a67c00;
+  border: 1px solid #d9b100;
+}
+
+  #nav a:hover {
+    border: 1px solid #d9b100;
+    box-shadow:0 0 3px 0px #d9b100;
+  }
+
+
 </style>

@@ -50,7 +50,7 @@ export default {
                   Charts
                   Rotations
                   Mana/HPS Tables
-                  Expel Harm
+                  Expel Harm KEKW
              */
 
             //------------------------
@@ -104,6 +104,7 @@ export default {
             this.db.push("OverHealing Done: "+this.overhealingDone)
             this.db.push("-----------")
             this.db.push("Damage Done: "+this.damageDone)
+
 
             this.$store.commit('debug',this.db)
 
