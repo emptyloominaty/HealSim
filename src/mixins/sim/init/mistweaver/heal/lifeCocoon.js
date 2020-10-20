@@ -4,7 +4,7 @@ export default {
         healFuncLifeCocoon() {
 
             return function(character,target,healMod,hots,targets,healer) {
-                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
                     let absorb = 60 //60%

@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncRM() {
             return function(character,target,healMod,hots,targets) {
-                if (this.charges>0 && targets.length > 0) {
+                if (this.charges>0 && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
                     let rmHeal = 2.25

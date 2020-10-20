@@ -1,20 +1,22 @@
 <template>
   <div class="home">
-    <heal-sim-timeline/>
+    <Settings/>
+    <Timeline/>
     <Debug/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Debug from '../components/debugConsole.vue'
-import healSimTimeline from '../components/healSimTimeline.vue'
+import Timeline from '../components/healSimTimeline.vue'
+import Settings from '../components/healSimSettings.vue'
 
 export default {
   name: 'Home',
   components: {
     Debug,
-    healSimTimeline
+    Timeline,
+    Settings,
   }
 }
 </script>

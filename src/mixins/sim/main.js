@@ -14,8 +14,8 @@ export default {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
             //Config
-            let fightLength = 35 //sec
-            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1 }
+            let fightLength = 200 //sec
+            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 1, refreshingJadeWind:0, chiJi: 0, upwelling: 0, risingMist: 1 }
             let stats = {int:679, haste:25.8, crit:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%
             let spec = "mistweaver"
@@ -27,6 +27,7 @@ export default {
             this.targets = this.createTargets(20,1,20000,100000,0,2)
             this.friendlyTargets = []
             this.enemyTargets = []
+            this.injuredTargets = []
 
             for (let i = 0; i<this.targets.length; i++) {
                 if (this.targets[i].type==="friendly") {
@@ -37,7 +38,7 @@ export default {
                 }
             }
 
-            this.injuredTargets = []
+            let timeline = []
             this.time = 0
             this.heals = this.createHeals(this.character.spec,this.character.talents)
             this.damages = this.createDamages(this.character.spec,this.character.talents)
@@ -80,7 +81,8 @@ export default {
             //------------------------
             for (let fl = 0; fl<fightLength; fl++) {
                 //-----------------------------------------------------Loop Init----------------------------------------
-
+                let healGcd = this.healingDone
+                let dmgGcd = this.damageDone
                 //calc gcd, hots,CDs, mana regen, Target Buffs, Buffs(Healer),
                 this.loopInit()
 
@@ -88,26 +90,56 @@ export default {
                 //-------------------------------------------------------loop-------------------------------------------
 
                 //Heal AI
-                this.usedAbility = this.healAi(healList,damageList)
+                this.usedAbility = this.healAi(healList,damageList,fightLength,fl)
 
                 this.useAbility()
 
                 this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
+
+                //TEST dmg
+                for(let t = 0; t<this.friendlyTargets.length; t++ ) {
+                    this.targets[t].dealDamage(100)
+                }
+
+                healGcd = this.healingDone - healGcd
+                dmgGcd = this.damageDone - dmgGcd
+
+                timeline[fl] = {id:fl,time:this.time.toFixed(1),rems: this.hotsData["Renewing Mist"].length,hots: JSON.parse(JSON.stringify(this.hotsData)),
+                    manaUsed:this.usedAbility.manaUsed,usedAbility:this.usedAbility.name,usedAbility2:"",damageDone:dmgGcd,healingDone:healGcd,
+                    character:JSON.parse(JSON.stringify(this.character)),usedAbilityFileName:"",usedAbilityFileName2:""}
+
             }
             //------------------------------------------------end (create charts, redraw timeline)----------------------
             console.log(this.healingDoneArr)
             console.log(this.damageDoneArr)
-            let totalHealingDone = (this.healingFromHots + Math.round(this.healingDone))-this.overhealingDone
+            let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")
             this.db.push("Mana Used: "+ Math.round(this.manaUsed*100)/100)
             this.db.push("Healing Done: "+ totalHealingDone)
             this.db.push("OverHealing Done: "+this.overhealingDone)
             this.db.push("-----------")
             this.db.push("Damage Done: "+this.damageDone)
-
-
             this.$store.commit('debug',this.db)
 
+            let time1 = 0
+            for (let i = 0; i<timeline.length; i++) {
+                if (i>0 && timeline[i].time===timeline[i-1].time) {
+                    timeline[i].usedAbility2=timeline[i-1].usedAbility
+                    timeline[i].healingDone+= +timeline[i-1].healingDone
+                    timeline[i].damageDone+= +timeline[i-1].damageDone
+                    timeline[i].manaUsed+= +timeline[i-1].manaUsed
+                    timeline.splice(i-1,1)
+                    i--
+                }
+                timeline[i].damageDone = Math.round(timeline[i].damageDone)
+                timeline[i].healingDone = Math.round(timeline[i].healingDone)
+                timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'');
+                timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'');
+            }
+
+
+
+            return timeline
         }
     }
 }

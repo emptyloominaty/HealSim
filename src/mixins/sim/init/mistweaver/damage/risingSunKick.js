@@ -3,7 +3,7 @@ export default {
     methods: {
         damageFuncRisingSunKick() {
             return function(character,target,dmgMod,hots,enemyTargets,allTargets) {
-                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0  && this.manaCost < character.mana) {
                     let stats = character.stats
 
                     //config

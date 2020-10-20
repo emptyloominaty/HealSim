@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncChiJiActivate() {
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && this.talents.chiJi===1) {
+                if (this.cooldown>=this.maxCooldown && this.talents.chiJi===1  && this.manaCost < character.mana ) {
                     let stats = character.stats
                     //config
                     let duration = 25

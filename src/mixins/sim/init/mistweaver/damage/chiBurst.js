@@ -3,7 +3,7 @@ export default {
     methods: {
         damageFuncChiBurst() {
             return function(character,target,dmgMod,hots,enemyTargets,friendlyTargets) {
-                if (this.cooldown>=this.maxCooldown && this.talents.chiBurst===1) {
+                if (this.cooldown>=this.maxCooldown && this.talents.chiBurst===1  && this.manaCost < character.mana) {
                     let stats = character.stats
 
                     //config

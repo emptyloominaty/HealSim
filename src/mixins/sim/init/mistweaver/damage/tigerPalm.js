@@ -3,7 +3,7 @@ export default {
     methods: {
         damageFuncTigerPalm() {
             return function(character,target,dmgMod,hots,enemyTargets) {
-                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0  && this.manaCost < character.mana ) {
                     let stats = character.stats
 
                     //config
@@ -34,6 +34,13 @@ export default {
                     }
                     if (buffExtended===0) {
                         character.buffs.push({name:"Teaching of the Monastery", type:"buff", value:1, duration:totmDuration, maxDuration:totmDuration,})
+                    }
+
+                    //CHI-JI
+                    if (character.buffs2.chiJi>0) {
+                        if (returnData.runAfter===0) {returnData.runAfter=[]}
+                        returnData.runAfter.push("castHeal")
+                        returnData.runAfter.push(15)
                     }
 
 

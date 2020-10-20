@@ -74,10 +74,10 @@ export default {
                             healing = healing - (healing / (gcd/hotTimeLeft))
                         }
 
-                        healing = Math.round(healing*this.targets[i].healingBonus)
+                        healing = Math.round(healing*(1+this.targets[i].healingBonus))
 
 
-                        this.healingFromHots += healing
+                        this.healingDone += healing
                         this.overhealingDone += this.targets[i].heal(healing)
                         this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})
                         //expire hot

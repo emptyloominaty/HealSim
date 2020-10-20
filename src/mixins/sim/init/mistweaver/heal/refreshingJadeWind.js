@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncRJW() {
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && this.talents.refreshingJadeWind===1 && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && this.talents.refreshingJadeWind===1 && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
 
                     //config

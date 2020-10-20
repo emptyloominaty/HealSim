@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncEm() {
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
                     let emHeal = 3.60 //360% sp

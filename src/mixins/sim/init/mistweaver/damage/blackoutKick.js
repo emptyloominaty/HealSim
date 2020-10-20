@@ -3,7 +3,7 @@ export default {
     methods: {
         damageFuncblackOutKick() {
             return function(character,target,dmgMod,hots,enemyTargets) {
-                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0  && this.manaCost < character.mana) {
                     let stats = character.stats
 
                     //config
@@ -35,10 +35,15 @@ export default {
 
                     //reset rsk
                     let resetChance = (Math.random())*100
-                    if (resetChance < totm*15) {
-                        returnData.runAfter =function () {
-                            return ["resetCooldown", "Rising Sun Kick"]
-                        }
+                    if (resetChance < 15+(totm*15)) {
+                        returnData.runAfter = ["resetCooldown", "Rising Sun Kick"]
+                    }
+
+                    //CHI-JI
+                    if (character.buffs2.chiJi>0) {
+                        if (returnData.runAfter===0) {returnData.runAfter=[]}
+                        returnData.runAfter.push("castHeal")
+                        returnData.runAfter.push(15)
                     }
 
                     this.setCd()

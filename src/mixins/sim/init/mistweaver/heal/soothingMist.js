@@ -3,7 +3,8 @@ export default {
     methods: {
         healFuncSM() {
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown  && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown  && targets.length > 0 && this.manaCost < character.mana) {
+
                     let stats = character.stats
                     //config
                     let smHeal = 0.55

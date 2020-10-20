@@ -4,7 +4,7 @@ export default {
         healFuncEf() {
 
             return function(character,target,healMod,hots,targets) {
-                if (this.cooldown>=this.maxCooldown && targets.length > 0) {
+                if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
                     let efHeal = 0.472

@@ -4,6 +4,13 @@ export default {
     methods: {
         useAbility() {
             if (this.usedAbility!==0) {
+                //ManaTea
+                if (this.character.buffs2.manaTea>0) {
+                    this.usedAbility.manaUsed=this.usedAbility.manaUsed/2
+                }
+                this.manaUsed += this.usedAbility.manaUsed
+                this.character.mana -= this.usedAbility.manaUsed
+
                 //------------------------------------------------
                 let targets = [];
                 if (this.usedAbility.type === "heal") {
@@ -50,11 +57,12 @@ export default {
                     //heal
                     for (let i = 0; i < this.usedAbility.healingToTargets.length; i++) {
                         for (let j = 0; j < this.usedAbility.healingToTargets[i].length; j++) {
-                            let healing = this.usedAbility.healingToTargets[i][j].heal * (1 + this.targets[this.usedAbility.healingToTargets[i][j].id].healingBonus)
 
                             if (this.usedAbility.healingToTargets[i][j].id===undefined || isNaN(this.usedAbility.healingToTargets[i][j].id)) {
                                 this.usedAbility.healingToTargets[i][j].id = Math.floor(Math.random()*this.friendlyTargets.length)
                             }
+
+                            let healing = this.usedAbility.healingToTargets[i][j].heal * (1 + this.targets[this.usedAbility.healingToTargets[i][j].id].healingBonus)
 
                             this.overhealingDone += this.targets[this.usedAbility.healingToTargets[i][j].id].heal(healing)
                             this.healingDone += healing
@@ -118,12 +126,6 @@ export default {
 
                 }
             }
-            //ManaTea
-            if (this.character.buffs2.manaTea>0) {
-                this.usedAbility.manaUsed=this.usedAbility.manaUsed/2
-            }
-                this.manaUsed += this.usedAbility.manaUsed
-                this.character.mana -= this.usedAbility.manaUsed
             }
 
 
