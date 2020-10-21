@@ -15,7 +15,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 200 //sec
-            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 1, refreshingJadeWind:0, chiJi: 0, upwelling: 0, risingMist: 1 }
+            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1 }
             let stats = {int:679, haste:25.8, crit:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%
             let spec = "mistweaver"
@@ -24,7 +24,7 @@ export default {
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
 
             this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: []}
-            this.targets = this.createTargets(20,1,20000,100000,0,2)
+            this.targets = this.createTargets(20,1,20000,1000000,0,1.2)
             this.friendlyTargets = []
             this.enemyTargets = []
             this.injuredTargets = []
@@ -98,7 +98,10 @@ export default {
 
                 //TEST dmg
                 for(let t = 0; t<this.friendlyTargets.length; t++ ) {
-                    this.targets[t].dealDamage(100)
+                    if (Math.random()>Math.random()) {
+                        this.targets[t].dealDamage(100)
+                    }
+
                 }
 
                 healGcd = this.healingDone - healGcd

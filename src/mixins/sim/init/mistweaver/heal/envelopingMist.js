@@ -50,12 +50,16 @@ export default {
 
                     //enveloping breath
                     if (character.buffs2.chiJi>0 || character.buffs2.yuLon>0) {
+                        let targetsEb = targets.slice(0)
                         for (let i = 0; i<envelopingBreathTargets; i++) {
+                            let randomTarget = Math.round(Math.random()*targetsEb.length)
+                            targetsEb.splice(randomTarget,1)
                             if (targets[i]!==undefined) {
-                                returnData.hotData.push({targetID:targets[i], canJump:0, scaleWithHaste: 1, data:{heal: ebHotHeal , duration: ebDuration, maxDuration: ebDuration, extended: 0, name: "Enveloping Breath", healBonus:ebBonus}})
+                                returnData.hotData.push({targetID:targetsEb[randomTarget], canJump:0, scaleWithHaste: 1, data:{heal: ebHotHeal , duration: ebDuration, maxDuration: ebDuration, extended: 0, name: "Enveloping Breath", healBonus:ebBonus}})
                             }
                         }
                     }
+
 
                     this.setCd()
 

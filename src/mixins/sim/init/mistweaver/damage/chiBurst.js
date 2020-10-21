@@ -7,7 +7,7 @@ export default {
                     let stats = character.stats
 
                     //config
-                    let cbDamage = 1.438
+                    let cbDamage = 0.46
                     let cbHeal = 0.28
 
 
