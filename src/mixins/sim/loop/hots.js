@@ -87,6 +87,16 @@ export default {
                     }
                 }
             }
+        },
+        capHots(hotName,cap) {
+            while(this.hotsData[hotName].length > cap) {
+                for (let i = 0; i<this.targets[this.hotsData[hotName][0]].hots.length; i++) {
+                    if (this.targets[this.hotsData[hotName][0]].hots[i].name===hotName) {
+                        this.targets[this.hotsData[hotName][0]].hots.splice(i,1)
+                        this.hotsData[hotName].splice(0,1)
+                    }
+                }
+            }
         }
     }
 }

@@ -98,10 +98,16 @@ export default {
             //get hots
             let runGetHotsAgain = 0
             let loops = 0
+
+            this.getHots()
+            this.capHots("Enveloping Breath",6)
+            this.capHots("Refreshing Jade Wind",6)
+            this.capHots("Soothing Mist - Statue",1)
             do {
                 runGetHotsAgain = this.getHots()
                 loops++
             } while (runGetHotsAgain===1 && loops < 25)
+
 
             //buffs on targets
             for (let i = 0; i < this.targets.length ; i++) {
