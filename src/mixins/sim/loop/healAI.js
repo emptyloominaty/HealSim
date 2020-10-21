@@ -13,7 +13,7 @@ export default {
                 manaTarget = manaTarget/2
             }
             let canHeal = this.injuredTargets.length
-                 let raidMissingHealth = 0
+            let raidMissingHealth = 0
             let totalRaidHealth = 0
             let mostInjuredTarget = {id:0, healthMissing:0}
 
@@ -28,8 +28,7 @@ export default {
                     }
                 }
             }
-
-
+            let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
 
             /* if (usedAbility===0) { //Life Cocoon
                 usedAbility = this.heals[healList["Life Cocoon"]].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])
@@ -50,11 +49,11 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.35 < mana && rems > 5 ) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget/1.35 < mana && rems > 5 && raidMissingHealthPercent > 0.02) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 ) { //Revival
+            if (usedAbility===0 && canHeal > 0 && raidMissingHealthPercent > 0.05) { //Revival
                 usedAbility = this.heals[healList["Revival"]].healFunc(this.character, this.friendlyTargets, 0, this.hotsData, this.injuredTargets)
             }
 
@@ -62,15 +61,15 @@ export default {
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && this.time>25) { //Mana Tea
+            if (usedAbility===0 && canHeal > 0 && this.time>25 && raidMissingHealthPercent > 0.1) { //Mana Tea
                 usedAbility = this.heals[healList["Mana Tea"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
             }
 
-            if (usedAbility===0 && canHeal > 0 ) { //Yu'Lon
+            if (usedAbility===0 && canHeal > 0 && raidMissingHealthPercent > 0.02) { //Yu'Lon
                 usedAbility = this.heals[healList["Yu'lon"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 ) { //Chi Ji
+            if (usedAbility===0 && canHeal > 0 && raidMissingHealthPercent > 0.02) { //Chi Ji
                 usedAbility = this.heals[healList["Chi-Ji Activate"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
@@ -78,11 +77,11 @@ export default {
                 usedAbility = this.heals[healList["Refreshing Jade Wind"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.2 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 17  ) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget/1.2 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 17  && raidMissingHealthPercent > 0.02) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.1 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 16  ) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget/1.1 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 16  && raidMissingHealthPercent > 0.02) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
@@ -91,40 +90,40 @@ export default {
             }
 
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget < mana && rems > 4) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget < mana && rems > 4 && raidMissingHealthPercent > 0.03) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 ) { //Chi Burst
+            if (usedAbility===0 && canHeal > 0 && raidMissingHealthPercent > 0.01) { //Chi Burst
                 usedAbility = this.damages[damageList["Chi Burst"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets,this.friendlyTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0  && this.character.buffs2.chiJiEnveloping>1 && manaTarget*1.05 < mana ) { //Enveloping Mist
+            if (usedAbility===0 && canHeal > 0  && this.character.buffs2.chiJiEnveloping>1 && manaTarget*1.05 < mana && raidMissingHealthPercent > 0.03) { //Enveloping Mist
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && this.character.buffs2.yuLon>0 && this.hotsData["Enveloping Breath"].length===0 ) { //Enveloping Mist
+            if (usedAbility===0 && canHeal > 0 && this.character.buffs2.yuLon>0 && this.hotsData["Enveloping Breath"].length===0 && raidMissingHealthPercent > 0.02) { //Enveloping Mist
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.05 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 12  ) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget/1.05 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 12  && raidMissingHealthPercent > 0.02) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.02 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 6  ) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.02 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 6  && raidMissingHealthPercent > 0.04) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && rems > 3) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && rems > 3 && raidMissingHealthPercent > 0.04) { //Vivify
                 usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.075 < mana ) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && raidMissingHealthPercent > 0.03) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 2) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 2 && raidMissingHealthPercent > 0.02) { //Vivify
                 usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
@@ -138,7 +137,7 @@ export default {
                 usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 1) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 1 && raidMissingHealthPercent > 0.05) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 

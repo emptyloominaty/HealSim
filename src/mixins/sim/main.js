@@ -15,7 +15,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 200 //sec
-            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1 }
+            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1}
             let stats = {int:679, haste:25.8, crit:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%
             let spec = "mistweaver"
@@ -44,15 +44,6 @@ export default {
             this.damages = this.createDamages(this.character.spec,this.character.talents)
             this.hotsData = {}
             this.usedAbility = {manaUsed:0,gcd:0}
-            /* TODO:
-                  healer stat temporary buffs
-                  Legendaries , Conduits , Covenants
-                  HealAI
-                  Charts
-                  Rotations
-                  Mana/HPS Tables
-                  Expel Harm KEKW
-             */
 
             //------------------------
             this.overhealingDone = 0
@@ -99,18 +90,22 @@ export default {
                 //TEST dmg
                 for(let t = 0; t<this.friendlyTargets.length; t++ ) {
                     if (Math.random()>Math.random()) {
-                        this.targets[t].dealDamage(100)
+                        this.targets[t].dealDamage(450)
                     }
-
                 }
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
 
+
+
                 timeline[fl] = {id:fl,time:this.time.toFixed(1),rems: this.hotsData["Renewing Mist"].length,hots: JSON.parse(JSON.stringify(this.hotsData)),
                     manaUsed:this.usedAbility.manaUsed,usedAbility:this.usedAbility.name,usedAbility2:"",damageDone:dmgGcd,healingDone:healGcd,
-                    character:JSON.parse(JSON.stringify(this.character)),usedAbilityFileName:"",usedAbilityFileName2:""}
+                    character:JSON.parse(JSON.stringify(this.character)),usedAbilityFileName:"",usedAbilityFileName2:"",upwelling: 0}
 
+                if (this.usedAbility.hasOwnProperty('upwelling')) {
+                    timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
+                }
             }
             //------------------------------------------------end (create charts, redraw timeline)----------------------
             console.log(this.healingDoneArr)

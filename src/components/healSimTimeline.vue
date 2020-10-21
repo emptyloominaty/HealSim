@@ -5,7 +5,8 @@
             <p>  <b>{{ item.rems }}</b> </p>
 
             <img  class="tftImg" v-if="item.usedAbilityFileName2!==''" :src="'/img/'+item.usedAbilityFileName2+'.jpg'">
-            <img  v-if="item.usedAbility!=='none'" :src="'/img/'+item.usedAbilityFileName+'.jpg'">
+            <img  v-if="item.usedAbility!==0" :src="'/img/'+item.usedAbilityFileName+'.jpg'">
+            <span class="upwellingKekw" v-if="item.usedAbility==='Essence Font' && item.character.talents.upwelling===1"> {{item.upwelling}} </span>
 
 
 
@@ -86,6 +87,13 @@ margin-right:-1px;
 margin-top:-1px;
 border: 1px solid #333;
 background-color:#fff;
+}
+.upwellingKekw {
+    line-height:1px;
+    font-weight: 600;
+    font-size:18px;
+    position:relative;
+    top:-28px;
 }
 /*------Tooltip-------*/
 .tooltip {

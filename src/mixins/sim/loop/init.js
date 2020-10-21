@@ -119,13 +119,13 @@ export default {
 
             //cd
             for (let i = 0; i < this.heals.length ; i++) {
-                this.heals[i].incCd(this.gcd,this.character.stats)
                 this.heals[i].doEveryGcd(this.gcd)
+                this.heals[i].incCd(this.gcd,this.character.stats)
             }
 
             for (let i = 0; i < this.damages.length ; i++) {
-                this.damages[i].incCd(this.gcd, this.character.stats)
                 this.damages[i].doEveryGcd(this.gcd)
+                this.damages[i].incCd(this.gcd, this.character.stats)
             }
 
 
