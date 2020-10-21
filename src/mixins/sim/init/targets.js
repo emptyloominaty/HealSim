@@ -103,7 +103,7 @@ export default {
                 targets.push(new Target("T" + f, friendlyhp, "friendly", infinitehp, healthRatio))
             }
             for (let e = 0; e < enemy; e++) {
-                targets.push(new Target("Enemy" + e, enemyhp, "enemy", infinitehp, healthRatio))
+                targets.push(new Target("Enemy" + e, enemyhp, "enemy", infinitehp, 1))
             }
 
             return targets

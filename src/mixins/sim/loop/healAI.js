@@ -114,12 +114,12 @@ export default {
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && rems > 3 && raidMissingHealthPercent > 0.04) { //Vivify
-                usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
-            }
-
             if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && raidMissingHealthPercent > 0.03) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+            }
+
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.02 < mana && rems > 3 && raidMissingHealthPercent > 0.04) { //Vivify
+                usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
 

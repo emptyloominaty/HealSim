@@ -90,18 +90,27 @@ export default {
                 //TEST dmg
                 for(let t = 0; t<this.friendlyTargets.length; t++ ) {
                     if (Math.random()>Math.random()) {
-                        this.targets[t].dealDamage(450)
+                        this.targets[t].dealDamage(100)
                     }
                 }
+                //TEST dmg
+                for(let t = 0; t<this.friendlyTargets.length; t++ ) {
+                    if (Math.random()>Math.random()*5) {
+                        this.targets[t].dealDamage(1000)
+                    }
+                }
+
+
+
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
 
 
 
-                timeline[fl] = {id:fl,time:this.time.toFixed(1),rems: this.hotsData["Renewing Mist"].length,hots: JSON.parse(JSON.stringify(this.hotsData)),
-                    manaUsed:this.usedAbility.manaUsed,usedAbility:this.usedAbility.name,usedAbility2:"",damageDone:dmgGcd,healingDone:healGcd,
-                    character:JSON.parse(JSON.stringify(this.character)),usedAbilityFileName:"",usedAbilityFileName2:"",upwelling: 0}
+                timeline[fl] = {id:fl, time:this.time.toFixed(1), rems:this.hotsData["Renewing Mist"].length, hots:JSON.parse(JSON.stringify(this.hotsData)),
+                    manaUsed:this.usedAbility.manaUsed, usedAbility:this.usedAbility.name, usedAbility2:"", damageDone:dmgGcd, healingDone:healGcd,
+                    character:JSON.parse(JSON.stringify(this.character)), usedAbilityFileName:"", usedAbilityFileName2:"", upwelling: 0, targets:JSON.parse(JSON.stringify(this.targets))}
 
                 if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
@@ -131,8 +140,8 @@ export default {
                 }
                 timeline[i].damageDone = Math.round(timeline[i].damageDone)
                 timeline[i].healingDone = Math.round(timeline[i].healingDone)
-                timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'');
-                timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'');
+                timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'')
+                timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'')
             }
 
 

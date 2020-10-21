@@ -8,44 +8,50 @@
             <img  v-if="item.usedAbility!==0" :src="'/img/'+item.usedAbilityFileName+'.jpg'">
             <span class="upwellingKekw" v-if="item.usedAbility==='Essence Font' && item.character.talents.upwelling===1"> {{item.upwelling}} </span>
 
-
-
- <div class="tooltip">
-     <span>Heal: <strong> {{ formatNumber(item.healingDone) }} </strong> </span> <br>
-     <hr>
-     <span>Damage: <strong> {{ formatNumber(item.damageDone) }} </strong> </span>
-     <hr>
-     <span>Mana: <strong> {{ item.character.mana.toFixed(1) }} </strong> </span>
-     <hr>
-   <!--  <span v-if="item.usedAbility2!==''" > <strong> {{ item.usedAbility2 }} </strong> + </span>
-     <span> <strong> {{ item.usedAbility }} </strong> </span>-->
-
- </div>
-</div>
-<button v-on:click="reloadLmao()">Reload (TEST)</button>
-</section>
+            <div class="tooltip">
+                <span>Heal: <strong> {{ formatNumber(item.healingDone) }} </strong> </span> <br>
+                <hr>
+                <span>Damage: <strong> {{ formatNumber(item.damageDone) }} </strong> </span>
+                <hr>
+                <span>Mana: <strong> {{ item.character.mana.toFixed(1) }} </strong> </span>
+                <!--<hr>
+                <span v-for="(value, name) in item.hots" :key="name"  > <span v-if="value.length>0">{{name}} <strong  > {{ value }} </strong> <br> </span> </span>-->
+            </div>
+        </div>
+        <!--TEST
+        <div style="color:#fff">
+            {{ test[testb] }}
+            <button v-on:click="testb++" >haha</button>
+        </div> -->
+        <button v-on:click="reloadLmao()">Reload (TEST)</button>
+        <targets :data="time" />
+    </section>
 </template>
 
 <script>
-import main from "../mixins/sim/main";
+import main from "../mixins/sim/main"
+import targets from "./healSimTargets"
 
 export default {
-name: "healSimTimeline",
-mixins:[main],
-data() {
- return {
-     time: this.mainSim()
- }
-},
-methods: {
- reloadLmao() {
-    this.time = this.mainSim()
- },
- formatNumber(num) {
-     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
- }
+    name: "healSimTimeline",
+    mixins:[main],
+    components:{targets},
+    data() {
+     return {
+         test: [5,2,6,8,9,5,8,15,4,7],
+         testb: 0,
+         time: this.mainSim()
+     }
+    },
+    methods: {
+         reloadLmao() {
+            this.time = this.mainSim()
+         },
+         formatNumber(num) {
+             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+         }
 
-}
+    }
 }
 </script>
 
