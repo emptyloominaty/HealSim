@@ -12,13 +12,15 @@ export default {
                     this.absorb = 0
                     this.healingBonus = 0
                     //----
+                    this.abilitiesOnThisTarget = 0
                     this.buffs = []
                     this.hots = []
                     this.dots = []
                     this.infinitehp = infinitehp
                 }
 
-                dealDamage(amount) {
+                dealDamage(amount,name) {
+                    this.abilitiesOnThisTarget.push({name:name,value:amount,hot:0,type:"damage"})
                     if (this.absorb === 0) {
                         this.health = Math.round(this.health - amount)
                     } else {
@@ -41,11 +43,13 @@ export default {
                         }
                     }
 
+
+
                     if (this.health < 0) {
                         this.health = 0
                     }
                     if (this.infinitehp === 1) {
-                        this.health = 100
+                        this.health = this.maxHealth/2
                     }
                 }
 
@@ -57,7 +61,7 @@ export default {
                         this.health = this.maxHealth
                     }
                     if (this.infinitehp === 1) {
-                        this.health = 100
+                        this.health = this.maxHealth/2
                     }
                     return overhealing
                 }
@@ -95,6 +99,9 @@ export default {
                     this.buffs.push(buffData)
                     let i = (this.buffs.length)-1
                     this[this.buffs[i].type] += this.buffs[i].amount
+                }
+                resetEveryGcd() {
+                    this.abilitiesOnThisTarget = []
                 }
             }
 

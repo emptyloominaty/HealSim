@@ -42,8 +42,10 @@ export default {
                     //CHI-JI
                     if (character.buffs2.chiJi>0) {
                         if (returnData.runAfter===0) {returnData.runAfter=[]}
-                        returnData.runAfter.push("castHeal")
-                        returnData.runAfter.push(15)
+                        for (let i = 0; i<totm+1; i++) {
+                            returnData.runAfter.push("castHeal")
+                            returnData.runAfter.push(15)
+                        }
                     }
 
                     this.setCd()

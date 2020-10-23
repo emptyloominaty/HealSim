@@ -112,6 +112,7 @@ export default {
             //buffs on targets
             for (let i = 0; i < this.targets.length ; i++) {
                 this.targets[i].checkBuffs(this.gcd)
+                this.targets[i].resetEveryGcd()
             }
 
             //heal with hots

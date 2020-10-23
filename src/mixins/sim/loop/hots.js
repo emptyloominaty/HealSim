@@ -79,6 +79,7 @@ export default {
 
                         this.healingDone += healing
                         this.overhealingDone += this.targets[i].heal(healing)
+                        this.targets[i].abilitiesOnThisTarget.push({name:this.targets[i].hots[a].name,value:healing,hot:1,over:gcd,type:"heal"})
                         this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})
                         //expire hot
                         if (hotTimeLeft<0) {

@@ -65,6 +65,7 @@ export default {
                             let healing = this.usedAbility.healingToTargets[i][j].heal * (1 + this.targets[this.usedAbility.healingToTargets[i][j].id].healingBonus)
 
                             this.overhealingDone += this.targets[this.usedAbility.healingToTargets[i][j].id].heal(healing)
+                            this.targets[this.usedAbility.healingToTargets[i][j].id].abilitiesOnThisTarget.push({name:this.usedAbility.name,value:healing,hot:0,type:"heal"})
                             this.healingDone += healing
                             this.healingDoneArr[this.usedAbility.name].push( {time: this.time, heal: Math.floor(healing)})
                         }
@@ -78,7 +79,7 @@ export default {
                                 this.usedAbility.damageToTargets[i][j].id = this.friendlyTargets + +Math.floor(Math.random()*this.enemyTargets.length)
                             }
 
-                            this.targets[this.usedAbility.damageToTargets[i][j].id].dealDamage(damage)
+                            this.targets[this.usedAbility.damageToTargets[i][j].id].dealDamage(damage,this.usedAbility.name)
                             this.damageDone += damage
                             this.damageDoneArr[this.usedAbility.name].push( {time: this.time, damage: Math.floor(damage)})
                         }
@@ -102,6 +103,7 @@ export default {
                     } else if (runAfter[i] === "heal") {
                         for (let t=0; t<runAfter[i+2].length; t++) {
                             this.overhealingDone +=  this.targets[runAfter[i+2][t]].heal(runAfter[i+1])
+                            this.targets[runAfter[i+2][t]].abilitiesOnThisTarget.push({name:runAfter[i+3],value:runAfter[i+1],hot:0,type:"heal"})
                             this.healingDone += runAfter[i+1]
                             this.healingDoneArr[runAfter[i+3]].push( {time: this.time, heal:Math.floor(runAfter[i+1]) } )
                         }
@@ -118,6 +120,7 @@ export default {
                             for (let j = 0; j < castedHeal.healingToTargets[k].length; j++) {
                                 let healing = castedHeal.healingToTargets[k][j].heal  * (1+this.targets[castedHeal.healingToTargets[k][j].id].healingBonus)
                                 this.overhealingDone += this.targets[castedHeal.healingToTargets[k][j].id].heal(healing)
+                                this.targets[castedHeal.healingToTargets[k][j].id].abilitiesOnThisTarget.push({name:castedHeal.name,value:healing,hot:0,type:"heal"})
                                 this.healingDone += healing
                                 this.healingDoneArr[castedHeal.name].push( {time: this.time, heal: Math.floor(castedHeal.healingToTargets[k][j].heal)})
                             }

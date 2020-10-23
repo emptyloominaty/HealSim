@@ -17,16 +17,19 @@ export default {
 
                     let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)))
 
+                    let healTargets = []
                     if (injuredTargets.length===0) {
-                        injuredTargets = [0,1,2,3,4]
-                    } else if (injuredTargets.length<chiJitargets) {
-                        injuredTargets.push(Math.round(Math.random()*chiJitargets))
+                        healTargets = [0,1,2,3,4]
+                    } else if (injuredTargets.length>=chiJitargets) {
+                        for (let i = 0; i<chiJitargets; i++) {
+                            let targetxd = injuredTargets[Math.round(Math.random()*(injuredTargets.length-1))]
+                            healTargets.push(targetxd)
+                        }
                     }
-
 
                     for (let i = 0; i<chiJitargets; i++) {
                         crit = this.critChance(stats.crit)
-                        returnData.healingToTargets.push([{id: injuredTargets[i], heal: mainHeal*crit}])
+                        returnData.healingToTargets.push([{id: healTargets[i], heal: mainHeal*crit}])
                     }
 
                     if (character.buffs2.chiJiEnveloping<3) {

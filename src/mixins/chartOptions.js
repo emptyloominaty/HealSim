@@ -158,7 +158,17 @@ export default {
                     }]
                 }
             },
-
+            chartOptionsStacked: {
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Heal'
+                        },
+                        stacked: true
+                    }]
+                }
+            }
 
 
 

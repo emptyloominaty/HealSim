@@ -16,7 +16,7 @@ export default {
             //Config
             let fightLength = 200 //sec
             let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1}
-            let stats = {int:679, haste:25.8, crit:38.8, vers:3.12, mastery:105.2}
+            let stats = {int:679, crit:25.8, haste:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
@@ -90,29 +90,26 @@ export default {
                 //TEST dmg
                 for(let t = 0; t<this.friendlyTargets.length; t++ ) {
                     if (Math.random()>Math.random()) {
-                        this.targets[t].dealDamage(100)
+                        this.targets[t].dealDamage(100,"dmg") //value,name
                     }
                 }
                 //TEST dmg
                 for(let t = 0; t<this.friendlyTargets.length; t++ ) {
                     if (Math.random()>Math.random()*5) {
-                        this.targets[t].dealDamage(1000)
+                        this.targets[t].dealDamage(1000,"bigdmg")
                     }
                 }
-
-
-
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
 
 
-
                 timeline[fl] = {id:fl, time:this.time.toFixed(1), rems:this.hotsData["Renewing Mist"].length, hots:JSON.parse(JSON.stringify(this.hotsData)),
                     manaUsed:this.usedAbility.manaUsed, usedAbility:this.usedAbility.name, usedAbility2:"", damageDone:dmgGcd, healingDone:healGcd,
-                    character:JSON.parse(JSON.stringify(this.character)), usedAbilityFileName:"", usedAbilityFileName2:"", upwelling: 0, targets:JSON.parse(JSON.stringify(this.targets))}
+                    character:JSON.parse(JSON.stringify(this.character)), usedAbilityFileName:"", usedAbilityFileName2:"", upwelling: 0, targets:JSON.parse(JSON.stringify(this.targets)),
+                    usedAbilityData:JSON.parse(JSON.stringify(this.usedAbility)),mana:this.character.mana,haste:this.character.stats.haste}
 
-                if (this.usedAbility.hasOwnProperty('upwelling')) {
+            if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
             }
@@ -145,8 +142,61 @@ export default {
             }
 
 
-
+            this.generateChartData(timeline,"rems","ReMs","setChartData","#78f871",0)
+            this.generateChartData(timeline,"mana","Mana","setChartDataMana","#6edcf8",0.4)
+            this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
+            this.generateChartData(timeline,"healingDone","Heal","setChartDataHeal","#05c300",0.5)
+            this.generateChartData(timeline,"haste","Haste","setChartDataHaste","#a800c3",0.5)
+            this.generateStackedChartData(timeline,"haste","Haste","setChartStacked","#a800c3",0.5)
             return timeline
+        },
+        generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
+            let labels = []
+            let data = []
+            for (let i=0; i<timeline.length ; i++) {
+                labels.push(timeline[i].time)
+                data.push(timeline[i][name])
+            }
+
+            let chartdata = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: nameLabel,
+                        fontColor: '#ffffff',
+                        borderColor: lineColor,
+                        data: data,
+                        pointRadius: 4,
+                        lineTension:lineTension,
+                        pointHoverRadius: 7,
+                    }
+                ]
+            }
+            this.$store.commit(store,chartdata)
+        },
+        generateStackedChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
+            let labels = []
+            let data = []
+            for (let i=0; i<timeline.length ; i++) {
+                labels.push(timeline[i].time)
+                data.push(timeline[i][name])
+            }
+
+            let chartdata = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: nameLabel,
+                        fontColor: '#ffffff',
+                        borderColor: lineColor,
+                        data: data,
+                        pointRadius: 4,
+                        lineTension:lineTension,
+                        pointHoverRadius: 7,
+                    }
+                ]
+            }
+            this.$store.commit(store,chartdata)
         }
     }
 }
