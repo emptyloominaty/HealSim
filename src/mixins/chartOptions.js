@@ -3,8 +3,8 @@ export default {
         return {
             chartOptionsRems:  {
                 responsive: true,
-                    maintainAspectRatio: false,
-                    legend: { labels: {fontColor:'#fff'}},
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
                         display: true,
@@ -38,8 +38,8 @@ export default {
             },
             chartOptionsHaste :{
                 responsive: true,
-                    maintainAspectRatio: false,
-                    legend: { labels: {fontColor:'#fff'}},
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
                         display: true,
@@ -128,7 +128,7 @@ export default {
             },
             chartOptionsMana: {
                 responsive: true,
-                    maintainAspectRatio: false,
+                maintainAspectRatio: false,
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
@@ -158,14 +158,74 @@ export default {
                     }]
                 }
             },
-            chartOptionsStacked: {
+            chartOptionsRaidHp: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
                 scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+
+                    yAxes: [{
+                        id:"A",
+                        position: "left",
+                        display: true,
+                        gridLines: {
+                            color: '#555'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Raid Health'
+                        }
+                    },{
+                        id:"B",
+                        position: "right",
+                        display: true,
+                        ticks: {
+                            suggestedMin: 0,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Boss Health'
+                        }
+
+                    }]
+                }
+            }, chartOptionsStacked: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
                             labelString: 'Heal'
                         },
-                        stacked: true
+                        stacked: true,
+                        gridLines: {
+                            color: '#555'
+                        },
                     }]
                 }
             }

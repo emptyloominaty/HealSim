@@ -29,6 +29,7 @@ export default {
                 }
             }
             let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
+            this.raidHealth = totalRaidHealth - raidMissingHealth
 
             /* if (usedAbility===0) { //Life Cocoon
                 usedAbility = this.heals[healList["Life Cocoon"]].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])

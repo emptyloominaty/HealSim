@@ -46,6 +46,7 @@ export default {
             this.usedAbility = {manaUsed:0,gcd:0}
 
             //------------------------
+            this.raidHealth = 0
             this.overhealingDone = 0
             this.manaUsed = 0
             this.healingDone = 0
@@ -104,11 +105,28 @@ export default {
                 dmgGcd = this.damageDone - dmgGcd
 
 
-                timeline[fl] = {id:fl, time:this.time.toFixed(1), rems:this.hotsData["Renewing Mist"].length, hots:JSON.parse(JSON.stringify(this.hotsData)),
-                    manaUsed:this.usedAbility.manaUsed, usedAbility:this.usedAbility.name, usedAbility2:"", damageDone:dmgGcd, healingDone:healGcd,
-                    character:JSON.parse(JSON.stringify(this.character)), usedAbilityFileName:"", usedAbilityFileName2:"", upwelling: 0, targets:JSON.parse(JSON.stringify(this.targets)),
-                    usedAbilityData:JSON.parse(JSON.stringify(this.usedAbility)),mana:this.character.mana,haste:this.character.stats.haste}
+                timeline[fl] = {
+                    id:fl,
+                    time:this.time.toFixed(1),
+                    rems:this.hotsData["Renewing Mist"].length,
+                    hots:JSON.parse(JSON.stringify(this.hotsData)),
+                    manaUsed:this.usedAbility.manaUsed,
+                    usedAbility:this.usedAbility.name,
+                    usedAbility2:"", damageDone:dmgGcd,
+                    healingDone:healGcd,
+                    character:JSON.parse(JSON.stringify(this.character)),
+                    usedAbilityFileName:"",
+                    usedAbilityFileName2:"",
+                    upwelling: 0,
+                    targets:JSON.parse(JSON.stringify(this.targets)),
+                    usedAbilityData:JSON.parse(JSON.stringify(this.usedAbility)),
+                    mana:this.character.mana,
+                    haste:this.character.stats.haste,
+                    raidHealth:this.raidHealth,
+                    bossHealth:this.targets[this.enemyTargets[0]].health,
 
+
+                }
             if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
@@ -140,14 +158,15 @@ export default {
                 timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'')
                 timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'')
             }
-
-
             this.generateChartData(timeline,"rems","ReMs","setChartData","#78f871",0)
             this.generateChartData(timeline,"mana","Mana","setChartDataMana","#6edcf8",0.4)
             this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
             this.generateChartData(timeline,"healingDone","Heal","setChartDataHeal","#05c300",0.5)
             this.generateChartData(timeline,"haste","Haste","setChartDataHaste","#a800c3",0.5)
-            this.generateStackedChartData(timeline,"haste","Haste","setChartStacked","#a800c3",0.5)
+
+            this.generateChartData2(timeline,["raidHealth","bossHealth"],["Raid Health","Boss Health"],"setChartDataRaidHp",["#34c33b","#ce383e"],[0.5,0.5])
+
+            this.generateStackedChartData(timeline,"haste","TEST","setChartStacked",0.3)
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
@@ -169,32 +188,110 @@ export default {
                         pointRadius: 4,
                         lineTension:lineTension,
                         pointHoverRadius: 7,
-                    }
+                    },
                 ]
             }
             this.$store.commit(store,chartdata)
         },
-        generateStackedChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
+        generateChartData2(timeline,name,nameLabel,store,lineColor,lineTension) {
             let labels = []
-            let data = []
+            let data = [[],[],[],[],[],[]]
             for (let i=0; i<timeline.length ; i++) {
                 labels.push(timeline[i].time)
-                data.push(timeline[i][name])
+                for (let a=0; a<name.length ; a++) {
+                    data[a].push(timeline[i][name[a]])
+                }
             }
-
             let chartdata = {
                 labels: labels,
                 datasets: [
                     {
-                        label: nameLabel,
+                        yAxisID: 'A',
+                        label: nameLabel[0],
                         fontColor: '#ffffff',
-                        borderColor: lineColor,
-                        data: data,
+                        borderColor: lineColor[0],
+                        data: data[0],
                         pointRadius: 4,
-                        lineTension:lineTension,
+                        lineTension:lineTension[0],
                         pointHoverRadius: 7,
-                    }
+                    },   {
+                        yAxisID: 'B',
+                        label: nameLabel[1],
+                        fontColor: '#ffffff',
+                        borderColor: lineColor[1],
+                        data: data[1],
+                        pointRadius: 4,
+                        lineTension:lineTension[1],
+                        pointHoverRadius: 7,
+                    },
                 ]
+            }
+            this.$store.commit(store,chartdata)
+        },
+        generateStackedChartData(timeline,name,nameLabel,store,lineTension) {
+            const colors = {
+                green: {
+                    fill: '#a1eaa2',
+                    stroke: '#5eb84d',
+                },
+                lightBlue: {
+                    fill: '#abdcdd',
+                    stroke: '#00cddd',
+                },
+                darkBlue: {
+                    fill: '#92bed2',
+                    stroke: '#166fbf',
+                },
+                purple: {
+                    fill: '#9b8ec8',
+                    stroke: '#75539e',
+                },
+                yellow: {
+                    fill: '#c8c280',
+                    stroke: '#c4be0b',
+                },
+                orange: {
+                    fill: '#c8a985',
+                    stroke: '#9e5f1b',
+                },
+                red: {
+                    fill: '#c8807d',
+                    stroke: '#9e3e3c',
+                },
+            }
+            let colorsNames = Object.keys(colors)
+
+            let labels = []
+            let data = [[5,5,6,8,9,10,5,9,6,8,2,5,6,8,9,5,2,5,5,6,5,8,1,1,1,1,1,1],[1,1,1,2,2,2,2,3,3,3,3,4,6,6,6,8,8,5,5,6,5,3,2,2,2,2,2,2]]
+            for (let i=0; i<timeline.length ; i++) {
+                labels.push(timeline[i].time)
+                /*data.push(timeline[i][name])*/
+            }
+
+            //generate dataset
+            let datasets = []
+            for (let i = 0; i<data.length; i++) {
+                datasets.push({
+                    fill: true,
+                    backgroundColor: colors[colorsNames[i]].fill,
+                    label: nameLabel+i,
+                    fontColor: '#ffffff',
+                    borderColor: colors[colorsNames[i]].stroke,
+                    pointHighlightStroke: colors[colorsNames[i]].stroke,
+                    borderCapStyle: 'butt',
+                    pointRadius: 4,
+                    lineTension:lineTension,
+                    pointHoverRadius: 7,
+                    data: data[i],
+                })
+            }
+            console.log(data.length)
+
+
+
+            let chartdata = {
+                labels: labels,
+                datasets: datasets
             }
             this.$store.commit(store,chartdata)
         }

@@ -2,8 +2,10 @@
   <div class="home">
     <Settings/>
     <Timeline/>
+    <Chart :chart-data="stackedData" :options="chartOptionsStacked"  />
     <Chart :chart-data="healData" :options="chartOptionsHeal"  />
     <Chart :chart-data="damageData" :options="chartOptionsDamage"  />
+    <Chart :chart-data="raidHpData" :options="chartOptionsRaidHp"  />
     <Chart :chart-data="manaData" :options="chartOptionsMana"  />
     <Chart :chart-data="remsData" :options="chartOptionsRems"  />
     <Chart :chart-data="hasteData" :options="chartOptionsHaste"  />
@@ -29,11 +31,13 @@ export default {
   },
   data() {
     return {
+      stackedData:[],
       hasteData: [],
       remsData:[],
       damageData:[],
       healData:[],
-      manaData:[]
+      manaData:[],
+      raidHpData:[]
     }
   },
   watch: {
@@ -51,8 +55,13 @@ export default {
     },
     '$store.state.chartDataMana': function() {
       this.manaData = this.$store.state.chartDataMana
+    },
+    '$store.state.chartDataStacked': function() {
+      this.stackedData = this.$store.state.chartDataStacked
+    },
+    '$store.state.chartDataRaidHp': function() {
+      this.raidHpData = this.$store.state.chartDataRaidHp
     }
-
   }
 }
 </script>
