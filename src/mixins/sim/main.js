@@ -124,8 +124,6 @@ export default {
                     haste:this.character.stats.haste,
                     raidHealth:this.raidHealth,
                     bossHealth:this.targets[this.enemyTargets[0]].health,
-
-
                 }
             if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
@@ -166,7 +164,7 @@ export default {
 
             this.generateChartData2(timeline,["raidHealth","bossHealth"],["Raid Health","Boss Health"],"setChartDataRaidHp",["#34c33b","#ce383e"],[0.5,0.5])
 
-            this.generateStackedChartData(timeline,"haste","TEST","setChartStacked",0.3)
+            this.generateStackedChartData(timeline,"healingDoneArr",[],"setChartStacked",0.2)
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
@@ -258,36 +256,155 @@ export default {
                     fill: '#c8807d',
                     stroke: '#9e3e3c',
                 },
+                white: {
+                    fill: '#b4afac',
+                    stroke: '#fffdff',
+                },
+                darkGreen: {
+                    fill: '#4ca244',
+                    stroke: '#006400',
+                },
+                greenYellow: {
+                    fill: '#98c96e',
+                    stroke: '#ADFF2F',
+                },
+                pink: {
+                    fill: '#ffa7cb',
+                    stroke: '#FF69B4',
+                },
+
+                green2: {
+                    fill: '#a1eaa2',
+                    stroke: '#5eb84d',
+                },
+                lightBlue2: {
+                    fill: '#abdcdd',
+                    stroke: '#00cddd',
+                },
+                darkBlue2: {
+                    fill: '#92bed2',
+                    stroke: '#166fbf',
+                },
+                purple2: {
+                    fill: '#9b8ec8',
+                    stroke: '#75539e',
+                },
+                yellow2: {
+                    fill: '#c8c280',
+                    stroke: '#c4be0b',
+                },
+                orange2: {
+                    fill: '#c8a985',
+                    stroke: '#9e5f1b',
+                },
+                red2: {
+                    fill: '#c8807d',
+                    stroke: '#9e3e3c',
+                },
+                white2: {
+                    fill: '#b4afac',
+                    stroke: '#fffdff',
+                },
+                darkGreen2: {
+                    fill: '#4ca244',
+                    stroke: '#006400',
+                },
+                greenYellow2: {
+                    fill: '#98c96e',
+                    stroke: '#ADFF2F',
+                },
+                pink2: {
+                    fill: '#ffa7cb',
+                    stroke: '#FF69B4',
+                },
+                darkGreen3: {
+                    fill: '#4ca244',
+                    stroke: '#006400',
+                },
+                greenYellow3: {
+                    fill: '#98c96e',
+                    stroke: '#ADFF2F',
+                },
+                pink3: {
+                    fill: '#ffa7cb',
+                    stroke: '#FF69B4',
+                }
             }
             let colorsNames = Object.keys(colors)
 
+            let dataArray = this[name]
+            let dataArrayKeys = Object.keys(dataArray)
+
             let labels = []
-            let data = [[5,5,6,8,9,10,5,9,6,8,2,5,6,8,9,5,2,5,5,6,5,8,1,1,1,1,1,1],[1,1,1,2,2,2,2,3,3,3,3,4,6,6,6,8,8,5,5,6,5,3,2,2,2,2,2,2]]
-            for (let i=0; i<timeline.length ; i++) {
-                labels.push(timeline[i].time)
-                /*data.push(timeline[i][name])*/
+            let data = []
+
+
+            for (let i=0; i<timeline.length ; i++) { //TIME LOOP
+                 let timeNow = timeline[i].time
+                 labels.push(timeNow)
+
+                 for (let a=0; a<dataArrayKeys.length ; a++) { //HEALS LOOP
+                     if (!data[a]) {
+                         data[a]=[]
+                     }
+
+                     for (let b=0; b<dataArray[dataArrayKeys[a]].length ; b++) {   //HEAL LOOP //TODO:   FUNCTION TO CALC AVG VALUE
+
+                         if (Math.round(dataArray[dataArrayKeys[a]][b].time*10)/10 === +timeNow) { //dataArray[dataArrayKeys[a]][b] &&
+                            // console.log(i+" ( "+timeNow+" ) "+dataArrayKeys[a]+"/////"+dataArray[dataArrayKeys[a]][b].heal)
+                             if (data[a][i]) {
+                                 data[a][i]+=(dataArray[dataArrayKeys[a]][b].heal)
+                             } else {
+                                 data[a][i]=(dataArray[dataArrayKeys[a]][b].heal)
+                             }
+                         }
+                     }
+                     if (!data[a][i]) {
+                         data[a][i]=0
+                     }
+
+                 }
+             }
+
+            let length = dataArrayKeys.length
+            for (let a=0; a<length ; a++) {
+                const arr = data[a]
+                if (arr==undefined) {break;}
+                const someIsNotZero = arr.some(item => item !== 0)
+                const isAllZero = !someIsNotZero // <= this is your result
+                if (isAllZero) {
+                    dataArrayKeys.splice(a,1)
+                    data.splice(a,1)
+                    a--
+                }
+
+            }
+            console.log("XD")
+
+
+
+
+            for (let a=0; a<dataArrayKeys.length ; a++) {
+                nameLabel.push(dataArrayKeys[a])
             }
 
             //generate dataset
             let datasets = []
-            for (let i = 0; i<data.length; i++) {
+            for (let i = 0; i<nameLabel.length; i++) {
                 datasets.push({
                     fill: true,
                     backgroundColor: colors[colorsNames[i]].fill,
-                    label: nameLabel+i,
+                    label: nameLabel[i],
                     fontColor: '#ffffff',
                     borderColor: colors[colorsNames[i]].stroke,
                     pointHighlightStroke: colors[colorsNames[i]].stroke,
                     borderCapStyle: 'butt',
-                    pointRadius: 4,
+                    pointRadius: 2,
                     lineTension:lineTension,
                     pointHoverRadius: 7,
                     data: data[i],
                 })
             }
-            console.log(data.length)
-
-
 
             let chartdata = {
                 labels: labels,

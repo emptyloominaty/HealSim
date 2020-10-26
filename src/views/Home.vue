@@ -2,7 +2,7 @@
   <div class="home">
     <Settings/>
     <Timeline/>
-    <Chart :chart-data="stackedData" :options="chartOptionsStacked"  />
+    <Chart style="height:700px;" :chart-data="stackedData" :options="chartOptionsStacked"  />
     <Chart :chart-data="healData" :options="chartOptionsHeal"  />
     <Chart :chart-data="damageData" :options="chartOptionsDamage"  />
     <Chart :chart-data="raidHpData" :options="chartOptionsRaidHp"  />
