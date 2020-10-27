@@ -12,6 +12,7 @@ export default {
                     //Thunder Focus Tea
                     if (character.buffs2.thunderFocusTea===1) {
                         rmDuration = 30
+                        rmHeal = rmHeal * 1.5
                         character.buffs2.thunderFocusTea = 0
                     }
 

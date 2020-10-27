@@ -164,7 +164,7 @@ export default {
 
             this.generateChartData2(timeline,["raidHealth","bossHealth"],["Raid Health","Boss Health"],"setChartDataRaidHp",["#34c33b","#ce383e"],[0.5,0.5])
 
-            this.generateStackedChartData(timeline,"healingDoneArr",[],"setChartStacked",0.2)
+            this.generateStackedChartData(timeline,"healingDoneArr",[],"setChartStacked",0.3)
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
@@ -183,7 +183,10 @@ export default {
                         fontColor: '#ffffff',
                         borderColor: lineColor,
                         data: data,
-                        pointRadius: 4,
+                        pointStyle: "circle",
+                        pointBorderColor: "rgba(0,0,0,0)",
+                        pointBackgroundColor: "rgba(0,0,0,0)",
+                        pointRadius: 6,
                         lineTension:lineTension,
                         pointHoverRadius: 7,
                     },
@@ -209,7 +212,10 @@ export default {
                         fontColor: '#ffffff',
                         borderColor: lineColor[0],
                         data: data[0],
-                        pointRadius: 4,
+                        pointStyle: "circle",
+                        pointBorderColor: "rgba(0,0,0,0)",
+                        pointBackgroundColor: "rgba(0,0,0,0)",
+                        pointRadius: 6,
                         lineTension:lineTension[0],
                         pointHoverRadius: 7,
                     },   {
@@ -218,7 +224,10 @@ export default {
                         fontColor: '#ffffff',
                         borderColor: lineColor[1],
                         data: data[1],
-                        pointRadius: 4,
+                        pointStyle: "circle",
+                        pointBorderColor: "rgba(0,0,0,0)",
+                        pointBackgroundColor: "rgba(0,0,0,0)",
+                        pointRadius: 6,
                         lineTension:lineTension[1],
                         pointHoverRadius: 7,
                     },
@@ -228,108 +237,84 @@ export default {
         },
         generateStackedChartData(timeline,name,nameLabel,store,lineTension) {
             const colors = {
-                green: {
-                    fill: '#a1eaa2',
-                    stroke: '#5eb84d',
+                yellow: {
+                    stroke: '#f9ff6a',
+                },
+                orange: {
+                    stroke: '#e78b24',
+                },
+                red: {
+                    stroke: '#9e3e3c',
+                },
+                pink2: {
+                    stroke: '#ffa7cb',
+                },
+                green2: {
+                    stroke: '#80ea80',
                 },
                 lightBlue: {
-                    fill: '#abdcdd',
                     stroke: '#00cddd',
                 },
                 darkBlue: {
-                    fill: '#92bed2',
                     stroke: '#166fbf',
-                },
-                purple: {
-                    fill: '#9b8ec8',
-                    stroke: '#75539e',
-                },
-                yellow: {
-                    fill: '#c8c280',
-                    stroke: '#c4be0b',
-                },
-                orange: {
-                    fill: '#c8a985',
-                    stroke: '#9e5f1b',
-                },
-                red: {
-                    fill: '#c8807d',
-                    stroke: '#9e3e3c',
                 },
                 white: {
-                    fill: '#b4afac',
                     stroke: '#fffdff',
-                },
-                darkGreen: {
-                    fill: '#4ca244',
-                    stroke: '#006400',
-                },
-                greenYellow: {
-                    fill: '#98c96e',
-                    stroke: '#ADFF2F',
-                },
-                pink: {
-                    fill: '#ffa7cb',
-                    stroke: '#FF69B4',
-                },
-
-                green2: {
-                    fill: '#a1eaa2',
-                    stroke: '#5eb84d',
-                },
-                lightBlue2: {
-                    fill: '#abdcdd',
-                    stroke: '#00cddd',
                 },
                 darkBlue2: {
-                    fill: '#92bed2',
-                    stroke: '#166fbf',
+                    stroke: '#92bed2',
                 },
                 purple2: {
-                    fill: '#9b8ec8',
-                    stroke: '#75539e',
+                    stroke: '#9b8ec8',
+                },
+                green: {
+                    stroke: '#5eb84d',
                 },
                 yellow2: {
-                    fill: '#c8c280',
-                    stroke: '#c4be0b',
+                    stroke: '#c8c280',
                 },
                 orange2: {
-                    fill: '#c8a985',
-                    stroke: '#9e5f1b',
+                    stroke:  '#c8a985',
                 },
                 red2: {
-                    fill: '#c8807d',
-                    stroke: '#9e3e3c',
+                    stroke: '#c8807d',
                 },
                 white2: {
-                    fill: '#b4afac',
-                    stroke: '#fffdff',
+                    stroke: '#b4afac',
+                },
+                darkGreen: {
+                    stroke: '#006400',
+                },
+                purple: {
+                    stroke: '#75539e',
+                },
+
+                pink: {
+                    stroke: '#FF69B4',
                 },
                 darkGreen2: {
-                    fill: '#4ca244',
-                    stroke: '#006400',
+                    stroke: '#4ca244',
                 },
                 greenYellow2: {
-                    fill: '#98c96e',
+                    stroke: '#98c96e',
+                },
+                greenYellow: {
                     stroke: '#ADFF2F',
-                },
-                pink2: {
-                    fill: '#ffa7cb',
-                    stroke: '#FF69B4',
-                },
-                darkGreen3: {
-                    fill: '#4ca244',
-                    stroke: '#006400',
-                },
-                greenYellow3: {
-                    fill: '#98c96e',
-                    stroke: '#ADFF2F',
-                },
-                pink3: {
-                    fill: '#ffa7cb',
-                    stroke: '#FF69B4',
                 }
             }
+
+            function getAvgValues(data) {
+                let avg = []
+                let val = [0,0,0,0,0]
+                for (let i = 0; i<data.length; i++) {
+                    val.splice(0,1)
+                    val.push(data[i])
+                    avg[i] = (val[0]+val[1]+val[2]+val[3]+val[4])/5
+                }
+                return avg
+            }
+
+
             let colorsNames = Object.keys(colors)
 
             let dataArray = this[name]
@@ -348,7 +333,7 @@ export default {
                          data[a]=[]
                      }
 
-                     for (let b=0; b<dataArray[dataArrayKeys[a]].length ; b++) {   //HEAL LOOP //TODO:   FUNCTION TO CALC AVG VALUE
+                     for (let b=0; b<dataArray[dataArrayKeys[a]].length ; b++) {   //HEAL LOOP
 
                          if (Math.round(dataArray[dataArrayKeys[a]][b].time*10)/10 === +timeNow) { //dataArray[dataArrayKeys[a]][b] &&
                             // console.log(i+" ( "+timeNow+" ) "+dataArrayKeys[a]+"/////"+dataArray[dataArrayKeys[a]][b].heal)
@@ -362,16 +347,25 @@ export default {
                      if (!data[a][i]) {
                          data[a][i]=0
                      }
-
                  }
              }
+
+
+           for (let a=0; a<dataArrayKeys.length ; a++) {
+               data[a]=getAvgValues(data[a])
+            }
+
+
+
+
+
 
             let length = dataArrayKeys.length
             for (let a=0; a<length ; a++) {
                 const arr = data[a]
                 if (arr==undefined) {break;}
                 const someIsNotZero = arr.some(item => item !== 0)
-                const isAllZero = !someIsNotZero // <= this is your result
+                const isAllZero = !someIsNotZero
                 if (isAllZero) {
                     dataArrayKeys.splice(a,1)
                     data.splice(a,1)
@@ -379,10 +373,6 @@ export default {
                 }
 
             }
-            console.log("XD")
-
-
-
 
             for (let a=0; a<dataArrayKeys.length ; a++) {
                 nameLabel.push(dataArrayKeys[a])
@@ -393,13 +383,14 @@ export default {
             for (let i = 0; i<nameLabel.length; i++) {
                 datasets.push({
                     fill: true,
-                    backgroundColor: colors[colorsNames[i]].fill,
+                    backgroundColor: colors[colorsNames[i]].stroke,
                     label: nameLabel[i],
                     fontColor: '#ffffff',
-                    borderColor: colors[colorsNames[i]].stroke,
-                    pointHighlightStroke: colors[colorsNames[i]].stroke,
-                    borderCapStyle: 'butt',
-                    pointRadius: 2,
+                    borderColor: "rgba(0,0,0,0)",
+                    pointStyle: "circle",
+                    pointBorderColor: "rgba(0,0,0,0)",
+                    pointBackgroundColor: "rgba(0,0,0,0)",
+                    pointRadius: 6,
                     lineTension:lineTension,
                     pointHoverRadius: 7,
                     data: data[i],

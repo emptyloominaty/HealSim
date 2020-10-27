@@ -25,6 +25,27 @@
         </div> -->
         <button v-on:click="reloadLmao()">Reload (TEST)</button>
         <targets :data="time" />
+        <table>
+            <tr>
+                <th> Heal </th>
+                <th> Amount </th>
+                <th> Hps </th>
+                <th> Casts </th>
+                <th> avg Cast </th>
+                <th> Mana Ef </th>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th> HPS </th>
+                <th> DPS </th>
+                <th> Hps </th>
+            </tr>
+        </table>
+
+
+
     </section>
 </template>
 

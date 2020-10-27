@@ -226,6 +226,9 @@ export default {
                         gridLines: {
                             color: '#555'
                         },
+                        ticks: {
+                            min: 1,
+                        }
                     }]
                 }
             }
