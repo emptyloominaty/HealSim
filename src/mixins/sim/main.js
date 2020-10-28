@@ -14,7 +14,7 @@ export default {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
             //Config
-            let fightLength = 200 //sec
+            let fightLength = 215 //sec
             let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1}
             let stats = {int:679, crit:25.8, haste:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%

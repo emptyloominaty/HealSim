@@ -102,13 +102,15 @@ export default {
             /* if (this.timelineData==undefined) {
                  this.timelineData =this.mainSim()
              }*/
-             let castsList = new Array(this.timelineData[0].heals.length).fill(0)
-             let amountList = new Array(this.timelineData[0].heals.length).fill(0)
-             let hpsList = new Array(this.timelineData[0].heals.length).fill(0)
-             let avgCastList = new Array(this.timelineData[0].heals.length).fill(0)
-             let manaEfList = new Array(this.timelineData[0].heals.length).fill(0)
+             let healsLength = this.timelineData[0].heals.length
+
+             let castsList = new Array(healsLength).fill(0)
+             let amountList = new Array(healsLength).fill(0)
+             let hpsList = new Array(healsLength).fill(0)
+             let avgCastList = new Array(healsLength).fill(0)
+             let manaEfList = new Array(healsLength).fill(0)
              //heal names
-             for (let i = 0; i<this.timelineData[0].heals.length; i++) {
+             for (let i = 0; i<healsLength; i++) {
                  nameList.push(this.timelineData[0].heals[i].name)
              }
 
@@ -124,9 +126,9 @@ export default {
                  }
              }
 
-             //amount
              let fightlength = this.timelineData[this.timelineData.length-1].time
              for(let i = 0; i<(Object.keys(this.timelineData[0].healArr).length); i++) {
+                 //amount
                  for(let a = 0; a<this.timelineData[0].healArr[nameList[i]].length; a++) {
                      amountList[i]+=this.timelineData[0].healArr[nameList[i]][a].heal
                  }

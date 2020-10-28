@@ -36,12 +36,12 @@ export default {
                         character.buffs.push({name:"Teaching of the Monastery", type:"buff", value:1, duration:totmDuration, maxDuration:totmDuration,})
                     }
 
-                    //CHI-JI
+                  /*  //CHI-JI
                     if (character.buffs2.chiJi>0) {
                         if (returnData.runAfter===0) {returnData.runAfter=[]}
                         returnData.runAfter.push("castHeal")
                         returnData.runAfter.push(15)
-                    }
+                    }*/
 
 
                     this.setCd()
