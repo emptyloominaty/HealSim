@@ -53,8 +53,8 @@
             </table>
 
             <!-- HPS DPS  -->
-            <p> HPS: </p>
-            <p> DPS: </p>
+            <p> HPS: {{ formatNumber2(avgHps) }} </p>
+            <!--<p> DPS: </p>-->
         </div>
 
 
@@ -75,7 +75,7 @@ export default {
          testb: 0,
          timelineData: this.mainSim(),
          tableData: [{name:"click reload pls",amount:0,hps:0,casts:0,avgCast:0,manaEf:0}] , //this.getHealTableData()  TODO: FIX PLS
-         reloadPls: 0
+         avgHps : 0
      }
     },
     methods: {
@@ -86,18 +86,19 @@ export default {
          formatNumber(num) {
              return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
          },
-        formatNumber2(num) {
+         formatNumber2(num) {
              if (num>999.99) {
                  num=Math.round((num/1000)*10)/10 +"k"
              } else if (num>999999.99) {
                  num=Math.round((num/1000000)*10)/10 +"M"
              }
             return num
-        },
+         },
          getHealTableData() {
              let data = []
              let nameList = []
              let rskCasts = 0
+             let avgHps = 0
             /* if (this.timelineData==undefined) {
                  this.timelineData =this.mainSim()
              }*/
@@ -150,7 +151,10 @@ export default {
                      manaEfList[i] = 0
                  }
 
+                 //get avg hps
+                 avgHps += amountList[i]
              }
+             avgHps = avgHps / fightlength
 
              for(let i = 0; i<nameList.length; i++) {
                  if (amountList[i]!==0) {
@@ -164,6 +168,21 @@ export default {
                      })
                  }
              }
+
+             //SORT BY AMOUNT
+             function compare( a, b ) {
+                 if ( a.amount < b.amount ){
+                     return 1
+                 }
+                 if ( a.amount > b.amount ){
+                     return -1
+                 }
+                 return 0
+             }
+             data.sort( compare )
+
+
+             this.avgHps = avgHps
              return data
          }
 
@@ -200,11 +219,14 @@ width:32px;
 .tables {
     display:flex;
     flex-direction:column;
-    text-align: left;
-    margin-left:15px;
+    text-align: center;
+    align-items: center;
+    /*margin-left:15px;*/
+    width:100%;
 }
 
 .tables table {
+    max-width:650px;
     border-collapse: collapse;
     text-align: center;
 }
