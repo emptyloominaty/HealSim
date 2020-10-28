@@ -112,18 +112,22 @@ export default {
                     hots:JSON.parse(JSON.stringify(this.hotsData)),
                     manaUsed:this.usedAbility.manaUsed,
                     usedAbility:this.usedAbility.name,
-                    usedAbility2:"", damageDone:dmgGcd,
+                    usedAbility2:"",
+                    damageDone:dmgGcd,
                     healingDone:healGcd,
                     character:JSON.parse(JSON.stringify(this.character)),
                     usedAbilityFileName:"",
                     usedAbilityFileName2:"",
+                    usedAbilityData:JSON.parse(JSON.stringify(this.usedAbility)),
                     upwelling: 0,
                     targets:JSON.parse(JSON.stringify(this.targets)),
-                    usedAbilityData:JSON.parse(JSON.stringify(this.usedAbility)),
                     mana:this.character.mana,
                     haste:this.character.stats.haste,
                     raidHealth:this.raidHealth,
                     bossHealth:this.targets[this.enemyTargets[0]].health,
+                    heals: [],
+                    healArr: [],
+                    damageArr: [],
                 }
             if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
@@ -165,6 +169,13 @@ export default {
             this.generateChartData2(timeline,["raidHealth","bossHealth"],["Raid Health","Boss Health"],"setChartDataRaidHp",["#34c33b","#ce383e"],[0.5,0.5])
 
             this.generateStackedChartData(timeline,"healingDoneArr",[],"setChartStacked",0.3)
+
+            timeline[0].heals = this.heals
+            timeline[0].healArr = this.healingDoneArr
+            timeline[0].damageArr = this.damageDoneArr
+
+
+
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {

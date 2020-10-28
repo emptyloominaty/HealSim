@@ -21,6 +21,8 @@ export default {
                         emBonus = 0.4
                     }
 
+                    emHeal = emHeal / (1+ emBonus) //TODO:FIX?????????????
+
                     //init
                     let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
