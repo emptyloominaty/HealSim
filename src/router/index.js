@@ -14,7 +14,21 @@ const routes = [
     path: '/remsim',
     name: 'Renewing Mist Simulation',
     component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/remSim.vue')
+      return import('../views/remSim.vue')
+    }
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: function () {
+      return import('../views/settings.vue')
+    }
+  },
+  {
+    path: '/heals',
+    name: 'Heals',
+    component: function () {
+      return import('../views/heals.vue')
     }
   }
 ]

@@ -23,14 +23,18 @@ export default {
 
                     //-------heal-------
                     crit = this.critChance(stats.crit)
-                    let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit)
+                    let mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
                     returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * rmHeal), duration: rmDuration, maxDuration: rmDuration, extended: 0, name: "Renewing Mist"}}]
 
                     returnData.runAfter = ["heal",mainHeal,[target[0]],"Gust of Mists"]
-
+                    if (hots["Essence Font"].includes(target[0])) {
+                        crit = this.critChance(stats.crit)
+                        mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                        returnData.runAfter.push("heal",mainHeal,[target[0]],"Gust of Mists")
+                    }
 
                     this.setCd()
 

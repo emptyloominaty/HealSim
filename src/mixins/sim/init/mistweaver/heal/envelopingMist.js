@@ -30,7 +30,7 @@ export default {
 
                     //-------heal-------
                     crit = this.critChance(stats.crit)
-                    let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit)
+                    let mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
                     let emHotHeal = spellpower * emHeal
                     let ebHotHeal = spellpower * ebHeal
 
@@ -39,6 +39,11 @@ export default {
                     returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: emHotHeal , duration: emDuration, maxDuration: emDuration, extended: 0, name: "Enveloping Mist", healBonus:emBonus }}]
 
                     returnData.runAfter = ["heal",mainHeal,[target[0]],"Gust of Mists"]
+                    if (hots["Essence Font"].includes(target[0])) {
+                        crit = this.critChance(stats.crit)
+                        mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                        returnData.runAfter.push("heal",mainHeal,[target[0]],"Gust of Mists")
+                    }
 
 
                     if (character.buffs2.chiJiEnveloping>0) {

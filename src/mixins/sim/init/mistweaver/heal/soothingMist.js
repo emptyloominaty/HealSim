@@ -29,6 +29,11 @@ export default {
                     let masteryRng = Math.floor(Math.random()*7)
                     if (masteryRng===0) {
                         returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
+                        if (hots["Essence Font"].includes(target[0])) {
+                            crit = this.critChance(stats.crit)
+                            masteryHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                            returnData.runAfter.push("heal",masteryHeal,[target[0]],"Gust of Mists")
+                        }
                     }
 
                     if (this.talents.jadeStatue===1) {

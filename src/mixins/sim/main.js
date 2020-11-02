@@ -15,7 +15,7 @@ export default {
             //------------------------------------------------------------Init------------------------------------------
             //Config
             let fightLength = 215 //sec
-            let talents = {mistwrap: 0, chiBurst: 1,  jadeStatue: 0, refreshingJadeWind:0, chiJi: 1, upwelling: 0, risingMist: 1}
+            let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
             let stats = {int:679, crit:25.8, haste:38.8, vers:3.12, mastery:105.2}
             let mana = 100 //%
             let spec = "mistweaver"
@@ -23,7 +23,16 @@ export default {
             let buffs = [{stat:"haste",increase:20,ppm:6,duration:6,lastproc:0,proc:60/2/*ppm*/,procced:0}] //proc stats
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
 
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: []}
+            //talents
+            let talentsStore = this.$store.state.talents
+            let talentsData = []
+            if (talentsStore.length>0) {
+                for (let i = 0; i<talentsStore.length; i++) {
+                    talents[talentsStore[i].value]=1
+                }
+            }
+
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: []}
             this.targets = this.createTargets(20,1,20000,1000000,0,1.2)
             this.friendlyTargets = []
             this.enemyTargets = []
@@ -278,8 +287,11 @@ export default {
                 purple2: {
                     stroke: '#9b8ec8',
                 },
+                pink: {
+                    stroke: '#FF69B4',
+                },
                 green: {
-                    stroke: '#5eb84d',
+                    stroke: '#98b86e',
                 },
                 yellow2: {
                     stroke: '#c8c280',
@@ -298,10 +310,6 @@ export default {
                 },
                 purple: {
                     stroke: '#75539e',
-                },
-
-                pink: {
-                    stroke: '#FF69B4',
                 },
                 darkGreen2: {
                     stroke: '#4ca244',

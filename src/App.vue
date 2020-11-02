@@ -2,7 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Heal Sim</router-link> |
-      <router-link to="/remSim">Rem Sim</router-link>
+      <router-link to="/remSim">Rem Sim</router-link> |
+      <router-link to="/heals">Heals</router-link> |
+      <router-link to="/settings">Settings</router-link>
     </div>
     <router-view/>
   </div>

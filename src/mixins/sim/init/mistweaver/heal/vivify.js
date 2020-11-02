@@ -17,7 +17,7 @@ export default {
 
                     //-------heal-------
                     crit = this.critChance(stats.crit)
-                    let masteryHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)) * crit)
+                    let masteryHeal = (((spellpower * (stats.mastery / 100))) * crit)
                     crit = this.critChance(stats.crit)
                     let mainHeal = ((spellpower * vivMain) * crit)
                     let cleaveHeal = (spellpower * vivCleave)
@@ -40,6 +40,11 @@ export default {
                     returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets, tomTargets]
 
                     returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
+                    if (hots["Essence Font"].includes(target[0])) {
+                        crit = this.critChance(stats.crit)
+                        masteryHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                        returnData.runAfter.push("heal",masteryHeal,[target[0]],"Gust of Mists")
+                    }
 
                     this.setCd()
 

@@ -15,6 +15,7 @@ export default new Vuex.Store({
         chartDataHaste: {},
         chartDataStacked: {},
         chartDataRaidHp: {},
+        talents: [],
         buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0},{stat:"haste",increase:20,ppm:3,duration:6,lastproc:0,proc:60/3,procced:0}],
         db : []
     },
@@ -41,10 +42,13 @@ export default new Vuex.Store({
             state.chartDataHaste = newData
         },
         setChartStacked(state, newData) {
-            state.chartDataStacked= newData
+            state.chartDataStacked = newData
         },
         setChartDataRaidHp(state, newData) {
-            state.chartDataRaidHp= newData
+            state.chartDataRaidHp = newData
+        },
+        setTalentsData(state, newData) {
+            state.talents = newData
         },
         debug(state, newData) {
             state.db = newData

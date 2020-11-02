@@ -14,10 +14,10 @@ export default {
                     //init
                     let crit
                     let returnData = {type:"damage",manaUsed: this.manaCost, damageToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, dotData: 0, name: this.name}
-                    let spellpower = (stats.int * (1 + (dmgMod / 100))) * (1 + (stats.vers / 100))
+                    let spellpower = (stats.int ) * (1 + (stats.vers / 100))
 
                     //-------damage-------
-                    let mainDmg = (spellpower * cbDamage)
+                    let mainDmg = (spellpower * cbDamage) * (1 + (dmgMod / 100))
                     let mainHeal = (spellpower * cbHeal)
 
                     crit = this.critChance(stats.crit)

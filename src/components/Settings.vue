@@ -256,11 +256,6 @@
         flex-direction:column;
     }
 
-
-    label {
-    padding-right: 5px;
-    }
-
     form button {
         margin:5px;
         padding: 3px;

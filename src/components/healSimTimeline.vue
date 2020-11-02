@@ -29,7 +29,7 @@
 
         <div class="tables">
             <!-- Heals -->
-            <table :key="reloadPls">
+            <table>
                 <thead>
                     <tr>
                         <th> Heal </th>

@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="inputDiv">
-                            <label> Procs per Minute </label>
+                            <label> PPM </label>
                             <input type="number"  step="any" v-model="ppm">
                         </div>
                     </section>
@@ -105,10 +105,26 @@
             </section>
         </form>
         <!-- TALENTS -->
-        <form v-on:submit.prevent="">
-           <h4>Talents</h4>
+        <form class="talents" v-on:submit.prevent="">
+            <h3>Talents</h3>
             <div>
-                <button  v-on:click="saveNewSettings()"  >Set Talents</button>
+                <div>
+                    <div class="inputDiv">
+                         <select class="selectTalent" v-for="(items,index) in talentsData" :key="index" v-model="talents[index]">
+                               <option v-for="(item,index2) in items" :key="index2" v-bind:value="{value:item.value}">
+                                    {{ item.name }}
+                               </option>
+                         </select>
+                    </div>
+                </div>
+                <div>
+                    <button  v-on:click="setTalents()"  >Set Talents</button>
+                </div>
+                <div class="talentsIcons">
+                    <div class="talentsIcon" v-for="(item,index) in talents" :key="index">
+                        <img :src="'/img/talents/'+item.value+'.jpg'" >
+                    </div>
+                </div>
             </div>
         </form>
 
@@ -136,16 +152,23 @@
                 amount: 0,
                 duration: 0,
                 ppm: 1,
+                //v-models talents
+                talentsData: [
+                    [{name:"Mist Wrap",value:"mistWrap"},{name:"Chi Burst",value:"chiBurst"}], //15
+                    [{name:"Mana Tea",value:"manaTea"}], //15        // Life Cycles / Spirit of the Crane / Mana Tea
+                    [{name:"Jade Serpent Statue",value:"jadeStatue"},{name:"Refreshing Jade Wind",value:"refreshingJadeWind"},{name:"Chi-Ji",value:"chiJi"}], //45
+                    [{name:"Upwelling",value:"upwelling"},{name:"Rising Mist",value:"risingMist"}] //50  {name:"Focused Thunder",value:"focusedThunder"},
+                ],
+                talents:[],
                 //vars
                 reloadTableKey:0,
             }
         },
         methods: {
+            setTalents() {
+                this.$store.commit('setTalentsData',this.talents)
+            },
             saveNewSettings() {
-
-                if (this.simMode=="") {
-                    this.simMode="infiniteRSK"
-                }
 
                 let data = {"extendRem":this.extendRem,"tftUse":this.tftUse,"fightLength":this.fightLength,
                     "statHaste":this.statHaste,"statCrit":this.statCrit,"statVers":this.statVers,
@@ -176,6 +199,13 @@
 </script>
 
 <style scoped>
+    img {
+        width:48px;
+    }
+
+    .talentsIcons {
+        width: 100%;
+    }
     .mainSection {
         display:flex;
         justify-content: center;
@@ -187,7 +217,7 @@
         flex-direction:column;
     }
 
-    .buffsSectionWH3 h3 {
+    .buffsSectionWH3 h3, .talents h3 {
         color: #d9b100;
         margin:3px;
         padding:0;
@@ -218,6 +248,16 @@
         height: 120px;
         width: 100%;
         overflow:auto;
+    }
+
+    .talents {
+        display:flex;
+        flex-wrap:nowrap;
+        flex-direction:column;
+    }
+
+    .selectTalent {
+        margin:7px;
     }
 
     table {
@@ -260,11 +300,6 @@
         flex-direction:column;
     }
 
-
-    label {
-    padding-right: 5px;
-    }
-
     form button {
         margin:5px;
         padding: 3px;
@@ -285,8 +320,9 @@
 
     .deletebutton {
         border:none;
-        margin:0px;
-        width:24px;
+        margin:0;
+        padding:0;
+        width:100%;
     }
     .deletebutton:focus {
         outline-color: #d7ac00;

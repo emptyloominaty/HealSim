@@ -16,10 +16,21 @@ export default {
                     this.buffs = []
                     this.hots = []
                     this.dots = []
+                    this.damageReduction = 0
                     this.infinitehp = infinitehp
+                    this.stats = {primary:100, crit:5, haste:10, vers:Math.random()*15, mastery:25}
                 }
 
                 dealDamage(amount,name) {
+                    //DR Buffs
+                    for (let i = 0; i<this.buffs.length; i++) {
+                        if (this.buffs[i].type==="damageReduction") {
+                            amount = amount / (1 + (this.buffs[i].amount/100))
+                        }
+                    }
+                    //DR Versa
+                    amount = amount / (1 + ((this.stats.vers/100)/2))
+
                     this.abilitiesOnThisTarget.push({name:name,value:amount,hot:0,type:"damage"})
                     if (this.absorb === 0) {
                         this.health = Math.round(this.health - amount)
@@ -43,11 +54,10 @@ export default {
                         }
                     }
 
-
-
                     if (this.health < 0) {
                         this.health = 0
                     }
+
                     if (this.infinitehp === 1) {
                         this.health = this.maxHealth/2
                     }

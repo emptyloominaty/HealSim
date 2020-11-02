@@ -4,7 +4,6 @@ export default {
     methods: {
         healAi(healList,damageList,fightLength,fl) {
             let usedAbility = 0
-            //TEST TEST TEST TEST
             let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
             let manaTarget = 100-((fightLength/100)*(fl/(fightLength/100)))/(fightLength/100)
             let mana = this.character.mana
@@ -35,16 +34,13 @@ export default {
                 usedAbility = this.heals[healList["Life Cocoon"]].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])
             }*/
 
-
             if (usedAbility===0) { //Thunder Focus Tea
                 usedAbility = this.heals[healList["Thunder Focus Tea"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
             }
 
-
             if (usedAbility===0) { //Renewing Mist
                 usedAbility = this.heals[healList["Renewing Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
-
 
             if (usedAbility===0 && this.character.talents.upwelling===0) { //Rising Sun Kick
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
@@ -78,7 +74,7 @@ export default {
                 usedAbility = this.heals[healList["Refreshing Jade Wind"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 &&  manaTarget/1.2 && this.hotsData["Essence Font"].length===0 && raidMissingHealthPercent > 0.05 && this.character.buffs2.chiJi===0 ) {
+            if (usedAbility===0 && canHeal > 0 && this.character.talents.upwelling===0 && manaTarget/1.2 && this.hotsData["Essence Font"].length===0 && raidMissingHealthPercent > 0.05 && this.character.buffs2.chiJi===0  ) {
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
@@ -116,11 +112,12 @@ export default {
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.02 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 6  && raidMissingHealthPercent > 0.04 && this.character.buffs2.chiJi===0) { //Essence Font
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.2 < mana && this.heals[healList["Essence Font"]].spec.upwellingStacks > 6  && raidMissingHealthPercent > 0.04 && this.character.buffs2.chiJi===0) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.05 < mana && raidMissingHealthPercent > 0.03 && this.character.buffs2.chiJi===0) { //Essence Font
+
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.6 < mana && raidMissingHealthPercent > 0.05 && this.character.buffs2.chiJi===0) { //Essence Font
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
@@ -128,46 +125,25 @@ export default {
                 usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-
             if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 2 && raidMissingHealthPercent > 0.02 && this.character.buffs2.chiJi===0) { //Vivify
                 usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-
-            if (usedAbility===0 && this.character.talents.upwelling===1) { //Rising Sun Kick
+            if (usedAbility===0 && this.character.talents.upwelling===1 && manaTarget*1.3 < mana) { //Rising Sun Kick
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 
-
-            if (usedAbility===0 && this.damages[damageList["Rising Sun Kick"]].cooldown<9.5) { //Blackout Kick
+            if (usedAbility===0 && (this.damages[damageList["Rising Sun Kick"]].cooldown<9.5 || this.damages[damageList["Rising Sun Kick"]].cooldown>=12)) { //Blackout Kick
                 usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.3 < mana && rems > 1 && raidMissingHealthPercent > 0.01 && this.character.buffs2.chiJi===0) { //Vivify
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.5 < mana && rems > 1 && raidMissingHealthPercent > 0.01 && this.character.buffs2.chiJi===0) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
             if (usedAbility===0) { //Tiger Palm
                 usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
             }
-
-
-            //TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             return usedAbility
         }
