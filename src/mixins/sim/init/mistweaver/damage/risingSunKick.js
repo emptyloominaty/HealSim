@@ -10,6 +10,7 @@ export default {
                     let rskDamage = 1.438 * 1.4 //+40%????
                     let rmHeal = 0.28
                     let rmExtend = 4 //sec
+                    let rmMaxExtend = 1 //x
 
                     //init
                     let crit
@@ -54,12 +55,12 @@ export default {
                                     let hotName = allTargets[i].hots[a].name
                                     let hot = allTargets[i].hots[a]
                                     if (hotName==="Renewing Mist" || hotName==="Enveloping Mist" || hotName==="Essence Font") {
-                                        if (hot.extended<hot.maxDuration-4) {
+                                        if (hot.extended<(hot.maxDuration*rmMaxExtend)-rmExtend) {
                                             hot.duration+=rmExtend
                                             hot.extended+=rmExtend
-                                        } else if (hot.extended<hot.maxDuration) {
-                                            hot.duration+=(hot.maxDuration-hot.extended)
-                                            hot.extended+=(hot.maxDuration-hot.extended)
+                                        } else if (hot.extended<(hot.maxDuration*rmMaxExtend)) {
+                                            hot.duration+=((hot.maxDuration*rmMaxExtend)-hot.extended)
+                                            hot.extended+=((hot.maxDuration*rmMaxExtend)-hot.extended)
                                         }
                                     }
                                 }

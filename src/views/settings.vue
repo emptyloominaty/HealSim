@@ -1,13 +1,19 @@
 <template>
     <div>
         Spec
+        Spec Settings (Healy SP%?  +rem extend)
         Stats? Save to LocalStorage
+
     </div>
 </template>
 
 <script>
     export default {
-        name: "settings"
+        name: "settings",
+        data() {
+            return {
+            }
+        }
     }
 </script>
 

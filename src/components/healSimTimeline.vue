@@ -188,6 +188,14 @@ export default {
              return data
          }
 
+    },
+    watch: {
+        '$store.state.healSetting': function () {
+            this.reloadLmao()
+        },
+        '$store.state.talents': function () {
+            this.reloadLmao()
+        },
     }
 }
 </script>

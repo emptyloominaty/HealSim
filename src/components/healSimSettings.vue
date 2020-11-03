@@ -3,14 +3,24 @@
         <form v-on:submit.prevent="">
             <div>
                 <div class="inputDiv">
-                    <label>Spec </label>
+                    <label>Raid / Dungeon Type </label>
                     <select  type="text" v-model="simMode">
-                        <option value="mistweaver" selected>Mistweaver Monk</option>
+                        <option value="30-1" selected>Raid 30</option>
+                        <option value="20-1" selected>Raid 20</option>
+                        <option value="20-5" selected>Raid 20 AOE 5</option>
+                        <option value="20-3" selected>Raid 20 AOE 3</option>
+                        <option value="20-2" selected>Raid 20 AOE 2</option>
+                        <option value="10-1" selected>Raid 10</option>
+                        <option value="5-1" selected>Dungeon 5</option>
                     </select>
                 </div>
                 <div class="inputDiv">
-                    <label>Extend Rem (1=100%) </label>
-                    <input type="number"  step="any" v-model="extendRem" >
+                    <label>Boss Fight</label>
+                    <select  type="text" v-model="bossFight">
+                        <option v-for="(item,index) in bossDamages" :key="index" :value="item">
+                        {{item[0].name}}
+                        </option>
+                    </select>
                 </div>
                 <div class="inputDiv">
                     <label>Use TFT (0=ReM 1=RSK)</label>
@@ -111,7 +121,7 @@
                 <div>
                     <div class="inputDiv">
                          <select class="selectTalent" v-for="(items,index) in talentsData" :key="index" v-model="talents[index]">
-                               <option v-for="(item,index2) in items" :key="index2" v-bind:value="{value:item.value}">
+                               <option v-for="(item,index2) in items" :key="index2" v-bind:value="{value:item.value}" >
                                     {{ item.name }}
                                </option>
                          </select>
@@ -138,15 +148,15 @@
         data() {
             return {
                 //v-models settings
-                extendRem:1, //1=100%
+                bossFight:1, //1=100%
                 tftUse:0, //0 = rem 1 = rsk
-                fightLength:120, //sec
-                statHaste:0, //%
-                statCrit:0, //%
-                statVers:0, //%
-                statMastery:0, //%
-                statInt: 1000,
-                simMode: "infiniteRSK",
+                fightLength:this.$store.state.healSetting.fightLength, //sec
+                statHaste:this.$store.state.healSetting.haste, //%
+                statCrit:this.$store.state.healSetting.crit, //%
+                statVers:this.$store.state.healSetting.vers, //%
+                statMastery:this.$store.state.healSetting.mastery, //%
+                statInt: this.$store.state.healSetting.int,
+                simMode: "20-1",
                 //v-models buffs
                 stat: "haste",
                 amount: 0,
@@ -162,6 +172,13 @@
                 talents:[],
                 //vars
                 reloadTableKey:0,
+                bossDamages:[
+                    [ //test boss - Normal
+                        {name:"Test Boss - Normal",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                        {time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                        {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                    ]
+                ]
             }
         },
         methods: {
@@ -169,12 +186,11 @@
                 this.$store.commit('setTalentsData',this.talents)
             },
             saveNewSettings() {
-
-                let data = {"extendRem":this.extendRem,"tftUse":this.tftUse,"fightLength":this.fightLength,
-                    "statHaste":this.statHaste,"statCrit":this.statCrit,"statVers":this.statVers,
-                    "statMastery":this.statMastery, "statInt":this.statInt,"simMode":this.simMode }
-
-                this.$store.commit('setData',data)
+                let data = {"bossFight":this.bossFight,"tftUse":this.tftUse,"fightLength":this.fightLength,
+                    "haste":+this.statHaste,"crit":+this.statCrit,"vers":+this.statVers,
+                    "mastery":+this.statMastery, "int":+this.statInt,"simMode":this.simMode }
+                this.$store.commit('setHealData',data)
+                console.log(this.extendRem)
             },
             saveNewBuff() {
                 let data = this.$store.state.buffs

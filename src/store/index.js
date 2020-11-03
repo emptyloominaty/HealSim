@@ -7,7 +7,10 @@ export default new Vuex.Store({
     state: {
         remSetting: {extendRem:1, tftUse:0, fightLength:120,
             statHaste:0, statCrit:0, statVers:0,
-            statMastery:0, statInt:0,simMode:"infiniteRSK" },
+            statMastery:0, statInt:0,simMode:"infiniteRSK"},
+        healSetting: {bossFight:1, tftUse:0, fightLength:240,
+            haste:38.8, crit:24, vers:2,
+            mastery:104, int:700,simMode:"20-1"},
         chartData: {},
         chartDataMana: {},
         chartDataDamage: {},
@@ -22,6 +25,9 @@ export default new Vuex.Store({
     mutations: {
         setData(state, newData) {
             state.remSetting = newData
+        },
+        setHealData(state, newData) {
+            state.healSetting = newData
         },
         setBuffsData(state, newData) {
             state.buffs = newData

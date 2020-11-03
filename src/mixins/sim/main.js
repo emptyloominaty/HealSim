@@ -13,15 +13,17 @@ export default {
         mainSim() {
             this.db = []
             //------------------------------------------------------------Init------------------------------------------
+            let storeData = this.$store.state.healSetting
             //Config
-            let fightLength = 215 //sec
+            let fightLength = storeData.fightLength
             let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
-            let stats = {int:679, crit:25.8, haste:38.8, vers:3.12, mastery:105.2}
+            let stats = {int:storeData.int, crit:storeData.crit, haste:storeData.haste, vers:storeData.vers, mastery:storeData.mastery}
             let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
-            let buffs = [{stat:"haste",increase:20,ppm:6,duration:6,lastproc:0,proc:60/2/*ppm*/,procced:0}] //proc stats
+            let buffs = this.$store.state.buffs //proc stats
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
+
 
             //talents
             let talentsStore = this.$store.state.talents
@@ -32,8 +34,10 @@ export default {
                 }
             }
 
+            let fff = storeData.simMode.split("-")
+            let bossFightData = storeData.bossFight
             this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: []}
-            this.targets = this.createTargets(20,1,20000,1000000,0,1.2)
+            this.targets = this.createTargets(fff[0],fff[1],20000,1000000,0,1.2)
             this.friendlyTargets = []
             this.enemyTargets = []
             this.injuredTargets = []
@@ -76,8 +80,8 @@ export default {
                 damageList[this.damages[i].name] = i
             }
 
-            console.log(this.targets)
-            console.log(this.heals)
+            //console.log(this.targets)
+            //console.log(this.heals)
             this.db.push(this.character.stats)
             //------------------------
             for (let fl = 0; fl<fightLength; fl++) {
@@ -143,8 +147,8 @@ export default {
                 }
             }
             //------------------------------------------------end (create charts, redraw timeline)----------------------
-            console.log(this.healingDoneArr)
-            console.log(this.damageDoneArr)
+            //console.log(this.healingDoneArr)
+            //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")
             this.db.push("Mana Used: "+ Math.round(this.manaUsed*100)/100)

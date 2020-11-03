@@ -43,6 +43,7 @@
 }
 
   #nav a:hover {
+    color: #d9b100;
     border: 1px solid #d9b100;
     box-shadow:0 0 3px 0px #d9b100;
   }

@@ -11,14 +11,9 @@ export default {
                     let duration = 12
                     //init
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: 0, name: this.name}
-                    let spellpower = (((healer.maxHealth*absorb)/100) * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
-
-                    //-------heal-------
-
-                    let mainHeal = spellpower
+                    let mainHeal = (((healer.maxHealth*absorb)/100) * (1 + (healMod / 100))) * (1 + (stats.vers / 100))
 
                     returnData.healingToTargets[0].push({id: target[0], heal: 0})
-
 
                     returnData.runAfter = ["absorb",mainHeal,[target[0]],duration]
 
