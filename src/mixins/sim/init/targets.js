@@ -2,7 +2,7 @@
 
 export default {
     methods: {
-        createTargets: function (friendly, enemy, friendlyhp, enemyhp, infinitehp, healthRatio) {
+        createTargets: function (friendly, enemyAdds, friendlyhp, enemyBosshp, enemyAddHp, infinitehp, healthRatio) {
             class Target {
                 constructor(name, health, type, infinitehp, healthRatio) {
                     this.name = name
@@ -117,10 +117,12 @@ export default {
 
             let targets = []
             for (let f = 0; f < friendly; f++) {
-                targets.push(new Target("T" + f, friendlyhp, "friendly", infinitehp, healthRatio))
+                targets.push(new Target("T" + f, friendlyhp[f], "friendly", infinitehp, healthRatio))
             }
-            for (let e = 0; e < enemy; e++) {
-                targets.push(new Target("Enemy" + e, enemyhp, "enemy", infinitehp, 1))
+
+            targets.push(new Target("Boss" , enemyBosshp, "enemy", infinitehp, 1))
+            for (let e = 0; e < enemyAdds; e++) {
+                targets.push(new Target("Add" + e, enemyAddHp, "enemy", infinitehp, 1))
             }
 
             return targets

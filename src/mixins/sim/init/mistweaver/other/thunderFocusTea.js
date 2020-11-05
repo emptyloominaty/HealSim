@@ -14,7 +14,9 @@ export default {
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
                     character.buffs2.thunderFocusTea = 1
-
+                    if (character.talents.focusedThunder===1) {
+                        character.buffs2.thunderFocusTea = 2
+                    }
                     this.setCd() //TODO: ???
 
                     return returnData

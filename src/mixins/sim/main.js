@@ -4,17 +4,19 @@ import damages from './init/damages'
 import targets from './init/targets'
 import healai from './loop/healAI'
 import hots from './loop/hots'
+import dots from './loop/dots'
 import init from './loop/init'
 import useAbility from './loop/useAbility'
+import healdmgFunctions from './healDmgFunctions'
 
 export default {
-    mixins: [heals,damages,targets,healai,hots,init,useAbility],
+    mixins: [heals,damages,targets,healai,hots,dots,init,useAbility,healdmgFunctions],
     methods: {
         mainSim() {
             this.db = []
-            //------------------------------------------------------------Init------------------------------------------
+//Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
-            //Config
+        //Config
             let fightLength = storeData.fightLength
             let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
             let stats = {int:storeData.int, crit:storeData.crit, haste:storeData.haste, vers:storeData.vers, mastery:storeData.mastery}
@@ -23,9 +25,10 @@ export default {
             let target = 0
             let buffs = this.$store.state.buffs //proc stats
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
+            let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
 
 
-            //talents
+        //talents
             let talentsStore = this.$store.state.talents
             let talentsData = []
             if (talentsStore.length>0) {
@@ -34,10 +37,22 @@ export default {
                 }
             }
 
-            let fff = storeData.simMode.split("-")
+        //boss
             let bossFightData = storeData.bossFight
+            console.log(bossFightData)
+            let bossDamageAbilities = []
+            for (let i = 0; i<bossFightData.length-1; i++) {
+                bossDamageAbilities.push(bossFightData[i+1])
+                bossDamageAbilities[i].used=0
+                bossDamageAbilities[i].cd=0
+            }
+            console.log(bossDamageAbilities)
+
+        //targets
+            let fff = storeData.simMode.split("-")
             this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: []}
-            this.targets = this.createTargets(fff[0],fff[1],20000,1000000,0,1.2)
+            this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,0,1.2)
+            this.targets[target].stats = this.character.stats
             this.friendlyTargets = []
             this.enemyTargets = []
             this.injuredTargets = []
@@ -83,40 +98,58 @@ export default {
             //console.log(this.targets)
             //console.log(this.heals)
             this.db.push(this.character.stats)
-            //------------------------
+//LOOP START------------------------
             for (let fl = 0; fl<fightLength; fl++) {
-                //-----------------------------------------------------Loop Init----------------------------------------
+//Loop Init---------------------------------------------------------------------------------------------
                 let healGcd = this.healingDone
                 let dmgGcd = this.damageDone
                 //calc gcd, hots,CDs, mana regen, Target Buffs, Buffs(Healer),
                 this.loopInit()
 
                 this.db.push("Time: "+Math.round(this.time*10)/10+" <b>Hots:</b> "+JSON.stringify(this.hotsData))
-                //-------------------------------------------------------loop-------------------------------------------
+//loop--------------------------------------------------------------------------------------------------
 
-                //Heal AI
+            //Heal AI
                 this.usedAbility = this.healAi(healList,damageList,fightLength,fl)
 
                 this.useAbility()
 
                 this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
 
-                //TEST dmg
-                for(let t = 0; t<this.friendlyTargets.length; t++ ) {
-                    if (Math.random()>Math.random()) {
-                        this.targets[t].dealDamage(100,"dmg") //value,name
+
+            //boss abilities
+                //{time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                for (let ba = 0; ba<bossDamageAbilities.length; ba++) {
+                    let bAbility = bossDamageAbilities[ba]
+                    if (bAbility.used===0 && bAbility.time<this.time ) {
+
+                        //(damage,name,target,who,dot = 0)
+
+                        for (let t = 0; t<bAbility.targets; t++) {
+                            let target = Math.round(Math.random()*this.friendlyTargets.length)
+                            this.doDamage(bAbility.damage,bAbility.name,target,"enemy")
+                        }
+
+                        if (bAbility.dot.isDot===1) {
+                            for (let t = 0; t<bAbility.targets; t++) {
+                                let target = Math.round(Math.random()*this.friendlyTargets.length)
+                                this.targets[target].applyDot(bAbility.dot.dotData)
+                            }
+                        }
+
+                        bAbility.used=1
+                    } else if (bAbility.used===1) {
+                        if (bAbility.cd>=bAbility.everySec) {
+                            bAbility.used=0
+                            bAbility.cd-=bAbility.everySec
+                        }
+                        bAbility.cd+=this.gcd
                     }
-                }
-                //TEST dmg
-                for(let t = 0; t<this.friendlyTargets.length; t++ ) {
-                    if (Math.random()>Math.random()*5) {
-                        this.targets[t].dealDamage(1000,"bigdmg")
-                    }
+
                 }
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
-
 
                 timeline[fl] = {
                     id:fl,
@@ -146,7 +179,7 @@ export default {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
             }
-            //------------------------------------------------end (create charts, redraw timeline)----------------------
+//LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
             //console.log(this.healingDoneArr)
             //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone

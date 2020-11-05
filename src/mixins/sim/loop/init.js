@@ -99,6 +99,7 @@ export default {
             let runGetHotsAgain = 0
             let loops = 0
 
+            this.damageDots(this.gcd)
             this.getHots()
             this.capHots("Enveloping Breath",6)
             this.capHots("Refreshing Jade Wind",6)

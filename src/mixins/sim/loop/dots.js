@@ -28,11 +28,10 @@ export default {
 
                         damage = Math.round(damage)
 
-                        this.targets[i].dealDamage(damage,this.targets[i].dots[a].name)
-                        this.targets[i].abilitiesOnThisTarget.push({name:this.targets[i].dots[a].name,value:damage,dot:1,over:gcd,type:"damage"})
                         if (this.targets[i].dots[a].dotType==="friendly" ) {
-                            this.damageDone += damage
-                            this.damageDoneArr[this.targets[i].dots[a].name].push({time: this.time, damage: damage})
+                            this.doDamage(damage,this.targets[i].dots[a].name,this.targets[i],"healer")
+                        } else {
+                            this.doDamage(damage,this.targets[i].dots[a].name,this.targets[i],"enemy")
                         }
                         //expire dot
                         if (dotTimeLeft<0) {

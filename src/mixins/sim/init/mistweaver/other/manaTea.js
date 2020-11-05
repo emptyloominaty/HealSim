@@ -3,7 +3,7 @@ export default {
     methods: {
         healFuncManaTea() {
             return function(character,target,healMod,hots) {
-                if (this.cooldown>=this.maxCooldown) {
+                if (this.cooldown>=this.maxCooldown && character.talents.manaTea===1) {
                     let stats = character.stats
                     //config
                     let duration = 10

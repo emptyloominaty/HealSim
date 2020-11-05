@@ -17,7 +17,7 @@
                 <div class="inputDiv">
                     <label>Boss Fight</label>
                     <select  type="text" v-model="bossFight">
-                        <option v-for="(item,index) in bossDamages" :key="index" :value="item">
+                        <option v-for="(item,index) in bossDamages" :key="index"  v-bind:value="{value:item}">
                         {{item[0].name}}
                         </option>
                     </select>
@@ -159,15 +159,15 @@
                 simMode: "20-1",
                 //v-models buffs
                 stat: "haste",
-                amount: 0,
-                duration: 0,
+                amount: 10,
+                duration: 10,
                 ppm: 1,
                 //v-models talents
                 talentsData: [
                     [{name:"Mist Wrap",value:"mistWrap"},{name:"Chi Burst",value:"chiBurst"}], //15
-                    [{name:"Mana Tea",value:"manaTea"}], //15        // Life Cycles / Spirit of the Crane / Mana Tea
+                    [{name:"Mana Tea",value:"manaTea"}], //30        // Life Cycles / Spirit of the Crane / Mana Tea
                     [{name:"Jade Serpent Statue",value:"jadeStatue"},{name:"Refreshing Jade Wind",value:"refreshingJadeWind"},{name:"Chi-Ji",value:"chiJi"}], //45
-                    [{name:"Upwelling",value:"upwelling"},{name:"Rising Mist",value:"risingMist"}] //50  {name:"Focused Thunder",value:"focusedThunder"},
+                    [{name:"Focused Thunder",value:"focusedThunder"},{name:"Upwelling",value:"upwelling"},{name:"Rising Mist",value:"risingMist"}] //50
                 ],
                 talents:[],
                 //vars
@@ -186,11 +186,11 @@
                 this.$store.commit('setTalentsData',this.talents)
             },
             saveNewSettings() {
-                let data = {"bossFight":this.bossFight,"tftUse":this.tftUse,"fightLength":this.fightLength,
+                let data = {"bossFight":this.bossFight.value,"tftUse":this.tftUse,"fightLength":this.fightLength,
                     "haste":+this.statHaste,"crit":+this.statCrit,"vers":+this.statVers,
                     "mastery":+this.statMastery, "int":+this.statInt,"simMode":this.simMode }
+
                 this.$store.commit('setHealData',data)
-                console.log(this.extendRem)
             },
             saveNewBuff() {
                 let data = this.$store.state.buffs

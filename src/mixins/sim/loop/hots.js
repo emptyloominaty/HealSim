@@ -77,11 +77,14 @@ export default {
                         healing = Math.round(healing*(1+this.targets[i].healingBonus))
 
 
-                        this.healingDone += healing
+                        this.doHealing(healing,this.targets[i].hots[a].name,i,"healer",1)
+
+                       /* this.healingDone += healing
                         this.overhealingDone += this.targets[i].heal(healing)
                         this.targets[i].abilitiesOnThisTarget.push({name:this.targets[i].hots[a].name,value:healing,hot:1,over:gcd,type:"heal"})
-                        this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})
-                        //expire hot
+                        this.healingDoneArr[this.targets[i].hots[a].name].push({time: this.time, heal: healing})*/ //TODO: CAN DELETE AFTER TEST
+
+                        // expire hot
                         if (hotTimeLeft<0) {
                             this.targets[i].hots.splice(a, 1)
                         }

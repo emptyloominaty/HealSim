@@ -6,8 +6,8 @@ export default {
                 if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
-                    let vivMain = 1.04 //104% sp
-                    let vivCleave = 0.74 //74% sp
+                    let vivMain = 1.41 //141% sp
+                    let vivCleave = 1.04 //74% sp
                     let vivTearofMorning = vivMain / 5  //20%
 
                     //init
@@ -49,9 +49,9 @@ export default {
                     this.setCd()
 
                     //Thunder Focus Tea
-                    if (character.buffs2.thunderFocusTea===1) {
+                    if (character.buffs2.thunderFocusTea>0) {
                         returnData.manaUsed = 0
-                        character.buffs2.thunderFocusTea = 0
+                        character.buffs2.thunderFocusTea --
                     }
 
                     return returnData

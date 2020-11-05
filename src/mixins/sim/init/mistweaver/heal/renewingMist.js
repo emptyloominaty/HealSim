@@ -10,10 +10,10 @@ export default {
                     let rmDuration = 20
 
                     //Thunder Focus Tea
-                    if (character.buffs2.thunderFocusTea===1) {
+                    if (character.buffs2.thunderFocusTea>0) {
                         rmDuration = 30
                         rmHeal = rmHeal * 1.5
-                        character.buffs2.thunderFocusTea = 0
+                        character.buffs2.thunderFocusTea --
                     }
 
                     //init

@@ -71,10 +71,10 @@ export default {
                     this.setCd()
 
                     //Thunder Focus Tea
-                    if (character.buffs2.thunderFocusTea===1) {
+                    if (character.buffs2.thunderFocusTea>0) {
                         let tftEmHeal = 2.80 * spellpower
                         returnData.runAfter.push("heal",tftEmHeal,[target[0]],"Thunder Focus Tea")
-                        character.buffs2.thunderFocusTea = 0
+                        character.buffs2.thunderFocusTea --
                     }
 
 

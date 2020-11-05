@@ -8,7 +8,11 @@ export default new Vuex.Store({
         remSetting: {extendRem:1, tftUse:0, fightLength:120,
             statHaste:0, statCrit:0, statVers:0,
             statMastery:0, statInt:0,simMode:"infiniteRSK"},
-        healSetting: {bossFight:1, tftUse:0, fightLength:240,
+        healSetting: {bossFight: [ //test boss - Normal
+                {name:"Test Boss - Normal",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                {time:0,everySec:1,damage:1000,targets:6,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+            ], tftUse:0, fightLength:240,
             haste:38.8, crit:24, vers:2,
             mastery:104, int:700,simMode:"20-1"},
         chartData: {},
@@ -20,7 +24,7 @@ export default new Vuex.Store({
         chartDataRaidHp: {},
         talents: [],
         buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0},{stat:"haste",increase:20,ppm:3,duration:6,lastproc:0,proc:60/3,procced:0}],
-        db : []
+        db : [],
     },
     mutations: {
         setData(state, newData) {

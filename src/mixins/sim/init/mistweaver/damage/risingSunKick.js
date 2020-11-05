@@ -79,9 +79,9 @@ export default {
                     this.setCd()
 
                     //Thunder Focus Tea
-                    if (character.buffs2.thunderFocusTea===1) {
+                    if (character.buffs2.thunderFocusTea>0) {
                         this.cooldown = this.maxCooldown-3
-                        character.buffs2.thunderFocusTea = 0
+                        character.buffs2.thunderFocusTea --
                     }
 
 
