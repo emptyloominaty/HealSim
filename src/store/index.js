@@ -23,7 +23,7 @@ export default new Vuex.Store({
         chartDataStacked: {},
         chartDataRaidHp: {},
         talents: [],
-        buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0},{stat:"haste",increase:20,ppm:3,duration:6,lastproc:0,proc:60/3,procced:0}],
+        buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0}],
         db : [],
     },
     mutations: {

@@ -23,7 +23,7 @@ export default {
             let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
-            let buffs = this.$store.state.buffs //proc stats
+            let buffs = this.$store.state.buffs.slice(0) //proc stats
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
 
@@ -46,7 +46,6 @@ export default {
                 bossDamageAbilities[i].used=0
                 bossDamageAbilities[i].cd=0
             }
-            console.log(bossDamageAbilities)
 
         //targets
             let fff = storeData.simMode.split("-")
@@ -138,12 +137,14 @@ export default {
                         }
 
                         bAbility.used=1
-                    } else if (bAbility.used===1) {
-                        if (bAbility.cd>=bAbility.everySec) {
+                    }
+                    if (bAbility.used===1) {
+                        bAbility.cd+=this.gcd
+                        if(bAbility.cd>=bAbility.everySec) {
                             bAbility.used=0
                             bAbility.cd-=bAbility.everySec
                         }
-                        bAbility.cd+=this.gcd
+
                     }
 
                 }

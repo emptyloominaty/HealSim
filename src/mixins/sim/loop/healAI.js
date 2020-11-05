@@ -42,7 +42,7 @@ export default {
                 usedAbility = this.heals[healList["Renewing Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && this.character.talents.upwelling===0) { //Rising Sun Kick
+            if (usedAbility===0 && this.character.talents.risingMist===1) { //Rising Sun Kick
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 
@@ -129,7 +129,7 @@ export default {
                 usedAbility = this.heals[ healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && this.character.talents.upwelling===1 && manaTarget*1.3 < mana) { //Rising Sun Kick
+            if (usedAbility===0 && this.character.talents.risingMist===0 && manaTarget*1.3 < mana) { //Rising Sun Kick
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 

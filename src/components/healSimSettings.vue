@@ -174,10 +174,20 @@
                 reloadTableKey:0,
                 bossDamages:[
                     [ //test boss - Normal
-                        {name:"Test Boss - Normal",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
-                        {time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
-                        {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
-                    ]
+                        {name:"Test Boss - Normal",bossHealth:500000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                        {time:0,everySec:2,damage:1000,targets:2,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                        {time:0,everySec:1,damage:100,targets:5,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                    ],
+                    [ //test boss - Heroic
+                        {name:"Test Boss - Heroic",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                        {time:0,everySec:1,damage:1000,targets:3,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                        {time:0,everySec:1,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                    ],
+                    [ //test boss - Mythic
+                        {name:"Test Boss - Mythic",bossHealth:1500000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                        {time:0,everySec:5,damage:1000,targets:20,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                        {time:0,everySec:1,damage:100,targets:15,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                    ],
                 ]
             }
         },

@@ -24,8 +24,9 @@ export default {
                     for (let i = 0; i<character.buffs.length; i++) {
                         if (character.buffs[i].name==="Teaching of the Monastery" ) {
                                totm = character.buffs[i].value
+                               character.buffs.splice(i,1)
                         }
-                            character.buffs.splice(i,1)
+
                     }
                     //totm dmg
                     for (let m = 0; m<totm+1; m++ ) {

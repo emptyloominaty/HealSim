@@ -1,79 +1,39 @@
 <template>
-    <div class="mainSettings">
-        <!-- Settings (save to LocalStorage)-->
-        <div>
-            <select>
-                <option>Mistweaver Monk</option>
-                <option disabled>----------NO----------</option>
-                <option disabled>Restoration Druid</option>
-                <option disabled>Restoration Shaman</option>
-                <option disabled>Holy Paladin</option>
-                <option disabled>Holy Priest</option>
-                <option disabled>Discipline Priest</option>
-            </select>
-        </div>
-
-        <!-- Class Settings (save to LocalStorage)-->
-        <settings-class/>
-
-        <!-- Stats (save to LocalStorage)-->
+    <div class="mainClassSettings">
         <div class="settingsSection">
-            <h3>Stats</h3>
-            <div class="column">
-                <div class="inputDiv">
-                    <label> Haste </label>
-                    <input type="number"  step="any" v-model="haste">
-                </div>
-                <div class="inputDiv">
-                    <label>Crit </label>
-                    <input type="number"  step="any" v-model="crit">
-                </div>
-                <div class="inputDiv">
-                    <label>Vers </label>
-                    <input type="number"  step="any" v-model="vers">
-                </div>
-                <div class="inputDiv">
-                    <label>Mastery </label>
-                    <input type="number"  step="any" v-model="mastery">
-                </div>
-                <div class="inputDiv">
-                    <label>Int </label>
-                    <input type="number"  step="any" v-model="int"> &nbsp;&nbsp;
-                </div>
+            <h3>Class Settings</h3>
+            <div class="inputDiv">
+                <label> Extend Rem </label>
+                <input type="number"  step="any" v-model="extendRem">
             </div>
         </div>
+        <div class="settingsSection">
+            <h3> Spell power / Attack power </h3>
+            <div class="inputDiv">
+                <label> Vivify Main </label>
+                <input type="number"  step="any" v-model="vivifyMain">
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
-    import settingsClass from '../components/SettingsClass.vue'
     export default {
-        name: "settings",
-        components: {
-          settingsClass
-        },
+        name: "SettingsClass",
         data() {
             return {
-                haste: 10,
-                crit: 10,
-                vers: 0,
-                mastery: 25,
-                int: 700,
+                extendRem: 1, // 1 = 100%
+                vivifyMain: 1.41
             }
         }
     }
 </script>
 
 <style scoped>
-    .mainSettings {
-        margin-top:20px;
-    }
-
-    .column {
-        display:flex;
-        flex-wrap:wrap;
-        flex-direction: column;
-    }
+    /*
+    TODO:MAKE CSS FILE YOU RETARD
+        */
     .settingsSection {
         background-color: #303030;
         color: #efcc00;
@@ -81,11 +41,11 @@
         font-family: Calibri, Arial, sans-serif;
         font-size: 1.1rem;
         /*font-weight:600;*/
-     /*   display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;*/
+        /*   display: flex;
+           flex-wrap: wrap;
+           flex-direction: row;*/
         display: inline-block;
-       /* width: 300px;*/
+        /* width: 300px;*/
         margin: 10px;
         border: 2px solid #333333;
         border-radius: 3px;
@@ -93,9 +53,9 @@
     }
 
     label {
-        padding-top:1px;
         color: #efcc00;
         padding-right:4px;
+        padding-top:1px;
     }
 
 
@@ -104,7 +64,7 @@
         display:flex;
         flex-wrap:wrap;
         justify-content: center;
-        /*flex-direction:column;*/
+    /* flex-direction:column;*/
     }
     input {
         background-color: #404040;
@@ -191,5 +151,8 @@
         background-color: #575757;
         text-shadow: 0 0 8px #d7ac00;
     }*/
+
+
+
 
 </style>
