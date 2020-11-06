@@ -12,6 +12,8 @@ export default {
                     let rmExtend = 4 //sec
                     let rmMaxExtend = 1 //x
 
+                    rmMaxExtend = character.storeClassData.extendRem
+
                     //init
                     let crit
                     let returnData = {type:"damage",manaUsed: this.manaCost, damageToTargets: [], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, dotData: 0, name: this.name}

@@ -18,7 +18,12 @@ export default {
                     this.dots = []
                     this.damageReduction = 0
                     this.infinitehp = infinitehp
-                    this.stats = {primary:100, crit:5, haste:10, vers:Math.random()*15, mastery:25}
+                    if (type==="friendly") {
+                        this.stats = {primary:100, crit:5, haste:10, vers:Math.random()*15, mastery:25}
+                    } else {
+                        this.stats = {primary:10, crit:0, haste:0, vers:0, mastery:0}
+                    }
+
                 }
 
                 dealDamage(amount,name) {
@@ -32,6 +37,7 @@ export default {
                     amount = amount / (1 + ((this.stats.vers/100)/2))
 
                     this.abilitiesOnThisTarget.push({name:name,value:amount,hot:0,type:"damage"})
+
                     if (this.absorb === 0) {
                         this.health = Math.round(this.health - amount)
                     } else {
@@ -56,6 +62,7 @@ export default {
 
                     if (this.health < 0) {
                         this.health = 0
+                      //  console.log("DEAD BY "+name+" :"+amount)
                     }
 
                     if (this.infinitehp === 1) {
@@ -102,7 +109,8 @@ export default {
                 }
 
                 applyDot(dotData) {
-                    this.dots.push(dotData)
+                    dotData.duration = dotData.maxDuration
+                    this.dots.push( JSON.parse(JSON.stringify(dotData)))
                 }
 
                 applyBuff(buffData) {

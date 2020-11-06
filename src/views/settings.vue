@@ -41,6 +41,7 @@
                     <input type="number"  step="any" v-model="int"> &nbsp;&nbsp;
                 </div>
             </div>
+            <button v-on:click="saveData()">Save</button>
         </div>
     </div>
 </template>
@@ -54,17 +55,26 @@
         },
         data() {
             return {
-                haste: 10,
-                crit: 10,
-                vers: 0,
-                mastery: 25,
-                int: 700,
+                haste: this.$store.state.stats.haste,
+                crit: this.$store.state.stats.crit,
+                vers: this.$store.state.stats.vers,
+                mastery: this.$store.state.stats.mastery,
+                int: this.$store.state.stats.int,
+            }
+        },
+        methods: {
+            saveData() {
+                let data = {haste:this.haste,crit:this.crit,vers:this.vers,mastery:this.mastery,int:this.int}
+                this.$store.commit('setStats',data)
             }
         }
     }
 </script>
 
 <style scoped>
+    h3 {
+        margin:0;
+    }
     .mainSettings {
         margin-top:20px;
     }
@@ -89,13 +99,13 @@
         margin: 10px;
         border: 2px solid #333333;
         border-radius: 3px;
-        padding: 8px;
+        padding: 18px;
     }
 
     label {
         padding-top:1px;
         color: #efcc00;
-        padding-right:4px;
+        padding-right:6px;
     }
 
 
@@ -121,6 +131,25 @@
     input:focus {
         outline:none;
         border-color: #fff;
+    }
+
+    button {
+        margin:5px;
+        padding: 3px;
+        width:100px;
+        background-color: #404040;
+        color: #ffde00;
+        text-shadow: 0 0 3px #987300;
+        border:1px solid #ffde00;
+        border-radius:3px;
+        cursor:pointer;
+        transition:all 0.2s;
+        font-size:1.2rem;
+    }
+
+    button:hover {
+        background-color: #575757;
+        text-shadow: 0 0 8px #d7ac00;
     }
 
     select,option {

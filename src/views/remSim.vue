@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    TEST
     <Settings/>
     <Timeline/>
     <Chart :chart-data="remsData" :options="chartOptionsRems"  />
@@ -68,6 +67,5 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #1f1d24;
-    margin-top: 60px;
   }
 </style>

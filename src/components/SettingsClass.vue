@@ -6,15 +6,8 @@
                 <label> Extend Rem </label>
                 <input type="number"  step="any" v-model="extendRem">
             </div>
+            <button v-on:click="saveData()">Save</button>
         </div>
-        <div class="settingsSection">
-            <h3> Spell power / Attack power </h3>
-            <div class="inputDiv">
-                <label> Vivify Main </label>
-                <input type="number"  step="any" v-model="vivifyMain">
-            </div>
-        </div>
-
     </div>
 </template>
 
@@ -23,8 +16,13 @@
         name: "SettingsClass",
         data() {
             return {
-                extendRem: 1, // 1 = 100%
-                vivifyMain: 1.41
+                extendRem: this.$store.state.classSettings.extendRem,
+            }
+        },
+        methods: {
+            saveData() {
+                let data = {extendRem:this.extendRem}
+                this.$store.commit('setClassSettings',data)
             }
         }
     }
@@ -34,6 +32,9 @@
     /*
     TODO:MAKE CSS FILE YOU RETARD
         */
+    h3 {
+        margin:0;
+    }
     .settingsSection {
         background-color: #303030;
         color: #efcc00;
@@ -49,12 +50,12 @@
         margin: 10px;
         border: 2px solid #333333;
         border-radius: 3px;
-        padding: 8px;
+        padding: 18px;
     }
 
     label {
         color: #efcc00;
-        padding-right:4px;
+        padding-right:6px;
         padding-top:1px;
     }
 
@@ -81,6 +82,25 @@
     input:focus {
         outline:none;
         border-color: #fff;
+    }
+
+     button {
+        margin:5px;
+        padding: 3px;
+        width:100px;
+        background-color: #404040;
+        color: #ffde00;
+        text-shadow: 0 0 3px #987300;
+        border:1px solid #ffde00;
+        border-radius:3px;
+        cursor:pointer;
+        transition:all 0.2s;
+        font-size:1.2rem;
+    }
+
+    button:hover {
+        background-color: #575757;
+        text-shadow: 0 0 8px #d7ac00;
     }
 
     select,option {

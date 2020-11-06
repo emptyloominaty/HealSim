@@ -29,9 +29,9 @@ export default {
                         damage = Math.round(damage)
 
                         if (this.targets[i].dots[a].dotType==="friendly" ) {
-                            this.doDamage(damage,this.targets[i].dots[a].name,this.targets[i],"healer")
+                            this.doDamage(damage,this.targets[i].dots[a].name,i,"healer",1)
                         } else {
-                            this.doDamage(damage,this.targets[i].dots[a].name,this.targets[i],"enemy")
+                            this.doDamage(damage,this.targets[i].dots[a].name,i,"enemy",1)
                         }
                         //expire dot
                         if (dotTimeLeft<0) {

@@ -151,11 +151,11 @@
                 bossFight:1, //1=100%
                 tftUse:0, //0 = rem 1 = rsk
                 fightLength:this.$store.state.healSetting.fightLength, //sec
-                statHaste:this.$store.state.healSetting.haste, //%
-                statCrit:this.$store.state.healSetting.crit, //%
-                statVers:this.$store.state.healSetting.vers, //%
-                statMastery:this.$store.state.healSetting.mastery, //%
-                statInt: this.$store.state.healSetting.int,
+                statHaste:this.$store.state.stats.haste, //%
+                statCrit:this.$store.state.stats.crit, //%
+                statVers:this.$store.state.stats.vers, //%
+                statMastery:this.$store.state.stats.mastery, //%
+                statInt: this.$store.state.stats.int,
                 simMode: "20-1",
                 //v-models buffs
                 stat: "haste",
@@ -176,7 +176,8 @@
                     [ //test boss - Normal
                         {name:"Test Boss - Normal",bossHealth:500000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
                         {time:0,everySec:2,damage:1000,targets:2,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
-                        {time:0,everySec:1,damage:100,targets:5,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                        {time:0,everySec:1,damage:100,targets:5,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //2-dmg
+                        {time:0,everySec:5,damage:100,targets:1,name:"dot",dot:{isDot:1,dotData:{damage:300,duration:15,maxDuration:15,dispellable:0,dotType:"enemy",name:"dotdot"}}} //3-dmg dot
                     ],
                     [ //test boss - Heroic
                         {name:"Test Boss - Heroic",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
@@ -186,7 +187,7 @@
                     [ //test boss - Mythic
                         {name:"Test Boss - Mythic",bossHealth:1500000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
                         {time:0,everySec:5,damage:1000,targets:20,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
-                        {time:0,everySec:1,damage:100,targets:15,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
+                        {time:0,everySec:1,damage:100,targets:15,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //2-dmg
                     ],
                 ]
             }

@@ -25,7 +25,7 @@ export default {
             this.friendlyTargets = []
             this.enemyTargets = []
             for (let a = 0; a<this.targets.length; a++) {
-                if (this.targets[a].health<this.targets[a].maxHealth && this.targets[a].type==="friendly" ) {
+                if (this.targets[a].type==="friendly"  && this.targets[a].health<this.targets[a].maxHealth && this.targets[a].health>0 ) {
                     this.injuredTargets.push(a)
                 }
                 if (this.targets[a].type==="friendly") {
@@ -36,6 +36,13 @@ export default {
                 }
             }
 
+          /*  //check dead friendly targets
+            for (let i = 0; i<this.friendlyTargets.length; i++) {
+                if (this.targets[this.friendlyTargets[i]].health===0) {
+                    this.friendlyTargets.splice(i,1)
+                    //i--
+                }
+            }*/
 
             //--------BUFFS---------- {stat:"haste",increase:20,ppm:2,duration:6,lastproc:0,proc:60/2,procced:0}
             if (this.character.buffs.length > 0) {
@@ -99,7 +106,7 @@ export default {
             let runGetHotsAgain = 0
             let loops = 0
 
-            this.damageDots(this.gcd)
+
             this.getHots()
             this.capHots("Enveloping Breath",6)
             this.capHots("Refreshing Jade Wind",6)
@@ -118,6 +125,9 @@ export default {
 
             //heal with hots
             this.healHots(this.gcd)
+
+            //damage with dots
+            this.damageDots(this.gcd)
 
             //cd
             for (let i = 0; i < this.heals.length ; i++) {

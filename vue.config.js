@@ -1,6 +1,8 @@
 module.exports = {
-    devServer: {
-        host: 'localhost',
-        port: 8081
-    }
+  devServer: {
+    transportMode: 'ws', 
+    injectClient: false,
+    disableHostCheck: true,
+    overlay: true
+  }
 }

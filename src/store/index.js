@@ -15,6 +15,9 @@ export default new Vuex.Store({
             ], tftUse:0, fightLength:240,
             haste:38.8, crit:24, vers:2,
             mastery:104, int:700,simMode:"20-1"},
+        stats: {haste:38.8, crit:24, vers:2,
+            mastery:104, int:700},
+        classSettings: {extendRem:1},
         chartData: {},
         chartDataMana: {},
         chartDataDamage: {},
@@ -29,6 +32,12 @@ export default new Vuex.Store({
     mutations: {
         setData(state, newData) {
             state.remSetting = newData
+        },
+        setStats(state, newData) {
+            state.stats = newData
+        },
+        setClassSettings(state, newData) {
+            state.classSettings = newData
         },
         setHealData(state, newData) {
             state.healSetting = newData

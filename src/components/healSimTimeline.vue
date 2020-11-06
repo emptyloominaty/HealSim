@@ -74,7 +74,7 @@ export default {
          test: [5,2,6,8,9,5,8,15,4,7],
          testb: 0,
          timelineData: this.mainSim(),
-         tableData: [{name:"click reload pls",amount:0,hps:0,casts:0,avgCast:0,manaEf:0}] , //this.getHealTableData()  TODO: FIX PLS
+         tableData: [{name:"click reload pls",amount:0,hps:0,casts:0,avgCast:0,manaEf:0}] , //FIXED EZ
          avgHps : 0
      }
     },
@@ -196,6 +196,9 @@ export default {
         '$store.state.talents': function () {
             this.reloadLmao()
         },
+    },
+    created() {
+        this.tableData = this.getHealTableData()
     }
 }
 </script>

@@ -16,21 +16,22 @@ export default {
             this.db = []
 //Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
+            let storeClassData = this.$store.state.classSettings
         //Config
             let fightLength = storeData.fightLength
             let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
-            let stats = {int:storeData.int, crit:storeData.crit, haste:storeData.haste, vers:storeData.vers, mastery:storeData.mastery}
+            let stats = this.$store.state.stats
             let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
             let buffs = this.$store.state.buffs.slice(0) //proc stats
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
+            let tanks = [1,6]
 
 
         //talents
             let talentsStore = this.$store.state.talents
-            let talentsData = []
             if (talentsStore.length>0) {
                 for (let i = 0; i<talentsStore.length; i++) {
                     talents[talentsStore[i].value]=1
@@ -39,7 +40,6 @@ export default {
 
         //boss
             let bossFightData = storeData.bossFight
-            console.log(bossFightData)
             let bossDamageAbilities = []
             for (let i = 0; i<bossFightData.length-1; i++) {
                 bossDamageAbilities.push(bossFightData[i+1])
@@ -49,7 +49,7 @@ export default {
 
         //targets
             let fff = storeData.simMode.split("-")
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: []}
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: [],storeClassData:storeClassData}
             this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,0,1.2)
             this.targets[target].stats = this.character.stats
             this.friendlyTargets = []
@@ -103,6 +103,7 @@ export default {
                 let healGcd = this.healingDone
                 let dmgGcd = this.damageDone
                 //calc gcd, hots,CDs, mana regen, Target Buffs, Buffs(Healer),
+
                 this.loopInit()
 
                 this.db.push("Time: "+Math.round(this.time*10)/10+" <b>Hots:</b> "+JSON.stringify(this.hotsData))
@@ -116,38 +117,78 @@ export default {
                 this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
 
 
-            //boss abilities
-                //{time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
-                for (let ba = 0; ba<bossDamageAbilities.length; ba++) {
-                    let bAbility = bossDamageAbilities[ba]
-                    if (bAbility.used===0 && bAbility.time<this.time ) {
+                  //boss abilities-------------------------------------------------------------------
+                       //{time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                       for (let ba = 0; ba<bossDamageAbilities.length; ba++) {
+                           let bAbility = bossDamageAbilities[ba]
+                           if (bAbility.used===0 && bAbility.time<this.time ) {
 
-                        //(damage,name,target,who,dot = 0)
+                               //(damage,name,target,who,dot = 0)
+                               let dontInfiniteLoopPls = 0
+                               for (let t = 0; t<bAbility.targets; t++) {
+                                   let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length-1))
+                                   let target = this.friendlyTargets[rngTarget]
+                                   if (this.targets[target].health>0) {
+                                       this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
+                                       if (bAbility.dot.isDot===1) {
+                                           this.targets[target].applyDot(bAbility.dot.dotData)
+                                       }
+                                   } else {
+                                       if (dontInfiniteLoopPls<100) {
+                                           dontInfiniteLoopPls++
+                                           t--
+                                       }
+                                   }
+                               }
+                               bAbility.used=1
+                           }
+                           if (bAbility.used===1) {
+                               bAbility.cd+=this.gcd
+                               if(bAbility.cd>=bAbility.everySec) {
+                                   bAbility.used=0
+                                   bAbility.cd-=bAbility.everySec
+                               }
+                           }
+                       }
 
-                        for (let t = 0; t<bAbility.targets; t++) {
-                            let target = Math.round(Math.random()*this.friendlyTargets.length)
-                            this.doDamage(bAbility.damage,bAbility.name,target,"enemy")
-                        }
-
-                        if (bAbility.dot.isDot===1) {
-                            for (let t = 0; t<bAbility.targets; t++) {
-                                let target = Math.round(Math.random()*this.friendlyTargets.length)
-                                this.targets[target].applyDot(bAbility.dot.dotData)
+                     //Boss AutoAttack
+                if (this.targets[tanks[0]].health>0) {
+                    //attack first tank
+                    this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", tanks[0], "enemy")
+                    if (this.enemyTargets.length>1) {
+                        for (let i = 0; i<this.enemyTargets.length-1; i++) {
+                            if (this.targets[this.enemyTargets[i+1]].health>0) {
+                                this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", tanks[0], "enemy")
                             }
                         }
-
-                        bAbility.used=1
                     }
-                    if (bAbility.used===1) {
-                        bAbility.cd+=this.gcd
-                        if(bAbility.cd>=bAbility.everySec) {
-                            bAbility.used=0
-                            bAbility.cd-=bAbility.everySec
+                } else if (this.targets[tanks[1]] && this.targets[tanks[1]].health>0) {
+                    //attack second tank
+                    this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", tanks[1], "enemy")
+                    if (this.enemyTargets.length>1) {
+                        for (let i = 0; i<this.enemyTargets.length-1; i++) {
+                            if (this.targets[this.enemyTargets[i+1]].health>0) {
+                                this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", tanks[1], "enemy")
+                            }
                         }
-
                     }
+                } /*else {
+                                           //attack random target
+                                           console.log(this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)])
+                                           this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)], "enemy")
+                                           if (this.enemyTargets.length>1) {
+                                               for (let i = 0; i<this.enemyTargets.length-1; i++) {
+                                                   if (this.targets[this.enemyTargets[i]].health>0) {
+                                                       this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)], "enemy")
+                                                   }
+                                               }
+                                           }
+                                       }*/
+                                   //--------------------------------------------------------------------------------------
 
-                }
+
+
+
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
@@ -176,6 +217,7 @@ export default {
                     healArr: [],
                     damageArr: [],
                 }
+                // eslint-disable-next-line no-prototype-builtins
             if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
@@ -192,7 +234,6 @@ export default {
             this.db.push("Damage Done: "+this.damageDone)
             this.$store.commit('debug',this.db)
 
-            let time1 = 0
             for (let i = 0; i<timeline.length; i++) {
                 if (i>0 && timeline[i].time===timeline[i-1].time) {
                     timeline[i].usedAbility2=timeline[i-1].usedAbility

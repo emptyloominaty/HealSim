@@ -21,7 +21,7 @@ export default {
                     let missingHealth = this.targets[i].maxHealth - this.targets[i].health
                     raidMissingHealth += missingHealth
                     totalRaidHealth += this.targets[i].maxHealth
-                    if (missingHealth > mostInjuredTarget.healthMissing) {
+                    if (missingHealth > mostInjuredTarget.healthMissing && this.targets[i].health!==0) {
                         mostInjuredTarget.id = i
                         mostInjuredTarget.healthMissing = missingHealth
                     }
@@ -29,6 +29,24 @@ export default {
             }
             let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
             this.raidHealth = totalRaidHealth - raidMissingHealth
+
+            //get lowest hp (+ not dead) Enemy Target
+            let fistThisTarget = this.enemyTargets[0]
+
+            let enemyCount = this.enemyTargets.length
+            if (enemyCount>1) {
+                let enemyHealthArr = []
+                for (let i = 0; i<enemyCount; i++) {
+                    let enemyHealth = this.targets[this.enemyTargets[i]].health
+                    enemyHealthArr.push(enemyHealth)
+                }
+
+                let minHealth = Math.min.apply(null, enemyHealthArr.filter(Boolean))
+                let targetID = enemyHealthArr.indexOf(minHealth)
+
+                fistThisTarget = this.enemyTargets[targetID]
+            }
+
 
             /* if (usedAbility===0) { //Life Cocoon
                 usedAbility = this.heals[healList["Life Cocoon"]].healFunc(this.character, [1], 0, this.hotsData, this.injuredTargets, this.targets[this.character.target])
@@ -43,7 +61,7 @@ export default {
             }
 
             if (usedAbility===0 && this.character.talents.risingMist===1) { //Rising Sun Kick
-                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
+                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 
             if (usedAbility===0 && canHeal > 0 && manaTarget/1.35 < mana && rems > 5 && raidMissingHealthPercent > 0.02) { //Vivify
@@ -130,11 +148,15 @@ export default {
             }
 
             if (usedAbility===0 && this.character.talents.risingMist===0 && manaTarget*1.3 < mana) { //Rising Sun Kick
-                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData, this.enemyTargets, this.targets)
+                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets)
             }
 
             if (usedAbility===0 && (this.damages[damageList["Rising Sun Kick"]].cooldown<9.5 || this.damages[damageList["Rising Sun Kick"]].cooldown>=12)) { //Blackout Kick
-                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
+                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
+            }
+
+            if (usedAbility===0 && this.character.talents.risingMist===0) { //Blackout Kick
+                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
             }
 
             if (usedAbility===0 && canHeal > 0 && manaTarget*1.5 < mana && rems > 1 && raidMissingHealthPercent > 0.01 && this.character.buffs2.chiJi===0) { //Vivify
@@ -142,7 +164,7 @@ export default {
             }
 
             if (usedAbility===0) { //Tiger Palm
-                usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.enemyTargets)
+                usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
             }
 
             return usedAbility
