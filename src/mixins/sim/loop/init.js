@@ -107,6 +107,25 @@ export default {
                 }
             }
 
+            //temporary stat buff
+            if (this.character.temporaryBuffs.length>0) {
+                for (let tb = 0; tb<this.character.temporaryBuffs.length; i++) {
+                    if (this.character.temporaryBuffs[tb].act===0) {
+                        this.character.stats[this.character.temporaryBuffs[tb].statName] += this.character.temporaryBuffs[tb].amount
+                        this.character.temporaryBuffs[tb].act=1
+                    }
+
+                    this.character.temporaryBuffs[tb].duration-=this.gcd
+                    if (this.character.temporaryBuffs[tb].duration<=0) {
+                        this.character.stats[this.character.temporaryBuffs[tb].statName] -= this.character.temporaryBuffs[tb].amount
+                        this.character.temporaryBuffs.splice(tb,1)
+                    }
+                }
+            }
+            //character.temporaryBuffs.push({name:"invokersDelight",statname:"haste",amount:33,duration:20})
+
+
+
             //get hots
             let runGetHotsAgain = 0
             let loops = 0

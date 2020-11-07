@@ -139,6 +139,7 @@
     hr {
         border-top:none;
         border-color:#000;
+        margin: 1px;
     }
     .flex {
         display:flex;
@@ -222,10 +223,12 @@
     /*--------------------*/
 
     .healthBar {
+        margin: 0 auto;
         margin-top:5px;
         width:150px;
         height:16px;
         border:1px solid#fff;
+
     }
     .health {
         height:16px;

@@ -16,6 +16,13 @@ export default {
 
                     character.buffs2.chiJi = duration
 
+                    //legendaries
+                    if (character.legendaries.invokersDelight===1) {
+                        character.temporaryBuffs.push({name:"invokersDelight",statName:"haste",amount:character.legendariesData.mistweaver.invokersDelightAmount,
+                            duration:character.legendariesData.mistweaver.invokersDelightDuration,act:0
+                        })
+                    }
+
                     this.setCd()
 
                     return returnData

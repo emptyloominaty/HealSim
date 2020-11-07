@@ -31,6 +31,7 @@ export default {
                         let name = "AutoAttack"
                         return {damage:damage,name:name}
                     }
+                    return 0
                 }
 
                 dealDamage(amount,name) {

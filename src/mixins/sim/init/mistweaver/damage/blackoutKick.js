@@ -2,7 +2,7 @@
 export default {
     methods: {
         damageFuncblackOutKick() {
-            return function(character,target,dmgMod,hots,enemyTargets) {
+            return function(character,target,dmgMod,hots,enemyTargets,mostInjuredTarget) {
                 if (this.cooldown>=this.maxCooldown && enemyTargets.length > 0  && this.manaCost < character.mana) {
                     let stats = character.stats
 
@@ -47,6 +47,13 @@ export default {
                             returnData.runAfter.push("castHeal")
                             returnData.runAfter.push(15)
                         }
+                    }
+
+                    //legendaries
+                    if (character.buffs2.ancientTeachingOfTheMonastery>0) {
+                        if (returnData.runAfter===0) {returnData.runAfter=[]}
+                        crit = this.critChance(stats.crit)
+                        returnData.runAfter.push("heal", mainDmg*character.legendariesData.mistweaver.atoftmHeal*crit, [mostInjuredTarget], "Ancient Teachings Of The Monastery")
                     }
 
                     this.setCd()

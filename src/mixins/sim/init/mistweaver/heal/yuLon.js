@@ -29,6 +29,13 @@ export default {
                             returnData.hotData.push({targetID:targets[healed], canJump:1, scaleWithHaste: 1, data:{heal: mainHeal, duration: yulonDuration, maxDuration: yulonDuration, name: "Soothing Mist - Yu'Lon"}})
                     }
 
+                    //legendaries
+                    if (character.legendaries.invokersDelight===1) {
+                        character.temporaryBuffs.push({name:"invokersDelight",statName:"haste",amount:character.legendariesData.mistweaver.invokersDelightAmount,
+                            duration:character.legendariesData.mistweaver.invokersDelightDuration,act:0
+                        })
+                    }
+
                     character.buffs2.yuLon=yulonDuration
                     this.setCd()
 

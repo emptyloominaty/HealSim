@@ -25,12 +25,17 @@ export default {
             let spec = "mistweaver"
             let target = 0
             let buffs = this.$store.state.buffs.slice(0) //proc stats
-            let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
+            let buffs2 = {everyGcd:["chiJi","yuLon","manaTea","ancientTeachingOfTheMonastery"],
+                chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0,ancientTeachingOfTheMonastery:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
             let tanks = [1,6]
-            let legendaries = [] // tearOfMorning , ancientTeachingOfTheMonastery , yulonWhisper , invokersDelight
+            let legendaries = {tearOfMorning:0, ancientTeachingOfTheMonastery:0, yulonWhisper:0, invokersDelight:0}
             let covenant = "" //
             let conduits = [] //
+
+            let legendariesData = {
+                mistweaver: { atoftmDuration:15,atoftmHeal:2.5,invokersDelightDuration:20,invokersDelightAmount:33,yulonWhisperHeal:150*3,yulonWhisperTargets:6,}
+            }
 
         //talents
             let talentsStore = this.$store.state.talents
@@ -51,7 +56,9 @@ export default {
 
         //targets
             let fff = storeData.simMode.split("-")
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [],conduits:conduits, convenant:covenant, legendaries: legendaries,storeClassData:storeClassData}
+            this.character = { mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [],
+                conduits:conduits, convenant:covenant, legendaries: legendaries,legendariesData:legendariesData,storeClassData:storeClassData
+            }
             this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,0,1.2)
             this.targets[target].stats = this.character.stats
             this.friendlyTargets = []

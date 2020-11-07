@@ -13,7 +13,6 @@ export default {
             if (((fl/fightLength)*100)<(mHealth/bMaxHealth)*100) {
                 manaTarget = 100-((bMaxHealth/100)*(mHealth/(bMaxHealth/100)))/(bMaxHealth/100)
             }
-            console.log(((fl/fightLength)*100)+" > "+(mHealth/bMaxHealth)*100+"----"+manaTarget)
 
             let mana = this.character.mana
             let rems = this.hotsData["Renewing Mist"].length
@@ -74,7 +73,7 @@ export default {
             }*/
 
             if (usedAbility===0) { //Thunder Focus Tea
-                usedAbility = this.heals[healList["Thunder Focus Tea"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
+                usedAbility = this.heals[healList["Thunder Focus Tea"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,this.targets,this.friendlyTargets)
             }
 
             if (usedAbility===0) { //Renewing Mist
@@ -82,7 +81,7 @@ export default {
             }
 
             if (usedAbility===0 && this.character.talents.risingMist===1) { //Rising Sun Kick
-                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets)
+                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
             if (usedAbility===0 && canHeal > 0 && manaTarget/1.35 < mana && rems > 5 && raidMissingHealthPercent > 0.02) { //Vivify
@@ -169,15 +168,15 @@ export default {
             }
 
             if (usedAbility===0 && this.character.talents.risingMist===0 && manaTarget*1.3 < mana) { //Rising Sun Kick
-                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets)
+                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
             if (usedAbility===0 && (this.damages[damageList["Rising Sun Kick"]].cooldown<9.5 || this.damages[damageList["Rising Sun Kick"]].cooldown>=12)) { //Blackout Kick
-                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
+                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
             }
 
             if (usedAbility===0 && this.character.talents.risingMist===0) { //Blackout Kick
-                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
+                usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
             }
 
             if (usedAbility===0 && canHeal > 0 && manaTarget*1.5 < mana && rems > 1 && raidMissingHealthPercent > 0.01 && this.character.buffs2.chiJi===0) { //Vivify
@@ -185,7 +184,7 @@ export default {
             }
 
             if (usedAbility===0) { //Tiger Palm
-                usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets)
+                usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
             }
 
             return usedAbility

@@ -102,7 +102,7 @@ export default {
                         new Heal("Enveloping Breath",0,0,0,1,0,talents,function() {return 0}),
 
                         //legendary
-                        new Heal("Ancient Teachings of the Monastery",0,0,0,1,0,talents,),
+                        new Heal("Ancient Teachings Of The Monastery",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,),
                         new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,),
                         //mastery

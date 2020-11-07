@@ -47,6 +47,10 @@ export default {
                     }
                     returnData.gcd = (returnData.gcd/18)*efBoltsMax
 
+                    if (character.legendaries.ancientTeachingOfTheMonastery===1) {
+                        character.buffs2.ancientTeachingOfTheMonastery=character.legendariesData.mistweaver.atoftmDuration //sec
+                    }
+
                     this.setCd()
 
                     return returnData
