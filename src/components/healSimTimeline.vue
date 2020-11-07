@@ -245,7 +245,7 @@ width:32px;
 }
 
 .tables table,th,td {
-    border: 1px solid #fff;
+    border: 1px solid #000000;
     color: #fff;
     padding: 10px;
 }

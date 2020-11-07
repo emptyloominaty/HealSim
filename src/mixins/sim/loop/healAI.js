@@ -5,7 +5,16 @@ export default {
         healAi(healList,damageList,fightLength,fl) {
             let usedAbility = 0
             let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
+
             let manaTarget = 100-((fightLength/100)*(fl/(fightLength/100)))/(fightLength/100)
+            let bHealth = this.targets[this.enemyTargets[0]].health
+            let bMaxHealth = this.targets[this.enemyTargets[0]].maxHealth
+            let mHealth = bMaxHealth-bHealth
+            if (((fl/fightLength)*100)<(mHealth/bMaxHealth)*100) {
+                manaTarget = 100-((bMaxHealth/100)*(mHealth/(bMaxHealth/100)))/(bMaxHealth/100)
+            }
+            console.log(((fl/fightLength)*100)+" > "+(mHealth/bMaxHealth)*100+"----"+manaTarget)
+
             let mana = this.character.mana
             let rems = this.hotsData["Renewing Mist"].length
             if (this.character.buffs2.manaTea>0) {
@@ -30,6 +39,16 @@ export default {
             let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
             this.raidHealth = totalRaidHealth - raidMissingHealth
 
+            if (raidMissingHealthPercent> 0.5) {
+                manaTarget = manaTarget/1.1
+            }
+            if (raidMissingHealthPercent> 0.2) {
+                manaTarget = manaTarget/1.1
+            }
+            if (raidMissingHealthPercent> 0.4) {
+                manaTarget = manaTarget/1.2
+            }
+
             //get lowest hp (+ not dead) Enemy Target
             let fistThisTarget = this.enemyTargets[0]
 
@@ -46,6 +65,8 @@ export default {
 
                 fistThisTarget = this.enemyTargets[targetID]
             }
+
+
 
 
             /* if (usedAbility===0) { //Life Cocoon
@@ -76,7 +97,7 @@ export default {
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && this.time>25 && raidMissingHealthPercent > 0.1) { //Mana Tea
+            if (usedAbility===0 && canHeal > 0 && this.time>25 && raidMissingHealthPercent > 0.15) { //Mana Tea
                 usedAbility = this.heals[healList["Mana Tea"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
             }
 

@@ -28,7 +28,9 @@ export default {
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea"],chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
             let tanks = [1,6]
-
+            let legendaries = [] // tearOfMorning , ancientTeachingOfTheMonastery , yulonWhisper , invokersDelight
+            let covenant = "" //
+            let conduits = [] //
 
         //talents
             let talentsStore = this.$store.state.talents
@@ -49,7 +51,7 @@ export default {
 
         //targets
             let fff = storeData.simMode.split("-")
-            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [], legendaries: [],storeClassData:storeClassData}
+            this.character = {mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [],conduits:conduits, convenant:covenant, legendaries: legendaries,storeClassData:storeClassData}
             this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,0,1.2)
             this.targets[target].stats = this.character.stats
             this.friendlyTargets = []
@@ -121,12 +123,14 @@ export default {
                        //{time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
                        for (let ba = 0; ba<bossDamageAbilities.length; ba++) {
                            let bAbility = bossDamageAbilities[ba]
-                           if (bAbility.used===0 && bAbility.time<this.time ) {
+                           if (bAbility.used===0 && bAbility.time<this.time && this.friendlyTargets.length>0) {
 
                                //(damage,name,target,who,dot = 0)
                                let dontInfiniteLoopPls = 0
                                for (let t = 0; t<bAbility.targets; t++) {
-                                   let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length-1))
+                                   let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length))
+                                   if (rngTarget===this.friendlyTargets.length) { rngTarget=0 }
+
                                    let target = this.friendlyTargets[rngTarget]
                                    if (this.targets[target].health>0) {
                                        this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
@@ -186,6 +190,13 @@ export default {
                                        }*/
                                    //--------------------------------------------------------------------------------------
 
+                //Raid Attack
+                for (let ft = 0; ft<this.friendlyTargets.length-1; ft++) {
+                    let doData = this.targets[this.friendlyTargets[ft]].doSomething()
+                    if (doData.damage!=undefined) {
+                        this.doDamage(doData.damage,doData.name,this.enemyTargets[0],"friendly",0,)
+                    }
+                }
 
 
 
@@ -221,6 +232,16 @@ export default {
             if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
+
+                //WIPE THE RAID
+                if (this.raidHealth<(this.targets[0].maxHealth/10)) {
+                    fl = fightLength+1
+                }
+                //BOSS IS DEAD
+                if (this.targets[this.enemyTargets[0]].health<1) {
+                    fl = fightLength+1
+                }
+
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
             //console.log(this.healingDoneArr)
@@ -232,7 +253,11 @@ export default {
             this.db.push("OverHealing Done: "+this.overhealingDone)
             this.db.push("-----------")
             this.db.push("Damage Done: "+this.damageDone)
-            this.$store.commit('debug',this.db)
+
+            if (this.$store.state.debug===1) {
+                this.$store.commit('debug',this.db)
+            }
+
 
             for (let i = 0; i<timeline.length; i++) {
                 if (i>0 && timeline[i].time===timeline[i-1].time) {

@@ -19,11 +19,18 @@ export default {
                     this.damageReduction = 0
                     this.infinitehp = infinitehp
                     if (type==="friendly") {
-                        this.stats = {primary:100, crit:5, haste:10, vers:Math.random()*15, mastery:25}
+                        this.stats = {primary:300+Math.random()*25, crit:5, haste:10, vers:Math.random()*15, mastery:25}
                     } else {
                         this.stats = {primary:10, crit:0, haste:0, vers:0, mastery:0}
                     }
+                }
 
+                doSomething() { //FRIENDLY
+                    if (this.type==="friendly") { //AUTOATTACK
+                        let damage = this.stats.primary
+                        let name = "AutoAttack"
+                        return {damage:damage,name:name}
+                    }
                 }
 
                 dealDamage(amount,name) {
@@ -118,6 +125,7 @@ export default {
                     let i = (this.buffs.length)-1
                     this[this.buffs[i].type] += this.buffs[i].amount
                 }
+
                 resetEveryGcd() {
                     this.abilitiesOnThisTarget = []
                 }

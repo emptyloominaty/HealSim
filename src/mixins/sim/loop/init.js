@@ -36,13 +36,18 @@ export default {
                 }
             }
 
-          /*  //check dead friendly targets
+            //check dead friendly targets
+            let stopfuckinginfiniteloop = 0
             for (let i = 0; i<this.friendlyTargets.length; i++) {
                 if (this.targets[this.friendlyTargets[i]].health===0) {
                     this.friendlyTargets.splice(i,1)
-                    //i--
+                    if (stopfuckinginfiniteloop<500) {
+                        i--
+                        stopfuckinginfiniteloop++
+                    }
+
                 }
-            }*/
+            }
 
             //--------BUFFS---------- {stat:"haste",increase:20,ppm:2,duration:6,lastproc:0,proc:60/2,procced:0}
             if (this.character.buffs.length > 0) {

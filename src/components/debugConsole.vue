@@ -11,7 +11,7 @@
         name: "debugConsole",
         data() {
             return {
-                text: ["test","test","test"]
+                text: []
             }
         },
         watch: {
