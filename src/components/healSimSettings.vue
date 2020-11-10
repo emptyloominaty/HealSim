@@ -23,8 +23,11 @@
                     </select>
                 </div>
                 <div class="inputDiv">
-                    <label>Use TFT (0=ReM 1=RSK)</label>
-                    <input type="number" max="1" min="0" value="1" v-model="tftUse" >
+                    <label>Sim Mode</label>
+                    <select  type="text" v-model="simModeInfinite">
+                        <option value="time" selected>Infinite HP</option>
+                        <option value="boss" selected>Real Boss Fight</option>
+                    </select>
                 </div>
                 <div class="inputDiv">
                     <label>Fight Length </label>
@@ -138,6 +141,16 @@
             </div>
         </form>
 
+        <!-- LEGENDARIES -->
+    <select v-model="legendary1">
+        <option value="tearOfMorning"> Tear of Morning </option>
+        <option value="ancientTeachingOfTheMonastery"> Ancient Teaching of the Monastery </option>
+        <option value="yulonWhisper"> Yulons Whisper </option>
+        <option value="invokersDelight"> Invokers Delight </option>
+    </select>
+        <!-- CONDUITS -->
+
+        <!-- COVENANT -->
 
     </section>
 </template>
@@ -148,8 +161,10 @@
         data() {
             return {
                 //v-models settings
-                bossFight:1, //1=100%
-                tftUse:0, //0 = rem 1 = rsk
+                legendary1:"",
+                legendary2:"", // maybe in the next patch we can have 2 equipped legendaries hmm
+                bossFight:"Test Boss - Heroic", //1=100%
+                simModeInfinite: "time", //0 = rem 1 = rsk
                 fightLength:this.$store.state.healSetting.fightLength, //sec
                 statHaste:this.$store.state.stats.haste, //%
                 statCrit:this.$store.state.stats.crit, //%
@@ -199,9 +214,15 @@
                 this.$store.commit('setTalentsData',this.talents)
             },
             saveNewSettings() {
-                let data = {"bossFight":this.bossFight.value,"tftUse":this.tftUse,"fightLength":this.fightLength,
+                let data = {"bossFight":this.bossFight.value,"simModeInfinite":this.simModeInfinite,"fightLength":this.fightLength,
                     "haste":+this.statHaste,"crit":+this.statCrit,"vers":+this.statVers,
                     "mastery":+this.statMastery, "int":+this.statInt,"simMode":this.simMode }
+                //save stats to store
+                this.$store.state.stats = {haste:this.statHaste, crit:this.statCrit, vers:this.statVers,
+                    mastery:this.statMastery, int:this.statInt}
+                //save legendaries to store
+                this.$store.state.shadowlandsData.legendaries = [this.legendary1,this.legendary2]
+
 
                 this.$store.commit('setHealData',data)
             },

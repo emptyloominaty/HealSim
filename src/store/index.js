@@ -12,7 +12,7 @@ export default new Vuex.Store({
                 {name:"Test Boss - Normal",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
                 {time:0,everySec:1,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
                 {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
-            ], tftUse:0, fightLength:240,
+            ], simModeInfinite:"time", fightLength:240,
             haste:38.8, crit:24, vers:2,
             mastery:104, int:700,simMode:"20-1"},
         stats: {haste:38.8, crit:24, vers:2,
@@ -29,6 +29,10 @@ export default new Vuex.Store({
         buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0}],
         db : [],
         debug: 0,
+        //TODO: //////////////////////
+        bfaData:{essences:[], azeriteTraits:[],corruption:[]}, //no dont
+        shadowlandsData: {legendaries:[],conduits:[],covenant:""},
+        trinkets: [],
     },
     mutations: {
         setData(state, newData) {

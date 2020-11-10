@@ -39,7 +39,6 @@ export default {
                     this.setCd()
 
 
-
                     return returnData
                 }
                 return 0

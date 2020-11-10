@@ -18,11 +18,9 @@ export default {
                         character.buffs2.thunderFocusTea = 2
                     }
                     this.setCd() //TODO: ???
-
                     //legendaries
                     if (character.legendaries.yulonWhisper===1) {
                         if (returnData.runAfter===0) {returnData.runAfter=[]}
-
                         let healTargets = []
                         for (let i = 0; i<friendlyTargets.length; i++) {
                             if (allTargets[friendlyTargets[i]].health<allTargets[friendlyTargets[i]].maxHealth) {
@@ -32,7 +30,7 @@ export default {
 
                         for (let a = 0; a < character.legendariesData.mistweaver.yulonWhisperTargets; a++ ) {
                             if (healTargets[a]!=undefined) {
-                                returnData.runAfter.push("heal", character.legendariesData.mistweaver.yulonWhisperHeal*spellpower, healTargets[a], "Yu'lon's Whisper")
+                                returnData.runAfter.push("heal", character.legendariesData.mistweaver.yulonWhisperHeal*spellpower, [healTargets[a]], "Yu'lon's Whisper")
                             }
                         }
 

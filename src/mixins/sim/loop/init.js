@@ -107,8 +107,8 @@ export default {
                 }
             }
 
-            //temporary stat buff
-            if (this.character.temporaryBuffs.length>0) {
+            //temporary stat buff TODO:NOT WORKING LMAO
+           /* if (this.character.temporaryBuffs.length>0) {
                 for (let tb = 0; tb<this.character.temporaryBuffs.length; i++) {
                     if (this.character.temporaryBuffs[tb].act===0) {
                         this.character.stats[this.character.temporaryBuffs[tb].statName] += this.character.temporaryBuffs[tb].amount
@@ -121,7 +121,7 @@ export default {
                         this.character.temporaryBuffs.splice(tb,1)
                     }
                 }
-            }
+            }*/
             //character.temporaryBuffs.push({name:"invokersDelight",statname:"haste",amount:33,duration:20})
 
 

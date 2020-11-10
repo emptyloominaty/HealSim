@@ -2,7 +2,7 @@
 
 export default {
     methods: {
-        healAi(healList,damageList,fightLength,fl) {
+        healAi(healList,damageList,fightLength,fl,infiniteHp) {
             let usedAbility = 0
             let randomTarget = Math.floor(Math.random()*this.friendlyTargets.length)
 
@@ -38,15 +38,18 @@ export default {
             let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
             this.raidHealth = totalRaidHealth - raidMissingHealth
 
-            if (raidMissingHealthPercent> 0.5) {
-                manaTarget = manaTarget/1.1
+            if (infiniteHp===0) {
+                if (raidMissingHealthPercent> 0.5) {
+                    manaTarget = manaTarget/1.1
+                }
+                if (raidMissingHealthPercent> 0.2) {
+                    manaTarget = manaTarget/1.1
+                }
+                if (raidMissingHealthPercent> 0.4) {
+                    manaTarget = manaTarget/1.2
+                }
             }
-            if (raidMissingHealthPercent> 0.2) {
-                manaTarget = manaTarget/1.1
-            }
-            if (raidMissingHealthPercent> 0.4) {
-                manaTarget = manaTarget/1.2
-            }
+
 
             //get lowest hp (+ not dead) Enemy Target
             let fistThisTarget = this.enemyTargets[0]

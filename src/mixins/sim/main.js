@@ -17,6 +17,7 @@ export default {
 //Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
             let storeClassData = this.$store.state.classSettings
+            let shadowlandsData = this.$store.state.shadowlandsData
         //Config
             let fightLength = storeData.fightLength
             let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
@@ -33,8 +34,15 @@ export default {
             let covenant = "" //
             let conduits = [] //
 
+            //check for legendaries
+            if (shadowlandsData.legendaries.length>0) {
+                for (let i = 0; i<shadowlandsData.legendaries.length ;i++) {
+                    legendaries[shadowlandsData.legendaries[i]]=1
+                }
+            }
+
             let legendariesData = {
-                mistweaver: { atoftmDuration:15,atoftmHeal:2.5,invokersDelightDuration:20,invokersDelightAmount:33,yulonWhisperHeal:150*3,yulonWhisperTargets:6,}
+                mistweaver: { atoftmDuration:15,atoftmHeal:2.5,invokersDelightDuration:20,invokersDelightAmount:33,yulonWhisperHeal:1.50*3,yulonWhisperTargets:6,}
             }
 
         //talents
@@ -54,12 +62,18 @@ export default {
                 bossDamageAbilities[i].cd=0
             }
 
+            let infiniteHp = 0
+            if (storeData.simModeInfinite==="time") {
+                infiniteHp = 1
+            }
+            console.log(infiniteHp+""+storeData.simModeInfinite)
+
         //targets
             let fff = storeData.simMode.split("-")
             this.character = { mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [],
                 conduits:conduits, convenant:covenant, legendaries: legendaries,legendariesData:legendariesData,storeClassData:storeClassData
             }
-            this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,0,1.2)
+            this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,infiniteHp,1.2)
             this.targets[target].stats = this.character.stats
             this.friendlyTargets = []
             this.enemyTargets = []
@@ -119,7 +133,7 @@ export default {
 //loop--------------------------------------------------------------------------------------------------
 
             //Heal AI
-                this.usedAbility = this.healAi(healList,damageList,fightLength,fl)
+                this.usedAbility = this.healAi(healList,damageList,fightLength,fl,infiniteHp)
 
                 this.useAbility()
 
@@ -251,7 +265,7 @@ export default {
 
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
-            //console.log(this.healingDoneArr)
+            console.log(this.healingDoneArr)
             //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")
