@@ -8,6 +8,12 @@ export default {
             //RemSim
             let buffs = this.$store.state.buffs
 
+            settings.statHaste = this.$store.state.stats.haste
+            settings.statVers = this.$store.state.stats.vers
+            settings.statCrit = this.$store.state.stats.crit
+            settings.statInt = this.$store.state.stats.int
+            settings.statMastery = this.$store.state.stats.mastery
+
             let mode = settings.simMode
             let tftUseOn = settings.tftUse
             let timeline=[]
@@ -276,15 +282,15 @@ export default {
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
-            let labels = []
             let data = []
             for (let i=0; i<timeline.length ; i++) {
-                labels.push(timeline[i].time)
-                data.push(timeline[i][name])
+              /*  labels.push(timeline[i].time)
+                data.push(timeline[i][name])*/
+
+                data.push({y:timeline[i][name], x:timeline[i].time})
             }
 
             let chartdata = {
-                labels: labels,
                     datasets: [
                     {
                         label: nameLabel,

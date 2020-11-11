@@ -118,14 +118,14 @@
         data() {
             return {
                 //v-models settings
-                extendRem:1, //1=100%
+                extendRem:this.$store.state.classSettings.extendRem, //1=100%
                 tftUse:0, //0 = rem 1 = rsk
                 fightLength:120, //sec
-                statHaste:0, //%
-                statCrit:0, //%
-                statVers:0, //%
-                statMastery:0, //%
-                statInt: 1000,
+                statHaste:this.$store.state.stats.haste, //%
+                statCrit:this.$store.state.stats.crit, //%
+                statVers:this.$store.state.stats.vers, //%
+                statMastery:this.$store.state.stats.mastery, //%
+                statInt: this.$store.state.stats.int,
                 simMode: "infiniteRSK",
                 //v-models buffs
                 stat: "haste",
