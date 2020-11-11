@@ -76,8 +76,15 @@ export default {
 
                         healing = Math.round(healing*(1+this.targets[i].healingBonus))
 
-
                         this.doHealing(healing,this.targets[i].hots[a].name,i,"healer",1)
+
+                        //TODO: DO SOMETHING WITH THIS PLS--------------------------
+                        if (this.character.legendaries.tearOfMorning===1 && this.targets[i].hots[a].name==="Enveloping Mist") {
+                            for (let tom = 0; tom<this.hotsData["Renewing Mist"].length;tom++) {
+                                this.doHealing(healing*this.character.legendariesData.mistweaver.tomEmRemHeal,"Tear of Morning",this.hotsData["Renewing Mist"][tom],"healer",1)
+                            }
+                        }
+                        //----------------------------------------------------------
 
                         // expire hot
                         if (hotTimeLeft<0) {

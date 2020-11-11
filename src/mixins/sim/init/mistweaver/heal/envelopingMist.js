@@ -2,7 +2,7 @@
 export default {
     methods: {
         healFuncEm() {
-            return function(character,target,healMod,hots,targets) {
+            return function(character,target,healMod,hots,targets,targetsData) {
                 if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
@@ -16,7 +16,7 @@ export default {
                     let ebDuration = 6
                     let ebBonus= 0.1
 
-                    if (this.talents.mistwrap===1) {
+                    if (this.talents.mistWrap===1) {
                         emDuration = 7
                         emBonus = 0.4
                     }
@@ -77,6 +77,18 @@ export default {
                         character.buffs2.thunderFocusTea --
                     }
 
+                    //legendaries
+                    if (character.legendaries.tearOfMorning===1 && hots["Renewing Mist"].indexOf(target[0])!==-1) {
+                        let spreadChance = (Math.random()*100)
+                        if (spreadChance < 10) {
+                            for (let hh = 0; hh<targetsData[target[0]].hots.length; hh++)  {
+                                if (targetsData[target[0]].hots[hh].name==="Renewing Mist") {
+                                    let spreadHotData = targetsData[target[0]].hots[hh]
+                                    returnData.hotData.push({targetID:[0], canJump:1, scaleWithHaste: 1, data:{heal: spreadHotData.heal , duration: spreadHotData.duration, maxDuration: spreadHotData.maxDuration, extended: spreadHotData.extended, name: "Renewing Mist"}})
+                                }
+                            }
+                        }
+                    }
 
                     return returnData
                 }

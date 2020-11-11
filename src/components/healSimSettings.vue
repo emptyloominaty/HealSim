@@ -1,157 +1,165 @@
 <template>
     <section class="mainSection">
-        <form v-on:submit.prevent="">
-            <div>
-                <div class="inputDiv">
-                    <label>Raid / Dungeon Type </label>
-                    <select  type="text" v-model="simMode">
-                        <option value="30-1" selected>Raid 30</option>
-                        <option value="20-1" selected>Raid 20</option>
-                        <option value="20-5" selected>Raid 20 AOE 5</option>
-                        <option value="20-3" selected>Raid 20 AOE 3</option>
-                        <option value="20-2" selected>Raid 20 AOE 2</option>
-                        <option value="10-1" selected>Raid 10</option>
-                        <option value="5-1" selected>Dungeon 5</option>
-                    </select>
-                </div>
-                <div class="inputDiv">
-                    <label>Boss Fight</label>
-                    <select  type="text" v-model="bossFight">
-                        <option v-for="(item,index) in bossDamages" :key="index"  v-bind:value="{value:item}">
-                        {{item[0].name}}
-                        </option>
-                    </select>
-                </div>
-                <div class="inputDiv">
-                    <label>Sim Mode</label>
-                    <select  type="text" v-model="simModeInfinite">
-                        <option value="time" selected>Infinite HP</option>
-                        <option value="boss" selected>Real Boss Fight</option>
-                    </select>
-                </div>
-                <div class="inputDiv">
-                    <label>Fight Length </label>
-                    <input type="number" max="600" min="30" v-model="fightLength">
-                </div>
-                <button  v-on:click="saveNewSettings()"  >Set</button>
-            </div>
-
-            <div>
-                <div class="inputDiv">
-                    <label> Haste </label>
-                    <input type="number"  step="any" v-model="statHaste">
-                </div>
-                <div class="inputDiv">
-                    <label>Crit </label>
-                    <input type="number"  step="any" v-model="statCrit">
-                </div>
-                <div class="inputDiv">
-                    <label>Vers </label>
-                    <input type="number"  step="any" v-model="statVers">
-                </div>
-                <div class="inputDiv">
-                    <label>Mastery </label>
-                    <input type="number"  step="any" v-model="statMastery">
-                </div>
-                <div class="inputDiv">
-                    <label>Int </label>
-                    <input type="number"  step="any" v-model="statInt"> &nbsp;&nbsp;
-                </div>
-            </div>
-        </form>
-        <!-- BUFFS -->
-        <form v-on:submit.prevent="">
-            <section class="buffsSectionWH3">
-                <h3>Add Buff</h3>
-                 <section class="buffsSection">
-                    <section class="buffsInputColumn">
-                        <div class="inputDiv">
-                            <label>Stat </label>
-                            <select  type="text" v-model="stat">
-                                <option value="haste" selected>Haste</option>
-                                <option value="crit">Crit</option>
-                                <option value="vers">Vers</option>
-                                <option value="mastery">Mastery</option>
-                                <option value="int">Int</option>
-                            </select>
-                        </div>
-                        <div class="inputDiv">
-                            <label> Duration </label>
-                            <input type="number"  step="any" v-model="duration">
-                        </div>
-                    </section>
-
-                    <section class="buffsInputColumn">
-                        <div class="inputDiv">
-                            <label> Amount </label>
-                            <input type="number"  step="any" v-model="amount">
-                        </div>
-
-                        <div class="inputDiv">
-                            <label> PPM </label>
-                            <input type="number"  step="any" v-model="ppm">
-                        </div>
-                    </section>
-
-                    <section class="buffsInputColumn listofBuffsSection" >
-                        <button  v-on:click="saveNewBuff()" >Add</button>
-                        <section class="listOfBuffs" :key="reloadTableKey">
-                            <table>
-                                <tr>
-                                    <th>Stat</th>
-                                    <th>Amount</th>
-                                    <th>Duration</th>
-                                    <th>PPM</th>
-                                    <th></th>
-                                </tr>
-                                <tr v-for="(item,index) in $store.state.buffs" :key="index" >
-                                    <td> {{ item.stat }} </td>
-                                    <td> {{ item.increase }} </td>
-                                    <td> {{ item.duration }}s </td>
-                                    <td> {{ item.ppm }} </td>
-                                    <td><button v-on:click="deleteBuff(index)" class="deletebutton">✕</button></td>
-                                </tr>
-                            </table>
-                        </section>
-                    </section>
-                 </section>
-            </section>
-        </form>
-        <!-- TALENTS -->
-        <form class="talents" v-on:submit.prevent="">
-            <h3>Talents</h3>
-            <div>
+        <section class="maxWidthSection">
+            <form v-on:submit.prevent="">
                 <div>
                     <div class="inputDiv">
-                         <select class="selectTalent" v-for="(items,index) in talentsData" :key="index" v-model="talents[index]">
-                               <option v-for="(item,index2) in items" :key="index2" v-bind:value="{value:item.value}" >
-                                    {{ item.name }}
-                               </option>
-                         </select>
+                        <label>Raid / Dungeon Type </label>
+                        <select  type="text" v-model="simMode">
+                            <option value="30-1" selected>Raid 30</option>
+                            <option value="20-1" selected>Raid 20</option>
+                            <option value="20-5" selected>Raid 20 AOE 5</option>
+                            <option value="20-3" selected>Raid 20 AOE 3</option>
+                            <option value="20-2" selected>Raid 20 AOE 2</option>
+                            <option value="10-1" selected>Raid 10</option>
+                            <option value="5-1" selected>Dungeon 5</option>
+                        </select>
                     </div>
+                    <div class="inputDiv">
+                        <label>Boss Fight</label>
+                        <select  type="text" v-model="bossFight">
+                            <option v-for="(item,index) in bossDamages" :key="index"  v-bind:value="{value:item}">
+                            {{item[0].name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="inputDiv">
+                        <label>Sim Mode</label>
+                        <select  type="text" v-model="simModeInfinite">
+                            <option value="time" selected>Infinite HP</option>
+                            <option value="boss" selected>Real Boss Fight</option>
+                        </select>
+                    </div>
+                    <div class="inputDiv">
+                        <label>Fight Length </label>
+                        <input type="number" max="600" min="30" v-model="fightLength">
+                    </div>
+                    <button  v-on:click="saveNewSettings()"  >Set</button>
                 </div>
+
                 <div>
-                    <button  v-on:click="setTalents()"  >Set Talents</button>
-                </div>
-                <div class="talentsIcons">
-                    <div class="talentsIcon" v-for="(item,index) in talents" :key="index">
-                        <img :src="'/img/talents/'+item.value+'.jpg'" >
+                    <div class="inputDiv">
+                        <label> Haste </label>
+                        <input type="number"  step="any" v-model="statHaste">
+                    </div>
+                    <div class="inputDiv">
+                        <label>Crit </label>
+                        <input type="number"  step="any" v-model="statCrit">
+                    </div>
+                    <div class="inputDiv">
+                        <label>Vers </label>
+                        <input type="number"  step="any" v-model="statVers">
+                    </div>
+                    <div class="inputDiv">
+                        <label>Mastery </label>
+                        <input type="number"  step="any" v-model="statMastery">
+                    </div>
+                    <div class="inputDiv">
+                        <label>Int </label>
+                        <input type="number"  step="any" v-model="statInt"> &nbsp;&nbsp;
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+            <!-- BUFFS -->
+            <form v-on:submit.prevent="">
+                <section class="buffsSectionWH3">
+                    <h3>Add Buff</h3>
+                     <section class="buffsSection">
+                        <section class="buffsInputColumn">
+                            <div class="inputDiv">
+                                <label>Stat </label>
+                                <select  type="text" v-model="stat">
+                                    <option value="haste" selected>Haste</option>
+                                    <option value="crit">Crit</option>
+                                    <option value="vers">Vers</option>
+                                    <option value="mastery">Mastery</option>
+                                    <option value="int">Int</option>
+                                </select>
+                            </div>
+                            <div class="inputDiv">
+                                <label> Duration </label>
+                                <input type="number"  step="any" v-model="duration">
+                            </div>
+                        </section>
 
-        <!-- LEGENDARIES -->
-    <select v-model="legendary1">
-        <option value="tearOfMorning"> Tear of Morning </option>
-        <option value="ancientTeachingOfTheMonastery"> Ancient Teaching of the Monastery </option>
-        <option value="yulonWhisper"> Yulons Whisper </option>
-        <option value="invokersDelight"> Invokers Delight </option>
-    </select>
-        <!-- CONDUITS -->
+                        <section class="buffsInputColumn">
+                            <div class="inputDiv">
+                                <label> Amount </label>
+                                <input type="number"  step="any" v-model="amount">
+                            </div>
 
-        <!-- COVENANT -->
+                            <div class="inputDiv">
+                                <label> PPM </label>
+                                <input type="number"  step="any" v-model="ppm">
+                            </div>
+                        </section>
 
+                        <section class="buffsInputColumn listofBuffsSection" >
+                            <button  v-on:click="saveNewBuff()" >Add</button>
+                            <section class="listOfBuffs" :key="reloadTableKey">
+                                <table>
+                                    <tr>
+                                        <th>Stat</th>
+                                        <th>Amount</th>
+                                        <th>Duration</th>
+                                        <th>PPM</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr v-for="(item,index) in $store.state.buffs" :key="index" >
+                                        <td> {{ item.stat }} </td>
+                                        <td> {{ item.increase }} </td>
+                                        <td> {{ item.duration }}s </td>
+                                        <td> {{ item.ppm }} </td>
+                                        <td><button v-on:click="deleteBuff(index)" class="deletebutton">✕</button></td>
+                                    </tr>
+                                </table>
+                            </section>
+                        </section>
+                     </section>
+                </section>
+            </form>
+            <!-- TALENTS -->
+            <form class="talents" v-on:submit.prevent="">
+                <h3>Talents</h3>
+                <div>
+                    <div>
+                        <div class="inputDiv">
+                             <select class="selectTalent" v-for="(items,index) in talentsData" :key="index" v-model="talents[index]">
+                                   <option v-for="(item,index2) in items" :key="index2" v-bind:value="{value:item.value}" >
+                                        {{ item.name }}
+                                   </option>
+                             </select>
+                        </div>
+                    </div>
+                    <div>
+                        <button  v-on:click="setTalents()"  >Set Talents</button>
+                    </div>
+                    <div class="talentsIcons">
+                        <div class="talentsIcon" v-for="(item,index) in talents" :key="index">
+                            <img :src="'/img/talents/'+item.value+'.jpg'" >
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- LEGENDARIES -->
+        <select v-model="legendary1">
+            <option value=""> None </option>
+            <option value="tearOfMorning"> Tear of Morning </option>
+            <option value="ancientTeachingOfTheMonastery"> Ancient Teaching of the Monastery </option>
+            <option value="yulonWhisper"> Yulons Whisper </option>
+            <option value="invokersDelight"> Invokers Delight </option>
+        </select>
+            <!-- CONDUITS -->
+
+            <!-- COVENANT -->
+            <select v-model="covenant">
+                <option value="kyrian"> Kyrian </option>
+                <option value="nightFae"> Night Fae </option>
+                <option value="venthyr"> Venthyr </option>
+                <option value="necrolord"> Necrolord </option>
+            </select>
+        </section>
     </section>
 </template>
 
@@ -163,7 +171,8 @@
                 //v-models settings
                 legendary1:"",
                 legendary2:"", // maybe in the next patch we can have 2 equipped legendaries hmm
-                bossFight:"Test Boss - Heroic", //1=100%
+                covenant:"",
+                bossFight:this.$store.state.healSetting.bossFight,
                 simModeInfinite: "time", //0 = rem 1 = rsk
                 fightLength:this.$store.state.healSetting.fightLength, //sec
                 statHaste:this.$store.state.stats.haste, //%
@@ -259,6 +268,13 @@
     .mainSection {
         display:flex;
         justify-content: center;
+    }
+
+    .maxWidthSection {
+        display:flex;
+        justify-content: center;
+        flex-wrap:wrap;
+        max-width:1200px;
     }
 
     .buffsSectionWH3 {

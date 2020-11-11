@@ -13,6 +13,8 @@ export default {
     mixins: [heals,damages,targets,healai,hots,dots,init,useAbility,healdmgFunctions],
     methods: {
         mainSim() {
+            let startTime = Date.now()
+            let endTime,endTime2,endTime3
             this.db = []
 //Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
@@ -20,7 +22,7 @@ export default {
             let shadowlandsData = this.$store.state.shadowlandsData
         //Config
             let fightLength = storeData.fightLength
-            let talents = {mistwrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
+            let talents = {mistWrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
             let stats = this.$store.state.stats
             let mana = 100 //%
             let spec = "mistweaver"
@@ -42,7 +44,11 @@ export default {
             }
 
             let legendariesData = {
-                mistweaver: { atoftmDuration:15,atoftmHeal:2.5,invokersDelightDuration:20,invokersDelightAmount:33,yulonWhisperHeal:1.50*3,yulonWhisperTargets:6,}
+                mistweaver: { atoftmDuration:15,atoftmHeal:2.5,
+                    invokersDelightDuration:20,invokersDelightAmount:33,
+                    yulonWhisperHeal:1.50*3,yulonWhisperTargets:6,
+                    tomSpreadChance:10,tomVivCleave:1.2/* 20% */, tomEmRemHeal:0.2 /* 20% */,
+                },
             }
 
         //talents
@@ -55,6 +61,14 @@ export default {
 
         //boss
             let bossFightData = storeData.bossFight
+            if (bossFightData==undefined) {
+                bossFightData= [ //test boss - Heroic
+                    {name:"Test Boss - Heroic",bossHealth:1000000,addsHealth:10000,adds:0,addAutoattack:100,bossAutoAttack:150}, //0-data
+                    {time:0,everySec:1,damage:1000,targets:3,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
+                    {time:0,everySec:1,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //2-dmg
+                    {time:0,everySec:5,damage:100,targets:1,name:"dot",dot:{isDot:1,dotData:{damage:500,duration:15,maxDuration:15,dispellable:0,dotType:"enemy",name:"dotdot"}}} //3-dmg dot
+                ]
+            }
             let bossDamageAbilities = []
             for (let i = 0; i<bossFightData.length-1; i++) {
                 bossDamageAbilities.push(bossFightData[i+1])
@@ -66,7 +80,6 @@ export default {
             if (storeData.simModeInfinite==="time") {
                 infiniteHp = 1
             }
-            console.log(infiniteHp+""+storeData.simModeInfinite)
 
         //targets
             let fff = storeData.simMode.split("-")
@@ -87,7 +100,6 @@ export default {
                     this.enemyTargets.push(this.targets[i])
                 }
             }
-
             let timeline = []
             this.time = 0
             this.heals = this.createHeals(this.character.spec,this.character.talents)
@@ -120,6 +132,7 @@ export default {
             //console.log(this.targets)
             //console.log(this.heals)
             this.db.push(this.character.stats)
+            endTime = Date.now()
 //LOOP START------------------------
             for (let fl = 0; fl<fightLength; fl++) {
 //Loop Init---------------------------------------------------------------------------------------------
@@ -265,7 +278,7 @@ export default {
 
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
-            console.log(this.healingDoneArr)
+            //console.log(this.healingDoneArr)
             //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone
             this.db.push("----------------------------------------------")
@@ -294,6 +307,8 @@ export default {
                 timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'')
                 timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'')
             }
+            endTime2 = Date.now()
+
             this.generateChartData(timeline,"rems","ReMs","setChartData","#78f871",0)
             this.generateChartData(timeline,"mana","Mana","setChartDataMana","#6edcf8",0.4)
             this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
@@ -309,19 +324,18 @@ export default {
             timeline[0].damageArr = this.damageDoneArr
 
 
+            endTime3 = Date.now()
+            console.log("Init: "+ +(endTime - startTime) +" ms"+" | Sim: "+ +(endTime2 - endTime) +" ms"+" | Charts: "+ +(endTime3 - endTime2) +" ms"+" ||| Total: "+ +(endTime3 - startTime)+" ms")
 
             return timeline
         },
         generateChartData(timeline,name,nameLabel,store,lineColor,lineTension) {
-            let labels = []
             let data = []
             for (let i=0; i<timeline.length ; i++) {
-                labels.push(timeline[i].time)
-                data.push(timeline[i][name])
+                data.push({y:timeline[i][name], x:timeline[i].time})
             }
 
             let chartdata = {
-                labels: labels,
                 datasets: [
                     {
                         label: nameLabel,
@@ -340,16 +354,13 @@ export default {
             this.$store.commit(store,chartdata)
         },
         generateChartData2(timeline,name,nameLabel,store,lineColor,lineTension) {
-            let labels = []
             let data = [[],[],[],[],[],[]]
             for (let i=0; i<timeline.length ; i++) {
-                labels.push(timeline[i].time)
                 for (let a=0; a<name.length ; a++) {
-                    data[a].push(timeline[i][name[a]])
+                    data[a].push({x:timeline[i].time,y:timeline[i][name[a]]})
                 }
             }
             let chartdata = {
-                labels: labels,
                 datasets: [
                     {
                         yAxisID: 'A',
@@ -469,7 +480,7 @@ export default {
 
 
             for (let i=0; i<timeline.length ; i++) { //TIME LOOP
-                 let timeNow = timeline[i].time
+                 let timeNow = +timeline[i].time
                  labels.push(timeNow)
 
                  for (let a=0; a<dataArrayKeys.length ; a++) { //HEALS LOOP
@@ -494,16 +505,11 @@ export default {
                  }
              }
 
-
            for (let a=0; a<dataArrayKeys.length ; a++) {
                data[a]=getAvgValues(data[a])
             }
 
-
-
-
-
-
+            //remove 0 heal heals
             let length = dataArrayKeys.length
             for (let a=0; a<length ; a++) {
                 const arr = data[a]
@@ -515,11 +521,17 @@ export default {
                     data.splice(a,1)
                     a--
                 }
-
             }
 
             for (let a=0; a<dataArrayKeys.length ; a++) {
                 nameLabel.push(dataArrayKeys[a])
+            }
+
+            //generate x y data from two arrays (very retarded)
+            for (let a = 0; a<data.length; a++) {
+                for (let b = 0; b<data[a].length; b++) {
+                    data[a][b]={x:labels[b], y:data[a][b]}
+                }
             }
 
             //generate dataset
@@ -534,15 +546,15 @@ export default {
                     pointStyle: "circle",
                     pointBorderColor: "rgba(0,0,0,0)",
                     pointBackgroundColor: "rgba(0,0,0,0)",
-                    pointRadius: 6,
+                    pointRadius: 10,
                     lineTension:lineTension,
-                    pointHoverRadius: 7,
+                    pointHoverRadius: 11,
                     data: data[i],
                 })
             }
 
             let chartdata = {
-                labels: labels,
+               // labels: labels,
                 datasets: datasets
             }
             this.$store.commit(store,chartdata)

@@ -7,6 +7,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -14,6 +15,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                         yAxes: [{
@@ -42,6 +46,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -49,6 +54,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                         yAxes: [{
@@ -72,6 +80,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -79,6 +88,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                     yAxes: [{
@@ -103,12 +115,16 @@ export default {
                 scales: {
                     xAxes: [{
                         display: true,
+                        type: "linear",
                         gridLines: {
                             color: '#555'
                         },
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                     yAxes: [{
@@ -132,6 +148,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -139,6 +156,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                         yAxes: [{
@@ -164,6 +184,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -171,6 +192,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
 
@@ -208,6 +232,7 @@ export default {
                 legend: { labels: {fontColor:'#fff'}},
                 scales: {
                     xAxes: [{
+                        type: "linear",
                         display: true,
                         gridLines: {
                             color: '#555'
@@ -215,6 +240,9 @@ export default {
                         scaleLabel: {
                             display: true,
                             labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
                         }
                     }],
                     yAxes: [{
