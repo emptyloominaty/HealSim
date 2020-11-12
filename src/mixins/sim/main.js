@@ -325,7 +325,7 @@ export default {
 
 
             endTime3 = Date.now()
-            console.log("Init: "+ +(endTime - startTime) +" ms"+" | Sim: "+ +(endTime2 - endTime) +" ms"+" | Charts: "+ +(endTime3 - endTime2) +" ms"+" ||| Total: "+ +(endTime3 - startTime)+" ms")
+            console.log( "- Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
 
             return timeline
         },
@@ -469,7 +469,6 @@ export default {
                 return avg
             }
 
-
             let colorsNames = Object.keys(colors)
 
             let dataArray = this[name]
@@ -478,7 +477,7 @@ export default {
             let labels = []
             let data = []
 
-
+            //TODO: optimize this pls
             for (let i=0; i<timeline.length ; i++) { //TIME LOOP
                  let timeNow = +timeline[i].time
                  labels.push(timeNow)
@@ -487,11 +486,8 @@ export default {
                      if (!data[a]) {
                          data[a]=[]
                      }
-
                      for (let b=0; b<dataArray[dataArrayKeys[a]].length ; b++) {   //HEAL LOOP
-
-                         if (Math.round(dataArray[dataArrayKeys[a]][b].time*10)/10 === +timeNow) { //dataArray[dataArrayKeys[a]][b] &&
-                            // console.log(i+" ( "+timeNow+" ) "+dataArrayKeys[a]+"/////"+dataArray[dataArrayKeys[a]][b].heal)
+                         if (Math.round(dataArray[dataArrayKeys[a]][b].time*10)/10 === +timeNow) {
                              if (data[a][i]) {
                                  data[a][i]+=(dataArray[dataArrayKeys[a]][b].heal)
                              } else {
@@ -504,6 +500,7 @@ export default {
                      }
                  }
              }
+
 
            for (let a=0; a<dataArrayKeys.length ; a++) {
                data[a]=getAvgValues(data[a])
@@ -523,9 +520,11 @@ export default {
                 }
             }
 
+
             for (let a=0; a<dataArrayKeys.length ; a++) {
                 nameLabel.push(dataArrayKeys[a])
             }
+
 
             //generate x y data from two arrays (very retarded)
             for (let a = 0; a<data.length; a++) {
@@ -552,6 +551,9 @@ export default {
                     data: data[i],
                 })
             }
+
+            /*console.log( "1: "+ +(time2 - time1) +" ms"+" - 2: "+ +(time3 - time2) +" ms"+" - 3: "+ +(time4 - time3) +" ms"+" - 4: "+ +(time5 - time4) +" ms"+
+                " - 5: "+ +(time6 - time5) +" ms"+" - 6: "+ +(time7 - time6) +" ms"+" - 7: "+ +(time8 - time7) +" ms"+" --- Total: "+ +(time8  - time1)+" ms")*/
 
             let chartdata = {
                // labels: labels,
