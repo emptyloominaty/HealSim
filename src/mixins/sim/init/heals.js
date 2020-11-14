@@ -10,11 +10,13 @@ import hfsm from './mistweaver/heal/soothingMist'
 import hfyul from './mistweaver/heal/yuLon'
 import hfchijiact from './mistweaver/heal/chiJiActivate'
 import hfchiji from './mistweaver/heal/chiJi'
+
 import hftft from './mistweaver/other/thunderFocusTea'
 import hfmt from './mistweaver/other/manaTea'
+import hfmp from './mistweaver/other/manaPotion'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt,hfmp],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -110,6 +112,7 @@ export default {
                         //tft
                         new Heal ("Thunder Focus Tea",0,0,30,1,0,talents,this.healFuncTFT()),
                         new Heal ("Mana Tea",0,0,120,1,0,talents,this.healFuncManaTea()),
+                        new Heal ("Mana Potion",0,0,300,1,0,talents,this.healFuncManaPotion()),
 
                     ]
                     break;

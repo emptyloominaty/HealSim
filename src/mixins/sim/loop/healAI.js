@@ -87,6 +87,10 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
+            if (usedAbility===0) { //Mana Potion
+                usedAbility = this.heals[healList["Mana Potion"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
+            }
+
             if (usedAbility===0 && canHeal > 0 && manaTarget/1.35 < mana && rems > 5 && raidMissingHealthPercent > 0.02) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets,this.targets)
             }

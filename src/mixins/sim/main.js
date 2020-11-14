@@ -33,7 +33,7 @@ export default {
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
             let tanks = [1,6]
             let legendaries = {tearOfMorning:0, ancientTeachingOfTheMonastery:0, yulonWhisper:0, invokersDelight:0}
-            let covenant = "" //
+            let covenant = "kyrian" //kyrian
             let conduits = [] //
 
             //check for legendaries
@@ -46,7 +46,7 @@ export default {
             let legendariesData = {
                 mistweaver: { atoftmDuration:15,atoftmHeal:2.5,
                     invokersDelightDuration:20,invokersDelightAmount:33,
-                    yulonWhisperHeal:1.50*3,yulonWhisperTargets:6,
+                    yulonWhisperHeal:0.60*3,yulonWhisperTargets:6,
                     tomSpreadChance:10,tomVivCleave:1.2/* 20% */, tomEmRemHeal:0.2 /* 20% */,
                 },
             }
@@ -308,7 +308,6 @@ export default {
                 timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'')
             }
             endTime2 = Date.now()
-
             this.generateChartData(timeline,"rems","ReMs","setChartData","#78f871",0)
             this.generateChartData(timeline,"mana","Mana","setChartDataMana","#6edcf8",0.4)
             this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
@@ -325,7 +324,51 @@ export default {
 
 
             endTime3 = Date.now()
-            console.log( "- Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
+            console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
+
+            /* TEST GET SIZE OBJECT*/
+            function memorySizeOf(obj) {
+                var bytes = 0;
+
+                function sizeOf(obj) {
+                    if(obj !== null && obj !== undefined) {
+                        switch(typeof obj) {
+                            case 'number':
+                                bytes += 8;
+                                break;
+                            case 'string':
+                                bytes += obj.length * 2;
+                                break;
+                            case 'boolean':
+                                bytes += 4;
+                                break;
+                            case 'object':
+                                var objClass = Object.prototype.toString.call(obj).slice(8, -1);
+                                if(objClass === 'Object' || objClass === 'Array') {
+                                    for(var key in obj) {
+                                        if(!obj.hasOwnProperty(key)) continue;
+                                        sizeOf(obj[key]);
+                                    }
+                                } else bytes += obj.toString().length * 2;
+                                break;
+                        }
+                    }
+                    return bytes;
+                };
+
+                function formatByteSize(bytes) {
+                    if(bytes < 1024) return bytes + " bytes";
+                    else if(bytes < 1048576) return(bytes / 1024).toFixed(3) + " KiB";
+                    else if(bytes < 1073741824) return(bytes / 1048576).toFixed(3) + " MiB";
+                    else return(bytes / 1073741824).toFixed(3) + " GiB";
+                };
+
+                return formatByteSize(sizeOf(obj));
+            };
+
+            console.log("Size of Sim Data:"+memorySizeOf(timeline)) //400kb per min of sim
+
+
 
             return timeline
         },
@@ -526,7 +569,7 @@ export default {
             }
 
 
-            //generate x y data from two arrays (very retarded)
+            //generate x y data from two arrays
             for (let a = 0; a<data.length; a++) {
                 for (let b = 0; b<data[a].length; b++) {
                     data[a][b]={x:labels[b], y:data[a][b]}

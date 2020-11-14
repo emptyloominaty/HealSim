@@ -107,7 +107,7 @@ export default {
                 }
             }
 
-            //temporary stat buff TODO:NOT WORKING LMAO
+            //temporary stat buff
             if (this.character.temporaryBuffs.length>0) {
                 for (let tb = 0; tb<this.character.temporaryBuffs.length; tb++) {
                     if (this.character.temporaryBuffs[tb].act===0) {
@@ -122,9 +122,6 @@ export default {
                     }
                 }
             }
-            //character.temporaryBuffs.push({name:"invokersDelight",statname:"haste",amount:33,duration:20})
-
-
 
             //get hots
             let runGetHotsAgain = 0

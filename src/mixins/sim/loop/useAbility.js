@@ -78,9 +78,8 @@ export default {
                     }
                 } else if (this.usedAbility.type === "other") {//----------------------------------------------------------------------------------------------------------Other
                         if (this.usedAbility.type2 !== "other") {
-
                         } else {
-
+                            //DONT DO ANYTHING
                         }
                 }
 
