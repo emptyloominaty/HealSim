@@ -51,6 +51,12 @@ export default {
                         character.buffs2.ancientTeachingOfTheMonastery=character.legendariesData.mistweaver.atoftmDuration //sec
                     }
 
+                    if (character.buffs2.weaponsOfOrder>0) {
+                            if (returnData.runAfter===0) {returnData.runAfter=[]}
+                            returnData.runAfter.push("castHeal")
+                            returnData.runAfter.push("Weapons of Order")
+                    }
+
                     this.setCd()
 
                     return returnData

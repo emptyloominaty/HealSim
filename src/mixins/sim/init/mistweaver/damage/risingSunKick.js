@@ -74,7 +74,7 @@ export default {
                     if (character.buffs2.chiJi>0) {
                         if (returnData.runAfter===0) {returnData.runAfter=[]}
                         returnData.runAfter.push("castHeal")
-                        returnData.runAfter.push(15)
+                        returnData.runAfter.push("Chi-Ji")
                     }
 
 

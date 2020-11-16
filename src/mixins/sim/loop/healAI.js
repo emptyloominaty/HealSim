@@ -87,6 +87,10 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
+            if (usedAbility===0) { //Kyrian Covenant
+                usedAbility = this.heals[healList["Weapons of Order Activate"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+            }
+
             if (usedAbility===0) { //Mana Potion
                 usedAbility = this.heals[healList["Mana Potion"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
             }
@@ -185,7 +189,7 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
-            if (usedAbility===0 && (this.damages[damageList["Rising Sun Kick"]].cooldown<9.5 || this.damages[damageList["Rising Sun Kick"]].cooldown>=12)) { //Blackout Kick
+            if (usedAbility===0 && (this.damages[damageList["Rising Sun Kick"]].cooldown<10 || this.damages[damageList["Rising Sun Kick"]].cooldown>=12)) { //Blackout Kick
                 usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
             }
 

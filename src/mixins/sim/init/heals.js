@@ -10,13 +10,15 @@ import hfsm from './mistweaver/heal/soothingMist'
 import hfyul from './mistweaver/heal/yuLon'
 import hfchijiact from './mistweaver/heal/chiJiActivate'
 import hfchiji from './mistweaver/heal/chiJi'
+import hfslwooa from './mistweaver/heal/shadowlands/weaponsOfOrderActivate'
+import hfslwoo from './mistweaver/heal/shadowlands/weaponsOfOrder'
 
 import hftft from './mistweaver/other/thunderFocusTea'
 import hfmt from './mistweaver/other/manaTea'
 import hfmp from './mistweaver/other/manaPotion'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt,hfmp],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt,hfmp,hfslwooa,hfslwoo],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -102,6 +104,10 @@ export default {
                         new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Chi-Ji",0,0,0,1,0,talents,this.healFuncChiJi()),
                         new Heal("Enveloping Breath",0,0,0,1,0,talents,function() {return 0}),
+
+                        //covenants
+                        new Heal("Weapons of Order",0,0,0,1,0,talents,this.healFuncSlWoo()),
+                        new Heal("Weapons of Order Activate",5.0,0,120,1,0,talents,this.healFuncSlWooA()),
 
                         //legendary
                         new Heal("Ancient Teachings Of The Monastery",0,0,0,1,0,talents,function() {return 0}),

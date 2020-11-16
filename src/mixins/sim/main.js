@@ -28,12 +28,12 @@ export default {
             let spec = "mistweaver"
             let target = 0
             let buffs = this.$store.state.buffs.slice(0) //proc stats
-            let buffs2 = {everyGcd:["chiJi","yuLon","manaTea","ancientTeachingOfTheMonastery"],
-                chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0,ancientTeachingOfTheMonastery:0}  //class/specs buffs
+            let buffs2 = {everyGcd:["chiJi","yuLon","manaTea","ancientTeachingOfTheMonastery","weaponsOfOrder"],
+                chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0,ancientTeachingOfTheMonastery:0,weaponsOfOrder:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]
-            let tanks = [1,6]
+            let tanks = [1,6] //TODO: change to threat ?????????
             let legendaries = {tearOfMorning:0, ancientTeachingOfTheMonastery:0, yulonWhisper:0, invokersDelight:0}
-            let covenant = "kyrian" //kyrian
+            let covenant = shadowlandsData.covenant
             let conduits = [] //
 
             //check for legendaries
@@ -84,7 +84,7 @@ export default {
         //targets
             let fff = storeData.simMode.split("-")
             this.character = { mana: mana, spec: spec,target: target, talents: talents, stats: stats, buffs: buffs, buffs2: buffs2, temporaryBuffs: [],
-                conduits:conduits, convenant:covenant, legendaries: legendaries,legendariesData:legendariesData,storeClassData:storeClassData
+                conduits:conduits, covenant:covenant, legendaries: legendaries,legendariesData:legendariesData,storeClassData:storeClassData
             }
             this.targets = this.createTargets(fff[0],fff[1]-1,raidersHealth,bossFightData[0].bossHealth,bossFightData[0].addsHealth,infiniteHp,1.2)
             this.targets[target].stats = this.character.stats
@@ -112,7 +112,6 @@ export default {
             this.overhealingDone = 0
             this.manaUsed = 0
             this.healingDone = 0
-            this.healingFromHots = 0
             this.healingDoneArr = []
             this.damageDone = 0
             this.damageDoneArr = []
@@ -148,7 +147,7 @@ export default {
             //Heal AI
                 this.usedAbility = this.healAi(healList,damageList,fightLength,fl,infiniteHp)
 
-                this.useAbility()
+                this.useAbility(healList,damageList)
 
                 this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
 

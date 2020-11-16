@@ -45,7 +45,7 @@ export default {
                         if (returnData.runAfter===0) {returnData.runAfter=[]}
                         for (let i = 0; i<totm+1; i++) {
                             returnData.runAfter.push("castHeal")
-                            returnData.runAfter.push(15)
+                            returnData.runAfter.push("Chi-Ji")
                         }
                     }
 

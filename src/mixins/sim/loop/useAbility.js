@@ -2,7 +2,7 @@
 
 export default {
     methods: {
-        useAbility() {
+        useAbility(healList,damageList) {
             if (this.usedAbility!==0) {
                 //ManaTea
                 if (this.character.buffs2.manaTea>0) {
@@ -93,17 +93,24 @@ export default {
                         }
                     } else if (runAfter[i] === "heal") {
                         for (let t=0; t<runAfter[i+2].length; t++) {
-
                             this.doHealing(runAfter[i+1],runAfter[i+3],runAfter[i+2][t],"healer",0)
                         }
-                    } else if (runAfter[i] === "resetCooldown") {
+                    } else if (runAfter[i] === "resetCooldown") { //TODO:FIX THIS PLS
                         for (let t=0; t<this.damages.length; t++) {
                             if (runAfter[i+1]===this.damages[t].name) {
                                 this.damages[t].cooldown=this.damages[t].maxCooldown
                             }
                         }
-                    } else if (runAfter[i] === "castHeal") {
-                        let castedHeal = this.heals[runAfter[i+1]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
+                    } else if (runAfter[i] === "resetCooldownHeal") { //TODO:FIX THIS PLS
+                        for (let t=0; t<this.heals.length; t++) {
+                            if (runAfter[i+1]===this.heals[t].name) {
+                                this.heals[t].cooldown=this.heals[t].maxCooldown
+                            }
+                        }
+                    }
+
+                    else if (runAfter[i] === "castHeal") {
+                        let castedHeal = this.heals[healList[runAfter[i+1]]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
                         //heal
                         for (let k = 0; k < castedHeal.healingToTargets.length; k++) {
                             for (let j = 0; j < castedHeal.healingToTargets[k].length; j++) {

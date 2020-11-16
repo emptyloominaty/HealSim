@@ -231,7 +231,7 @@
                     mastery:this.statMastery, int:this.statInt}
                 //save legendaries to store
                 this.$store.state.shadowlandsData.legendaries = [this.legendary1,this.legendary2]
-
+                this.$store.state.shadowlandsData.covenant = this.covenant
 
                 this.$store.commit('setHealData',data)
             },
