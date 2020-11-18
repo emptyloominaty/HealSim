@@ -155,7 +155,7 @@
                 <option value=""> None </option>
                 <option value="kyrian"> Kyrian </option>
                 <option value="nightFae"> Night Fae </option>
-                <option value="venthyr"> Venthyr </option>
+                <option value="venthyr" disabled> Venthyr </option>
                 <option value="necrolord"> Necrolord </option>
             </select>
             <!-- CONDUITS -->

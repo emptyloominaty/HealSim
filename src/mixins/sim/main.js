@@ -118,6 +118,7 @@ export default {
             this.healingDoneArr = []
             this.damageDone = 0
             this.damageDoneArr = []
+            let avgRem = 0
 
             let healList = {}
             let damageList = {}
@@ -239,7 +240,7 @@ export default {
 
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
-
+                avgRem += this.hotsData["Renewing Mist"].length
                 timeline[fl] = {
                     id:fl,
                     time:this.time.toFixed(1),
@@ -263,6 +264,8 @@ export default {
                     heals: [],
                     healArr: [],
                     damageArr: [],
+                    avgDps: 0,
+                    avgRem: 0,
                 }
                 // eslint-disable-next-line no-prototype-builtins
             if (this.usedAbility.hasOwnProperty('upwelling')) {
@@ -280,6 +283,7 @@ export default {
 
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
+            avgRem = avgRem / this.time
             //console.log(this.healingDoneArr)
             //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone
@@ -323,7 +327,8 @@ export default {
             timeline[0].heals = this.heals
             timeline[0].healArr = this.healingDoneArr
             timeline[0].damageArr = this.damageDoneArr
-
+            timeline[0].avgDps = this.damageDone / this.time
+            timeline[0].avgRem = avgRem
 
             endTime3 = Date.now()
             console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
@@ -462,15 +467,14 @@ export default {
                 white: {
                     stroke: '#fffdff',
                 },
+                purple2: {
+                    stroke: '#9b8ec8',
+                },
                 darkBlue2: {
                     stroke: '#d2cc8b',
                 },
                 pink: {
                     stroke: '#FF69B4',
-                },
-
-                purple2: {
-                    stroke: '#9b8ec8',
                 },
                 green: {
                     stroke: '#98b86e',

@@ -18,14 +18,12 @@
                 <span v-for="(value, name) in item.hots" :key="name"  > <span v-if="value.length>0">{{name}} <strong  > {{ value }} </strong> <br> </span> </span>-->
             </div>
         </div>
+        <button v-on:click="reloadLmao()">ReSim</button>
         <!--TEST
         <div style="color:#fff">
             {{ test[testb] }}
             <button v-on:click="testb++" >haha</button>
         </div> -->
-        <button v-on:click="reloadLmao()">Reload (TEST)</button>
-
-        <targets :data="timelineData" />
 
         <div class="tables">
             <!-- Heals -->
@@ -55,8 +53,12 @@
             <!-- HPS DPS  -->
             <p> HPS: {{ formatNumber2(avgHps) }} </p>
             <!--<p> DPS: </p>-->
+            <p> DPS: {{ formatNumber2(avgDps) }} </p>
+
+            <p> Rems: {{ Math.round(avgRem*100)/100 }} </p>
         </div>
 
+        <targets :data="timelineData" />
 
     </section>
 </template>
@@ -75,7 +77,9 @@ export default {
          testb: 0,
          timelineData: this.mainSim(),
          tableData: [{name:"click reload pls",amount:0,hps:0,casts:0,avgCast:0,manaEf:0}] , //FIXED EZ
-         avgHps : 0
+         avgHps: 0,
+         avgDps: 0,
+         avgRem: 0,
      }
     },
     methods: {
@@ -87,10 +91,12 @@ export default {
              return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
          },
          formatNumber2(num) {
-             if (num>999.99) {
+             if (num>99.99) {
                  num=Math.round((num/1000)*10)/10 +"k"
              } else if (num>999999.99) {
                  num=Math.round((num/1000000)*10)/10 +"M"
+             } else {
+                 num=Math.round(num*10)/10
              }
             return num
          },
@@ -103,7 +109,8 @@ export default {
                  this.timelineData =this.mainSim()
              }*/
              let healsLength = this.timelineData[0].heals.length
-
+             this.avgDps = this.timelineData[0].avgDps
+             this.avgRem =  this.timelineData[0].avgRem
              let castsList = new Array(healsLength).fill(0)
              let amountList = new Array(healsLength).fill(0)
              let hpsList = new Array(healsLength).fill(0)
@@ -205,7 +212,7 @@ export default {
 
 <style scoped>
 button {
-font-size:26px;
+    font-size:26px;
     margin:8px;
 }
 
@@ -227,6 +234,24 @@ font-size:1.35rem;
 }
 img {
 width:32px;
+}
+
+button {
+    margin:5px;
+    padding: 8px;
+    width:150px;
+    background-color: #404040;
+    color: #ffde00;
+    text-shadow: 0 0 3px #987300;
+    border:1px solid #ffde00;
+    border-radius:3px;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-size:1.2rem;
+}
+button:hover {
+    background-color: #575757;
+    text-shadow: 0 0 8px #d7ac00;
 }
 
 .tables {
