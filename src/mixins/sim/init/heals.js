@@ -13,12 +13,13 @@ import hfchiji from './mistweaver/heal/chiJi'
 import hfslwooa from './mistweaver/heal/shadowlands/weaponsOfOrderActivate'
 import hfslwoo from './mistweaver/heal/shadowlands/weaponsOfOrder'
 
+import hfbdb from './mistweaver/other/shadowlands/bonedustBrew'
 import hftft from './mistweaver/other/thunderFocusTea'
 import hfmt from './mistweaver/other/manaTea'
 import hfmp from './mistweaver/other/manaPotion'
 
 export default {
-    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt,hfmp,hfslwooa,hfslwoo],
+    mixins: [hfviv,hfem,hfrm,hfrev,hflc,hfef,hfrjw,hfsm,hfyul,hfchiji,hfchijiact,hftft,hfmt,hfmp,hfslwooa,hfslwoo,hfbdb],
     methods: {
         createHeals(healSpec,talents) {
             let heals = []
@@ -95,27 +96,33 @@ export default {
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,), //no
                         new Heal("Chi-Ji Activate",5.0,1.5,180,1,0,talents,this.healFuncChiJiActivate()),
 
-                        //talents
+                        //----------------talents
                         new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,this.healFuncRJW()),
                         new Heal("Chi Burst",0,0,0,1,0,talents,function() {return 0}),
-                        //passive
+                        //----------------passive
                         new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Soothing Mist - Yu'Lon",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Chi-Ji",0,0,0,1,0,talents,this.healFuncChiJi()),
                         new Heal("Enveloping Breath",0,0,0,1,0,talents,function() {return 0}),
 
-                        //covenants
+                        //--------------covenants
+                        //kyrian
                         new Heal("Weapons of Order",0,0,0,1,0,talents,this.healFuncSlWoo()),
-                        new Heal("Weapons of Order Activate",5.0,0,120,1,0,talents,this.healFuncSlWooA()),
+                        new Heal("Weapons of Order Activate",5.0,1.5,120,1,0,talents,this.healFuncSlWooA()),
+                        //nightFae -> Damages
+                        new Heal("Faeline Stomp",0,0,0,1,0,talents,function() {return 0}),
+                        //necrolord
+                        new Heal("Bonedust Brew",0,1.5,60,1,0,talents,this.healFuncbonedustbrew()),
+                        //venthyr
 
-                        //legendary
+                        //----------------legendary
                         new Heal("Ancient Teachings Of The Monastery",0,0,0,1,0,talents,function() {return 0}),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,),
                         new Heal("Yu'lon's Whisper",0,0,0,1,0,talents,),
-                        //mastery
+                        //----------------mastery
                         new Heal ("Gust of Mists",0,0,0,1,0,talents,function() {return 0}),
-                        //tft
+                        //----------------tft
                         new Heal ("Thunder Focus Tea",0,0,30,1,0,talents,this.healFuncTFT()),
                         new Heal ("Mana Tea",0,0,120,1,0,talents,this.healFuncManaTea()),
                         new Heal ("Mana Potion",0,0,300,1,0,talents,this.healFuncManaPotion()),

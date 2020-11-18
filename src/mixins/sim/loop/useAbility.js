@@ -75,13 +75,18 @@ export default {
                             let targetx=this.usedAbility.damageToTargets[i][j].id
                             this.doDamage(damage,this.usedAbility.name,targetx,"healer")
                         }
-                    }
+                    } //TODO: DOT
+
+
                 } else if (this.usedAbility.type === "other") {//----------------------------------------------------------------------------------------------------------Other
                         if (this.usedAbility.type2 !== "other") {
                         } else {
                             //DONT DO ANYTHING
                         }
                 }
+
+
+
 
             //buffs + dispell + mw mastery
             if(this.usedAbility.runAfter!==0) {

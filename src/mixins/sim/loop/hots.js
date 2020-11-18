@@ -26,7 +26,8 @@ export default {
             }
 
             let jumped = 0
-            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Refreshing Jade Wind": [], "Soothing Mist - Statue": [], "Soothing Mist - Yu'Lon": [],"Enveloping Breath": []}
+            let targetsHots = {"Renewing Mist":[], "Enveloping Mist":[], "Essence Font":[], "Tear of Morning":[], "Refreshing Jade Wind": [], "Soothing Mist - Statue": [], "Soothing Mist - Yu'Lon": [],
+                "Enveloping Breath": [],"Bonedust Brew": []}
             for (let i = 0; i < this.targets.length; i++ ) {
                 if (this.targets[i].hots.length>0) {
                     for (let a = 0; a < this.targets[i].hots.length; a++ ) {

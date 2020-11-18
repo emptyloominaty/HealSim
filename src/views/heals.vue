@@ -93,8 +93,11 @@
                 data[6].push({name: "Revival 15",heal:Math.round((( (3.15*15)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:4.374,color:"#65ffca"})
                 data[6].push({name: "Revival 20",heal:Math.round((( (3.15*20)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:4.374,color:"#65ffca"})
 
-                data[6].push({name: "Expel Harm ",heal:Math.round((( (1.20+1.20)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:3.5,color:"#c1ff97"})
+                data[6].push({name: "Expel Harm ",heal:Math.round((( (1.20+1.20) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:3.5,color:"#c1ff97"})
 
+                data[6].push({name: "Faeline Stomp ",heal:Math.round((( (0.91*5)+(5*(0.472+0.168)) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.0,color:"#a8b3ff"})
+                data[6].push({name: "Weapons of Order ",heal:Math.round((( (3*(0.40*2)*6) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:5.0,color:"#a8fff3"})
+                //data[6].push({name: "Bonedust Brew ",heal:Math.round((( (6*42) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:0,color:"#a8fff3"})
 
                 return data
             },

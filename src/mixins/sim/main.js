@@ -92,6 +92,9 @@ export default {
             this.enemyTargets = []
             this.injuredTargets = []
 
+            this.$store.state.global.character = this.character
+            this.$store.state.global.targets = this.targets
+
             for (let i = 0; i<this.targets.length; i++) {
                 if (this.targets[i].type==="friendly") {
                     this.friendlyTargets.push(this.targets[i])
@@ -460,13 +463,14 @@ export default {
                     stroke: '#fffdff',
                 },
                 darkBlue2: {
-                    stroke: '#92bed2',
-                },
-                purple2: {
-                    stroke: '#9b8ec8',
+                    stroke: '#d2cc8b',
                 },
                 pink: {
                     stroke: '#FF69B4',
+                },
+
+                purple2: {
+                    stroke: '#9b8ec8',
                 },
                 green: {
                     stroke: '#98b86e',
@@ -490,7 +494,7 @@ export default {
                     stroke: '#75539e',
                 },
                 darkGreen2: {
-                    stroke: '#4ca244',
+                    stroke: '#ff230a',
                 },
                 greenYellow2: {
                     stroke: '#98c96e',

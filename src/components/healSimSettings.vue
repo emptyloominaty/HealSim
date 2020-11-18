@@ -143,22 +143,23 @@
             </form>
 
             <!-- LEGENDARIES -->
-        <select v-model="legendary1">
-            <option value=""> None </option>
-            <option value="tearOfMorning"> Tear of Morning </option>
-            <option value="ancientTeachingOfTheMonastery"> Ancient Teaching of the Monastery </option>
-            <option value="yulonWhisper"> Yulons Whisper </option>
-            <option value="invokersDelight"> Invokers Delight </option>
-        </select>
-            <!-- CONDUITS -->
-
+            <select v-model="legendary1">
+                <option value=""> None </option>
+                <option value="tearOfMorning"> Tear of Morning </option>
+                <option value="ancientTeachingOfTheMonastery"> Ancient Teaching of the Monastery </option>
+                <option value="yulonWhisper"> Yulons Whisper </option>
+                <option value="invokersDelight"> Invokers Delight </option>
+            </select>
             <!-- COVENANT -->
             <select v-model="covenant">
+                <option value=""> None </option>
                 <option value="kyrian"> Kyrian </option>
                 <option value="nightFae"> Night Fae </option>
                 <option value="venthyr"> Venthyr </option>
                 <option value="necrolord"> Necrolord </option>
             </select>
+            <!-- CONDUITS -->
+
         </section>
     </section>
 </template>

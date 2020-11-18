@@ -169,6 +169,8 @@ export default {
                 }
             }
 
+            this.$store.state.global.character = this.character
+            this.$store.state.global.targets = this.targets
 
         }
     }

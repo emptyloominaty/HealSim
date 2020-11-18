@@ -15,7 +15,7 @@ export default {
 
                     //-------heal-------
 
-                    let mainHeal = spellpower * heal
+                    let mainHeal = (spellpower * heal)*2 //2 because start and end
 
                     for (let i = 0; i<targets.length; i++) {
                         if (i >= healTargets) {

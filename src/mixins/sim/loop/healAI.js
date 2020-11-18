@@ -87,9 +87,20 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
+
             if (usedAbility===0) { //Kyrian Covenant
                 usedAbility = this.heals[healList["Weapons of Order Activate"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
+
+            if (usedAbility===0) { //Night Fae Covenant
+                usedAbility = this.damages[damageList["Faeline Stomp"]].dmgFunc(this.character, [0], 0, this.hotsData, this.enemyTargets,this.friendlyTargets)
+            }
+
+            if (usedAbility===0) { //Necrolord Covenant
+                usedAbility = this.heals[healList["Bonedust Brew"]].healFunc(this.character, [0], 0, this.hotsData, this.friendlyTargets,this.enemyTargets)
+            }
+
+
 
             if (usedAbility===0) { //Mana Potion
                 usedAbility = this.heals[healList["Mana Potion"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
