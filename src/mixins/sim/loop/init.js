@@ -2,7 +2,7 @@
 
 export default {
     methods: {
-        loopInit() {
+        loopInit(healList,fl) {
             //gcd
             if (this.usedAbility===0) {
                 this.gcd = 1.5 / (1 + (this.character.stats.haste / 100))
@@ -13,6 +13,11 @@ export default {
                 this.gcd=0.75
             }
             this.time += this.gcd
+
+            let healsxd = Object.keys(healList).length
+            for (let a = 0; a<healsxd; a++) {
+                this.healingDoneArr[this.heals[a].name].push(0)
+            }
 
             //mana regen
             this.character.mana+= 0.8 * this.gcd
@@ -36,7 +41,7 @@ export default {
                 }
             }
 
-            //check dead friendly targets
+            //get dead targets
             let stopfuckinginfiniteloop = 0
             for (let i = 0; i<this.friendlyTargets.length; i++) {
                 if (this.targets[this.friendlyTargets[i]].health===0) {

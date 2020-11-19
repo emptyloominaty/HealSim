@@ -137,7 +137,7 @@ export default {
              for(let i = 0; i<(Object.keys(this.timelineData[0].healArr).length); i++) {
                  //amount
                  for(let a = 0; a<this.timelineData[0].healArr[nameList[i]].length; a++) {
-                     amountList[i]+=this.timelineData[0].healArr[nameList[i]][a].heal
+                     amountList[i]+=this.timelineData[0].healArr[nameList[i]][a]
                  }
                  //hps
                  hpsList[i] = amountList[i] / fightlength

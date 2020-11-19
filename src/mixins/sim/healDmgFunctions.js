@@ -18,8 +18,9 @@ export default {
             this.overhealingDone += this.targets[target].heal(heal)
             this.targets[target].abilitiesOnThisTarget.push({name:name,value:heal,hot:hot,type:"heal",over:this.gcd})
             this.healingDone += heal
-            this.healingDoneArr[name].push( {time: this.time, heal: Math.floor(heal)})
-            //this.healingDoneArr[name][this.time] += Math.floor(heal)
+            //this.healingDoneArr[name].push( {time: this.time, heal: Math.floor(heal)})
+            this.healingDoneArr[name][this.fl] += +Math.floor(heal)
+           // console.log(+Math.floor(heal)+"/////"+this.healingDoneArr[name][this.fl])
         },
         checkForBuffs(target) {
             let bonus = 1

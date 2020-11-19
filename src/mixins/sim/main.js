@@ -138,12 +138,13 @@ export default {
             endTime = Date.now()
 //LOOP START------------------------
             for (let fl = 0; fl<fightLength; fl++) {
+                this.fl = fl
 //Loop Init---------------------------------------------------------------------------------------------
                 let healGcd = this.healingDone
                 let dmgGcd = this.damageDone
                 //calc gcd, hots,CDs, mana regen, Target Buffs, Buffs(Healer),
 
-                this.loopInit()
+                this.loopInit(healList,fl)
 
                 this.db.push("Time: "+Math.round(this.time*10)/10+" <b>Hots:</b> "+JSON.stringify(this.hotsData))
 //loop--------------------------------------------------------------------------------------------------
@@ -527,7 +528,6 @@ export default {
             let labels = []
             let data = []
 
-            //TODO: optimize this pls
             for (let i=0; i<timeline.length ; i++) { //TIME LOOP
                  let timeNow = +timeline[i].time
                  labels.push(timeNow)
@@ -536,18 +536,7 @@ export default {
                      if (!data[a]) {
                          data[a]=[]
                      }
-                     for (let b=0; b<dataArray[dataArrayKeys[a]].length ; b++) {   //HEAL LOOP
-                         if (Math.round(dataArray[dataArrayKeys[a]][b].time*10)/10 === +timeNow) {
-                             if (data[a][i]) {
-                                 data[a][i]+=(dataArray[dataArrayKeys[a]][b].heal)
-                             } else {
-                                 data[a][i]=(dataArray[dataArrayKeys[a]][b].heal)
-                             }
-                         }
-                     }
-                     if (!data[a][i]) {
-                         data[a][i]=0
-                     }
+                     data[a][i]=dataArray[dataArrayKeys[a]][i]
                  }
              }
 
