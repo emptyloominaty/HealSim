@@ -59,6 +59,17 @@
         </div>
 
         <targets :data="timelineData" />
+<!--
+        <table class="hotTable">
+            <tr v-for="item in timelineData[0].friendlyTargets" :key="item+'xd'">
+                <th> {{ timelineData[0].targets[item].name }}</th>
+                <td v-for="dataitem in timelineData" :key="dataitem.time+'xd2'" >
+                    <div class="targetHotDiv"  v-bind:class="{targetHotDiv2: getTargetHots(dataitem.targets[item].hots, 'Renewing Mist')}"> .
+                    </div>
+                </td>
+            </tr>
+        </table> -->
+
 
     </section>
 </template>
@@ -100,6 +111,14 @@ export default {
              }
             return num
          },
+     /*   getTargetHots(targetHots, hotName) {
+             for (let i = 0; i<targetHots.length; i++) {
+                 if (targetHots[i].name===hotName) {
+                     return 1
+                 }
+             }
+            return 0
+        },*/
          getHealTableData() {
              let data = []
              let nameList = []
@@ -253,6 +272,39 @@ button:hover {
     background-color: #575757;
     text-shadow: 0 0 8px #d7ac00;
 }
+/*
+.hotTable {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.hotTable table,th,td  {
+    border: 1px solid #000000;
+    color: #fff;
+    padding: 3px !important;
+    margin: 0;
+}
+
+.hotTable td {
+    padding: 0 !important;
+}
+
+.hotTable th {
+    font-size:12px;
+}
+
+.targetHotDiv {
+    width:100%;
+    margin:0;
+    padding:0;
+    height:100%;
+    background-color: transparent;
+    color: transparent;
+}
+.targetHotDiv2 {
+    background-color: #5fb75d;
+    color: #5fb75d;
+}*/
 
 .tables {
     display:flex;

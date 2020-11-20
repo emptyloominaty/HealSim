@@ -214,19 +214,7 @@ export default {
                             }
                         }
                     }
-                } /*else {
-                                           //attack random target
-                                           console.log(this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)])
-                                           this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)], "enemy")
-                                           if (this.enemyTargets.length>1) {
-                                               for (let i = 0; i<this.enemyTargets.length-1; i++) {
-                                                   if (this.targets[this.enemyTargets[i]].health>0) {
-                                                       this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", this.friendlyTargets[Math.round(Math.random()*this.friendlyTargets.length)], "enemy")
-                                                   }
-                                               }
-                                           }
-                                       }*/
-                                   //--------------------------------------------------------------------------------------
+                }
 
                 //Raid Attack
                 for (let ft = 0; ft<this.friendlyTargets.length-1; ft++) {
@@ -267,6 +255,7 @@ export default {
                     damageArr: [],
                     avgDps: 0,
                     avgRem: 0,
+                    friendlyTargets: [],
                 }
                 // eslint-disable-next-line no-prototype-builtins
             if (this.usedAbility.hasOwnProperty('upwelling')) {
@@ -330,6 +319,7 @@ export default {
             timeline[0].damageArr = this.damageDoneArr
             timeline[0].avgDps = this.damageDone / this.time
             timeline[0].avgRem = avgRem
+            timeline[0].friendlyTargets = this.friendlyTargets
 
             endTime3 = Date.now()
             console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
@@ -443,72 +433,13 @@ export default {
             this.$store.commit(store,chartdata)
         },
         generateStackedChartData(timeline,name,nameLabel,store,lineTension) {
-            const colors = {
-                yellow: {
-                    stroke: '#f9ff6a',
-                },
-                orange: {
-                    stroke: '#e78b24',
-                },
-                red: {
-                    stroke: '#9e3e3c',
-                },
-                pink2: {
-                    stroke: '#ffa7cb',
-                },
-                green2: {
-                    stroke: '#80ea80',
-                },
-                lightBlue: {
-                    stroke: '#00cddd',
-                },
-                darkBlue: {
-                    stroke: '#166fbf',
-                },
-                white: {
-                    stroke: '#fffdff',
-                },
-                purple2: {
-                    stroke: '#9b8ec8',
-                },
-                darkBlue2: {
-                    stroke: '#d2cc8b',
-                },
-                pink: {
-                    stroke: '#FF69B4',
-                },
-                green: {
-                    stroke: '#98b86e',
-                },
-                yellow2: {
-                    stroke: '#c8c280',
-                },
-                orange2: {
-                    stroke:  '#c8a985',
-                },
-                red2: {
-                    stroke: '#c8807d',
-                },
-                white2: {
-                    stroke: '#b4afac',
-                },
-                darkGreen: {
-                    stroke: '#006400',
-                },
-                purple: {
-                    stroke: '#75539e',
-                },
-                darkGreen2: {
-                    stroke: '#ff230a',
-                },
-                greenYellow2: {
-                    stroke: '#98c96e',
-                },
-                greenYellow: {
-                    stroke: '#ADFF2F',
-                }
-            }
-
+            const colors = ['#f9ff6a','#e78b24','#9e3e3c','#ffa7cb',
+                '#80ea80','#00cddd', '#166fbf','#fffdff',
+                '#9b8ec8','#d2cc8b','#FF69B4','#98b86e',
+                '#c8c280', '#c8a985','#c8807d','#b4afac',
+                '#006400','#75539e','#ff230a','#98c96e',
+                '#ADFF2F']
+            
             function getAvgValues(data) {
                 let avg = []
                 let val = [0,0,0,0,0]
@@ -520,7 +451,6 @@ export default {
                 return avg
             }
 
-            let colorsNames = Object.keys(colors)
 
             let dataArray = this[name]
             let dataArrayKeys = Object.keys(dataArray)
@@ -577,7 +507,7 @@ export default {
             for (let i = 0; i<nameLabel.length; i++) {
                 datasets.push({
                     fill: true,
-                    backgroundColor: colors[colorsNames[i]].stroke,
+                    backgroundColor: colors[i],
                     label: nameLabel[i],
                     fontColor: '#ffffff',
                     borderColor: "rgba(0,0,0,0)",
