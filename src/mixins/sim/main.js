@@ -156,65 +156,7 @@ export default {
 
                 this.db.push("Mana: "+Math.round(this.character.mana*100)/100)
 
-
-                  //boss abilities-------------------------------------------------------------------
-                       //{time:0,everySec:5,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
-                       for (let ba = 0; ba<bossDamageAbilities.length; ba++) {
-                           let bAbility = bossDamageAbilities[ba]
-                           if (bAbility.used===0 && bAbility.time<this.time && this.friendlyTargets.length>0) {
-
-                               //(damage,name,target,who,dot = 0)
-                               let dontInfiniteLoopPls = 0
-                               for (let t = 0; t<bAbility.targets; t++) {
-                                   let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length))
-                                   if (rngTarget===this.friendlyTargets.length) { rngTarget=0 }
-
-                                   let target = this.friendlyTargets[rngTarget]
-                                   if (this.targets[target].health>0) {
-                                       this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
-                                       if (bAbility.dot.isDot===1) {
-                                           this.targets[target].applyDot(bAbility.dot.dotData)
-                                       }
-                                   } else {
-                                       if (dontInfiniteLoopPls<100) {
-                                           dontInfiniteLoopPls++
-                                           t--
-                                       }
-                                   }
-                               }
-                               bAbility.used=1
-                           }
-                           if (bAbility.used===1) {
-                               bAbility.cd+=this.gcd
-                               if(bAbility.cd>=bAbility.everySec) {
-                                   bAbility.used=0
-                                   bAbility.cd-=bAbility.everySec
-                               }
-                           }
-                       }
-
-                     //Boss AutoAttack
-                if (this.targets[tanks[0]].health>0) {
-                    //attack first tank
-                    this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", tanks[0], "enemy")
-                    if (this.enemyTargets.length>1) {
-                        for (let i = 0; i<this.enemyTargets.length-1; i++) {
-                            if (this.targets[this.enemyTargets[i+1]].health>0) {
-                                this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", tanks[0], "enemy")
-                            }
-                        }
-                    }
-                } else if (this.targets[tanks[1]] && this.targets[tanks[1]].health>0) {
-                    //attack second tank
-                    this.doDamage(bossFightData[0].bossAutoAttack*this.gcd, "AutoAttack", tanks[1], "enemy")
-                    if (this.enemyTargets.length>1) {
-                        for (let i = 0; i<this.enemyTargets.length-1; i++) {
-                            if (this.targets[this.enemyTargets[i+1]].health>0) {
-                                this.doDamage(bossFightData[0].addAutoattack*this.gcd, "AutoAttack", tanks[1], "enemy")
-                            }
-                        }
-                    }
-                }
+                this.doBoss(bossDamageAbilities,tanks,bossFightData)
 
                 //Raid Attack
                 for (let ft = 0; ft<this.friendlyTargets.length-1; ft++) {
@@ -224,12 +166,10 @@ export default {
                     }
                 }
 
-
-
-
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
                 avgRem += this.hotsData["Renewing Mist"].length
+
                 timeline[fl] = {
                     id:fl,
                     time:this.time.toFixed(1),
@@ -258,7 +198,7 @@ export default {
                     friendlyTargets: [],
                 }
                 // eslint-disable-next-line no-prototype-builtins
-            if (this.usedAbility.hasOwnProperty('upwelling')) {
+                if (this.usedAbility.hasOwnProperty('upwelling')) {
                     timeline[fl].upwelling =  Math.floor(this.usedAbility.upwelling)
                 }
 
@@ -439,7 +379,7 @@ export default {
                 '#c8c280', '#c8a985','#c8807d','#b4afac',
                 '#006400','#75539e','#ff230a','#98c96e',
                 '#ADFF2F']
-            
+
             function getAvgValues(data) {
                 let avg = []
                 let val = [0,0,0,0,0]
@@ -520,9 +460,6 @@ export default {
                     data: data[i],
                 })
             }
-
-            /*console.log( "1: "+ +(time2 - time1) +" ms"+" - 2: "+ +(time3 - time2) +" ms"+" - 3: "+ +(time4 - time3) +" ms"+" - 4: "+ +(time5 - time4) +" ms"+
-                " - 5: "+ +(time6 - time5) +" ms"+" - 6: "+ +(time7 - time6) +" ms"+" - 7: "+ +(time8 - time7) +" ms"+" --- Total: "+ +(time8  - time1)+" ms")*/
 
             let chartdata = {
                // labels: labels,
