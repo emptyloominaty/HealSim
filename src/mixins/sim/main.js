@@ -7,10 +7,12 @@ import hots from './loop/hots'
 import dots from './loop/dots'
 import init from './loop/init'
 import useAbility from './loop/useAbility'
+import boss from './loop/boss'
 import healdmgFunctions from './healDmgFunctions'
 
+
 export default {
-    mixins: [heals,damages,targets,healai,hots,dots,init,useAbility,healdmgFunctions],
+    mixins: [heals,damages,targets,healai,hots,dots,init,useAbility,healdmgFunctions,boss],
     methods: {
         mainSim() {
             let startTime = Date.now()
