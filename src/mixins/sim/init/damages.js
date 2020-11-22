@@ -12,7 +12,7 @@ export default {
             let damages = []
 
             class Damage {
-                constructor(name,manaCost,timeCast,cooldown,charges,hasteCdReduce,talents,dmgFunc) {
+                constructor(name,manaCost,timeCast,cooldown,charges,hasteCdReduce,talents,dmgFunc,critVers) {
                     this.name = name
                     this.talents = talents
                     this.manaCost = manaCost
@@ -24,6 +24,7 @@ export default {
                     this.hasteCdReduce = hasteCdReduce
                     this.dmgFunc = dmgFunc
                     this.spec = {}
+                    this.critIsVers = critVers
                 }
 
                 incCd(gcd,stats) {
@@ -49,6 +50,10 @@ export default {
                 }
 
                 critChance(statCrit) {
+                    if (this.critIsVers===1) {
+                        return 1+(statCrit/100)
+                    }
+
                     let critChance = (Math.random()*100)
                     if (critChance < statCrit) {
                         return 2
@@ -61,16 +66,17 @@ export default {
 
             }
 
+            let critVers = this.$store.state.settingsSim.critIsVers
             switch(healSpec) {
                 //MW Monk
                 case "mistweaver":
-                    damages = [new Damage("Rising Sun Kick",1.5,1.5,12,1,1,talents,this.damageFuncRisingSunKick()),
-                        new Damage("Blackout Kick",0,1.5,3,1,1,talents,this.damageFuncblackOutKick()),
-                        new Damage("Tiger Palm",0,1.5,0,1,0,talents,this.damageFuncTigerPalm()),
-                        new Damage("Chi Burst",0,1,30,1,0,talents, this.damageFuncChiBurst()), //
-                        new Damage("Chi-Ji",0,0,0,1,0,talents,), //passive
-                        new Damage("Faeline Stomp",4.0,1.5,30,1,0,talents,this.damageFuncFaelineStomp()),
-                        new Damage("Touch of Death",0,0,0,1,0,talents,), //no
+                    damages = [new Damage("Rising Sun Kick",1.5,1.5,12,1,1,talents,this.damageFuncRisingSunKick(),critVers),
+                        new Damage("Blackout Kick",0,1.5,3,1,1,talents,this.damageFuncblackOutKick(),critVers),
+                        new Damage("Tiger Palm",0,1.5,0,1,0,talents,this.damageFuncTigerPalm(),critVers),
+                        new Damage("Chi Burst",0,1,30,1,0,talents, this.damageFuncChiBurst(),critVers), //
+                        new Damage("Chi-Ji",0,0,0,1,0,talents,0,critVers), //passive
+                        new Damage("Faeline Stomp",4.0,1.5,30,1,0,talents,this.damageFuncFaelineStomp(),critVers),
+                        new Damage("Touch of Death",0,0,0,1,0,talents,0,critVers), //no
 
                     ]
                     break;

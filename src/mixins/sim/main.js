@@ -30,6 +30,11 @@ export default {
             let spec = "mistweaver"
             let target = 0
             let buffs = this.$store.state.buffs.slice(0) //proc stats
+            //fix for buffs xd
+            for (let i = 0; i<buffs.length; i++) {
+                buffs[i].procced = 0
+            }
+
             let buffs2 = {everyGcd:["chiJi","yuLon","manaTea","ancientTeachingOfTheMonastery","weaponsOfOrder"],
                 chiJi:0,chiJiEnveloping:0,yuLon:0,thunderFocusTea:0,manaTea:0,ancientTeachingOfTheMonastery:0,weaponsOfOrder:0}  //class/specs buffs
             let raidersHealth = [20000,30000,20000,20000,20000,20000,30000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000]

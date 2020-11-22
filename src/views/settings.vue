@@ -13,6 +13,15 @@
             </select>
         </div>
 
+        <!-- CRIT = VERS-->
+        <div class="inputDiv">
+            <label class="padding3"> Crit = Vers (for more precise sim) </label>
+            <select v-model="critFix">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
         <!-- Class Settings (save to LocalStorage)-->
         <settings-class/>
 
@@ -48,8 +57,10 @@
 
 <script>
     import settingsClass from '../components/SettingsClass.vue'
+    import loadStore from '../mixins/loadStore'
     export default {
         name: "settings",
+        mixins: [loadStore],
         components: {
           settingsClass
         },
@@ -60,12 +71,18 @@
                 vers: this.$store.state.stats.vers,
                 mastery: this.$store.state.stats.mastery,
                 int: this.$store.state.stats.int,
+                critFix: 0,
             }
         },
         methods: {
             saveData() {
                 let data = {haste:this.haste,crit:this.crit,vers:this.vers,mastery:this.mastery,int:this.int}
-                this.$store.commit('setStats',data)
+
+                this.$store.state.settingsSim.critIsVers = this.critFix
+                this.$store.state.stats = data
+
+                this.storeData(data,"stats")
+                this.storeData(this.$store.state.settingsSim,"settings")
             }
         }
     }
@@ -162,6 +179,10 @@
         padding:3px;
         background-color: #404040;
         color: #fff;
+    }
+    .padding3 {
+        padding : 3px;
+        align-self:center;
     }
 
     select:focus {
