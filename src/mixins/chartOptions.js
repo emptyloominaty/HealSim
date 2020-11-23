@@ -74,6 +74,40 @@ export default {
                     }]
                 }
             },
+            chartOptionsMastery :{
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
+                scales: {
+                    xAxes: [{
+                        type: "linear",
+                        display: true,
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            suggestedMin: 0,
+                        },
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Mastery'
+                        }
+                    }]
+                }
+            },
             chartOptionsDamage: {
                 responsive: true,
                 maintainAspectRatio: false,

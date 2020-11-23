@@ -25,11 +25,11 @@ export default {
         //Config
             let fightLength = storeData.fightLength
             let talents = {mistWrap: 0, chiBurst: 0, manaTea:0, jadeStatue: 0, refreshingJadeWind:0, chiJi: 0,focusedThunder:0, upwelling: 0, risingMist: 0,}
-            let stats = this.$store.state.stats
+            let stats = JSON.parse(JSON.stringify(this.$store.state.stats))
             let mana = 100 //%
             let spec = "mistweaver"
             let target = 0
-            let buffs = this.$store.state.buffs.slice(0) //proc stats
+            let buffs = JSON.parse(JSON.stringify(this.$store.state.buffs)) //proc stats
             //fix for buffs xd
             for (let i = 0; i<buffs.length; i++) {
                 buffs[i].procced = 0
@@ -195,6 +195,7 @@ export default {
                     targets:JSON.parse(JSON.stringify(this.targets)),
                     mana:this.character.mana,
                     haste:this.character.stats.haste,
+                    mastery:this.character.stats.mastery,
                     raidHealth:this.raidHealth,
                     bossHealth:this.targets[this.enemyTargets[0]].health,
                     heals: [],
@@ -256,6 +257,7 @@ export default {
             this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
             this.generateChartData(timeline,"healingDone","Heal","setChartDataHeal","#05c300",0.5)
             this.generateChartData(timeline,"haste","Haste","setChartDataHaste","#a800c3",0.5)
+            this.generateChartData(timeline,"mastery","Mastery","setChartDataMastery","#868600",0.5)
 
             this.generateChartData2(timeline,["raidHealth","bossHealth"],["Raid Health","Boss Health"],"setChartDataRaidHp",["#34c33b","#ce383e"],[0.5,0.5])
 
@@ -271,7 +273,7 @@ export default {
             endTime3 = Date.now()
             console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
 
-            /* TEST GET SIZE OBJECT*/
+            /* TEST GET SIZE OBJECT*//*
             function memorySizeOf(obj) {
                 var bytes = 0;
 
@@ -312,7 +314,7 @@ export default {
             };
 
             console.log("Size of Sim Data:"+memorySizeOf(timeline)) //400kb per min of sim
-
+*/
 
 
             return timeline

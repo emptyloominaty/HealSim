@@ -102,7 +102,7 @@ export default {
              return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
          },
          formatNumber2(num) {
-             if (num>99.99) {
+             if (num>999.99) {
                  num=Math.round((num/1000)*10)/10 +"k"
              } else if (num>999999.99) {
                  num=Math.round((num/1000000)*10)/10 +"M"
@@ -208,6 +208,61 @@ export default {
                  return 0
              }
              data.sort( compare )
+
+             //test avgHps-----------------------------------------------------------------
+             this.$store.state.global.test.push(avgHps)
+             let avgHpsArray = this.$store.state.global.test
+
+             let avgTotal = 0
+
+
+             avgHpsArray.forEach(function(item){
+                 item = +item
+                 avgTotal += item
+             });
+
+             let avgMin = 0
+             let avgMax = 0
+             let minMin = Math.min.apply(Math, avgHpsArray)
+             let maxMax = Math.max.apply(Math, avgHpsArray)
+             let avgHpsCount = avgHpsArray.length
+             let avgAvg = avgTotal / avgHpsCount
+
+             let avgMinCount = 0
+             let avgMaxCount = 0
+             avgHpsArray.forEach(function(item){
+                 if (avgAvg>item) {
+                     avgMin += item
+                     avgMinCount++
+                 }
+                 if (avgAvg<item) {
+                     avgMax += item
+                     avgMaxCount++
+                 }
+             });
+             avgMin = avgMin / avgMinCount
+             avgMax = avgMax / avgMaxCount
+
+            /* console.log(avgHpsArray)
+             console.log("avg: "+avgAvg)
+             console.log("avg min: "+avgMin)
+             console.log("avg max: "+avgMax)
+             console.log("max: "+maxMax)
+             console.log("min: "+minMin)*/
+
+             let minPercent = Math.round((((avgAvg - minMin)/avgAvg)*100)*100)/100
+             let minAvgPercent = Math.round((((avgAvg - avgMin)/avgAvg)*100)*100)/100
+             let maxPercent = Math.round(((((avgAvg - maxMax)/avgAvg)*100)*(-1))*100)/100
+             let maxAvgPercent = Math.round(((((avgAvg - avgMax)/avgAvg)*100)*(-1))*100)/100
+
+
+             console.log(Math.round(minMin)+" / "+Math.round(avgMin)+" / "+Math.round(avgAvg)+" / "+Math.round(avgMax)+" / "+Math.round(maxMax))
+             console.log("- "+minPercent+"% - "+minAvgPercent+"% /// + "+ maxAvgPercent +"% + "+maxPercent+"%"+ " / ("+avgHpsCount+")")
+
+             console.log("---------------")
+             //test avgHps-----------------------------------------------------------------
+
+
 
 
              this.avgHps = avgHps

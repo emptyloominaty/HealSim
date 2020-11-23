@@ -234,6 +234,8 @@
                 this.$store.state.shadowlandsData.legendaries = [this.legendary1,this.legendary2]
                 this.$store.state.shadowlandsData.covenant = this.covenant
 
+                this.$store.state.global.test = []
+
                 this.$store.commit('setHealData',data)
             },
             saveNewBuff() {

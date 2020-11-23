@@ -9,6 +9,7 @@
     <Chart :chart-data="manaData" :options="chartOptionsMana"  />
     <Chart :chart-data="remsData" :options="chartOptionsRems"  />
     <Chart :chart-data="hasteData" :options="chartOptionsHaste"  />
+    <Chart :chart-data="masteryData" :options="chartOptionsMastery"  />
     <Debug/>
   </div>
 </template>
@@ -37,10 +38,14 @@ export default {
       damageData:[],
       healData:[],
       manaData:[],
-      raidHpData:[]
+      raidHpData:[],
+      masteryData:[],
     }
   },
   watch: {
+    '$store.state.chartDataMastery': function() {
+      this.masteryData = this.$store.state.chartDataMastery
+    },
     '$store.state.chartDataHaste': function() {
       this.hasteData = this.$store.state.chartDataHaste
     },

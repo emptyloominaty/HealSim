@@ -23,10 +23,11 @@ export default new Vuex.Store({
         chartDataDamage: {},
         chartDataHeal: {},
         chartDataHaste: {},
+        chartDataMastery: {},
         chartDataStacked: {},
         chartDataRaidHp: {},
         talents: [],
-        buffs: [{stat:"haste",increase:40,ppm:2,duration:7,lastproc:0,proc:60/2,procced:0}],
+        buffs: [],
         db : [],
         debug: 0,
         //TODO: //////////////////////
@@ -34,7 +35,7 @@ export default new Vuex.Store({
         shadowlandsData: {legendaries:[],conduits:[],covenant:""},
         trinkets: [], //TODO
         settingsSim: {critIsVers:0},
-        global: {character:[], targets: []}
+        global: {character:[], targets: [],test:[]}
     },
     mutations: {
         setData(state, newData) {
@@ -66,6 +67,9 @@ export default new Vuex.Store({
         },
         setChartDataHaste(state, newData) {
             state.chartDataHaste = newData
+        },
+        setChartDataMastery(state, newData) {
+            state.chartDataMastery = newData
         },
         setChartStacked(state, newData) {
             state.chartDataStacked = newData
