@@ -118,11 +118,13 @@ export default {
                     if (this.character.temporaryBuffs[tb].act===0) {
                         this.character.stats[this.character.temporaryBuffs[tb].statName] += this.character.temporaryBuffs[tb].amount
                         this.character.temporaryBuffs[tb].act=1
+                        console.log(this.character.temporaryBuffs[tb].amount)
                     }
 
                     this.character.temporaryBuffs[tb].duration-=this.gcd
                     if (this.character.temporaryBuffs[tb].duration<=0) {
                         this.character.stats[this.character.temporaryBuffs[tb].statName] -= this.character.temporaryBuffs[tb].amount
+                        console.log(this.character.temporaryBuffs[tb].amount)
                         this.character.temporaryBuffs.splice(tb,1)
                     }
                 }

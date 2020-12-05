@@ -40,10 +40,12 @@ export default {
       manaData:[],
       raidHpData:[],
       masteryData:[],
+      testData:{a:0,b:0,c:0,d:0,e:0,f:0,g:0,h:0},
     }
   },
   watch: {
     '$store.state.chartDataMastery': function() {
+      this.$store.state.simTime.vue = Date.now()
       this.masteryData = this.$store.state.chartDataMastery
     },
     '$store.state.chartDataHaste': function() {
@@ -65,6 +67,10 @@ export default {
       this.stackedData = this.$store.state.chartDataStacked
     },
     '$store.state.chartDataRaidHp': function() {
+      this.$store.state.simTime.end = Date.now()
+      let time = this.$store.state.simTime
+      console.log( "Sim: "+ +(time.simEnd - time.start) +" ms"+" - Charts: "+ +(time.chart - time.simEnd) +" ms"+" - Vue: "+
+              +(time.vue - time.chart)+" ms"+" - ChartsVue: "+(time.end - time.vue)+" ms"+" - Total: "+(time.end - time.start )+" ms")
       this.raidHpData = this.$store.state.chartDataRaidHp
     }
   }

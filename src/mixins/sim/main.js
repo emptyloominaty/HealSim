@@ -15,7 +15,7 @@ export default {
     mixins: [heals,damages,targets,healai,hots,dots,init,useAbility,healdmgFunctions,boss],
     methods: {
         mainSim() {
-            let startTime = Date.now()
+            this.$store.state.simTime.sim = Date.now()
             let endTime,endTime2,endTime3
             this.db = []
 //Init------------------------------------------------------------------------------------------------------
@@ -219,6 +219,10 @@ export default {
                     fl = fightLength+1
                 }
 
+                if (this.time>fightLength) {
+                    fl = fightLength+1
+                }
+
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
             avgRem = avgRem / this.time
@@ -251,7 +255,10 @@ export default {
                 timeline[i].usedAbilityFileName = timeline[i].usedAbility.replace(/\s+/g,'')
                 timeline[i].usedAbilityFileName2 = timeline[i].usedAbility2.replace(/\s+/g,'')
             }
-            endTime2 = Date.now()
+            this.$store.state.simTime.simEnd = Date.now()
+
+
+
             this.generateChartData(timeline,"rems","ReMs","setChartData","#78f871",0)
             this.generateChartData(timeline,"mana","Mana","setChartDataMana","#6edcf8",0.4)
             this.generateChartData(timeline,"damageDone","Damage","setChartDataDamage","#ce383e",0.4)
@@ -270,8 +277,8 @@ export default {
             timeline[0].avgRem = avgRem
             timeline[0].friendlyTargets = this.friendlyTargets
 
-            endTime3 = Date.now()
-            console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
+            this.$store.state.simTime.chart = Date.now()
+            //console.log( "Sim: "+ +(endTime2 - startTime) +" ms"+" - Charts: "+ +(endTime3 - endTime2) +" ms"+" --- Total: "+ +(endTime3 - startTime)+" ms")
 
             /* TEST GET SIZE OBJECT*//*
             function memorySizeOf(obj) {

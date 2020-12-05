@@ -32,7 +32,7 @@ export default {
                     //legendaries
                     if (character.legendaries.invokersDelight===1) {
                         character.temporaryBuffs.push({name:"invokersDelight",statName:"haste",amount:character.legendariesData.mistweaver.invokersDelightAmount,
-                            duration:character.legendariesData.mistweaver.invokersDelightDuration,act:0
+                            duration:20,act:0
                         })
                     }
 

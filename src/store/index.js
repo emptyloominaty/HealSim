@@ -30,6 +30,7 @@ export default new Vuex.Store({
         buffs: [],
         db : [],
         debug: 0,
+        simTime: {start:0,sim:0,simEnd:0,chart:0,afterSim:0,vue:0,end:0,total:0},
         //TODO: //////////////////////
         bfaData:{essences:[], azeriteTraits:[],corruption:[]}, //no dont
         shadowlandsData: {legendaries:[],conduits:[],covenant:""},

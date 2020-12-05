@@ -95,8 +95,10 @@ export default {
     },
     methods: {
          reloadLmao() {
+             this.$store.state.simTime.start=Date.now()
              this.timelineData = this.mainSim()
              this.tableData = this.getHealTableData()
+             this.$store.state.simTime.afterSim=Date.now()
          },
          formatNumber(num) {
              return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
