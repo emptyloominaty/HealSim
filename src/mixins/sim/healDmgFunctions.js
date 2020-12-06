@@ -2,7 +2,7 @@
 export default {
     methods: {
         doDamage(damage,name,target,who,dot = 0) {
-            let bonus = this.checkForBuffs(target)
+            let bonus = this.checkForBuffs(target,name)
             if (who==="healer") {
                 damage = damage * bonus
             }
@@ -13,7 +13,7 @@ export default {
             }
         },
         doHealing(heal,name,target,who,hot) {
-            let bonus = this.checkForBuffs(target)
+            let bonus = this.checkForBuffs(target,name)
             heal = heal * bonus
             this.overhealingDone += this.targets[target].heal(heal)
             this.targets[target].abilitiesOnThisTarget.push({name:name,value:heal,hot:hot,type:"heal",over:this.gcd})
@@ -22,7 +22,7 @@ export default {
             this.healingDoneArr[name][this.fl] += +Math.floor(heal)
            // console.log(+Math.floor(heal)+"/////"+this.healingDoneArr[name][this.fl])
         },
-        checkForBuffs(target) {
+        checkForBuffs(target,name) {
             let bonus = 1
             let character = this.$store.state.global.character
             let targets = this.$store.state.global.targets
@@ -34,6 +34,9 @@ export default {
                         let random = Math.random()*100
                         if (random < 50) {
                             bonus = 1.35
+                        }
+                        if (name==="Gust of Mists") {
+                            bonus = bonus + 0.42
                         }
                     }
                 }

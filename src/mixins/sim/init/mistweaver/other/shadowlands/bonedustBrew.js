@@ -22,7 +22,7 @@ export default {
                     }
                     for (let i = 0; i<friendlyTargets.length; i++) {
                         let randomIdk = Math.random()*100
-                        if (randomIdk < 30) {
+                        if (randomIdk < 55) {
                             targets.push(friendlyTargets[i])
                         }
                     }

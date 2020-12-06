@@ -104,7 +104,6 @@ export default {
                 usedAbility = this.damages[damageList["Fallen Order"]].dmgFunc(this.character, [0], 0, this.hotsData, this.enemyTargets, this.friendlyTargets)
             }
 
-
             if (usedAbility===0) { //Mana Potion
                 usedAbility = this.heals[healList["Mana Potion"]].healFunc(this.character, [this.enemyTargets[0]], 0, this.hotsData,)
             }
@@ -154,7 +153,7 @@ export default {
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.1 < mana && this.character.legendaries.tearOfMorning===1  && raidMissingHealthPercent > 0.02) { //Enveloping Mist
+            if (usedAbility===0 && canHeal > 0 && manaTarget/1.1 < mana && this.character.legendaries.tearOfMorning===1 && this.character.talents.upwelling===0 && raidMissingHealthPercent > 0.02) { //Enveloping Mist
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets,this.targets)
             }
 

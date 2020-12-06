@@ -117,16 +117,12 @@ export default {
                 for (let tb = 0; tb<this.character.temporaryBuffs.length; tb++) {
                     if (this.character.temporaryBuffs[tb].act===0) {
                         this.character.stats[this.character.temporaryBuffs[tb].statName] += +this.character.temporaryBuffs[tb].amount
-                        console.log(this.character.stats[this.character.temporaryBuffs[tb].statName])
-                        console.log(this.character.temporaryBuffs[tb].amount)
                         this.character.temporaryBuffs[tb].act=1
                     }
 
                     this.character.temporaryBuffs[tb].duration-=this.gcd
                     if (this.character.temporaryBuffs[tb].duration<=0) {
                         this.character.stats[this.character.temporaryBuffs[tb].statName] -= +this.character.temporaryBuffs[tb].amount
-                        console.log(this.character.stats[this.character.temporaryBuffs[tb].statName])
-                        console.log(this.character.temporaryBuffs[tb].amount)
                         this.character.temporaryBuffs.splice(tb,1)
                     }
                 }
