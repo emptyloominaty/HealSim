@@ -37,6 +37,7 @@ export default {
                     }
 
                     this.setCd()
+                    console.log(stats.mastery)
 
                     return returnData
 

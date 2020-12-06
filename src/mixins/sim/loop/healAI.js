@@ -100,6 +100,9 @@ export default {
                 usedAbility = this.heals[healList["Bonedust Brew"]].healFunc(this.character, [0], 0, this.hotsData, this.friendlyTargets,this.enemyTargets)
             }
 
+            if (usedAbility===0) { //Venthyr Covenant
+                usedAbility = this.damages[damageList["Fallen Order"]].dmgFunc(this.character, [0], 0, this.hotsData, this.enemyTargets, this.friendlyTargets)
+            }
 
 
             if (usedAbility===0) { //Mana Potion

@@ -117,11 +117,11 @@ export default {
                         new Heal("Weapons of Order",0,0,0,1,0,talents,this.healFuncSlWoo(),critVers),
                         new Heal("Weapons of Order Activate",5.0,1.5,120,1,0,talents,this.healFuncSlWooA(),critVers),
                         //nightFae -> Damages
-                        new Heal("Faeline Stomp",0,0,0,1,0,talents,function() {return 0},critVers),
+                        new Heal("Faeline Stomp",4.0,0,0,1,0,talents,function() {return 0},critVers),
                         //necrolord
                         new Heal("Bonedust Brew",0,1.5,60,1,0,talents,this.healFuncbonedustbrew(),critVers),
                         //venthyr
-
+                        new Heal("Fallen Order",0,0,0,1,0,talents,function() {return 0},critVers),
                         //----------------legendary
                         new Heal("Ancient Teachings Of The Monastery",0,0,0,1,0,talents,function() {return 0},critVers),
                         new Heal("Tear of Morning",0,0,0,1,0,talents,0,critVers),

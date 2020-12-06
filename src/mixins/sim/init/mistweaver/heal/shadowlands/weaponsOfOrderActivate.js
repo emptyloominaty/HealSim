@@ -17,9 +17,10 @@ export default {
                     character.buffs2.weaponsOfOrder = duration
 
                     character.temporaryBuffs.push({name:"weaponsOfOrder",statName:"mastery",amount:masteryIncrease,
-                        duration:duration,act:0})
+                        duration: duration,act:0})
 
                     returnData.runAfter = ["resetCooldownHeal", "Essence Font"]
+
 
                     this.setCd()
 

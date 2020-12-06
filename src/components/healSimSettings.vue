@@ -155,11 +155,10 @@
                 <option value=""> None </option>
                 <option value="kyrian"> Kyrian </option>
                 <option value="nightFae"> Night Fae </option>
-                <option value="venthyr" disabled> Venthyr </option>
+                <option value="venthyr"> Venthyr </option>
                 <option value="necrolord"> Necrolord </option>
             </select>
             <!-- CONDUITS -->
-
         </section>
     </section>
 </template>
@@ -228,8 +227,8 @@
                     "haste":+this.statHaste,"crit":+this.statCrit,"vers":+this.statVers,
                     "mastery":+this.statMastery, "int":+this.statInt,"simMode":this.simMode }
                 //save stats to store
-                this.$store.state.stats = {haste:this.statHaste, crit:this.statCrit, vers:this.statVers,
-                    mastery:this.statMastery, int:this.statInt}
+                this.$store.state.stats = {haste:+this.statHaste, crit:+this.statCrit, vers:+this.statVers,
+                    mastery:+this.statMastery, int:+this.statInt}
                 //save legendaries to store
                 this.$store.state.shadowlandsData.legendaries = [this.legendary1,this.legendary2]
                 this.$store.state.shadowlandsData.covenant = this.covenant

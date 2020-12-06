@@ -4,9 +4,10 @@ import dfBlackoutKick from './mistweaver/damage/blackoutKick'
 import dfRisingSunKick from './mistweaver/damage/risingSunKick'
 import dfChiBurst from './mistweaver/damage/chiBurst'
 import dffaeline from './mistweaver/damage/shadowlands/faelineStomp'
+import dffallenOrder from './mistweaver/damage/shadowlands/fallenOrder'
 
 export default {
-    mixins: [dfTigerPalm,dfBlackoutKick,dfRisingSunKick,dfChiBurst,dffaeline],
+    mixins: [dfTigerPalm,dfBlackoutKick,dfRisingSunKick,dfChiBurst,dffaeline,dffallenOrder],
     methods: {
         createDamages(healSpec,talents) {
             let damages = []
@@ -76,6 +77,7 @@ export default {
                         new Damage("Chi Burst",0,1,30,1,0,talents, this.damageFuncChiBurst(),critVers), //
                         new Damage("Chi-Ji",0,0,0,1,0,talents,0,critVers), //passive
                         new Damage("Faeline Stomp",4.0,1.5,30,1,0,talents,this.damageFuncFaelineStomp(),critVers),
+                        new Damage("Fallen Order",0,0,180,1,0,talents,this.damageFuncFallenOrder(),critVers),
                         new Damage("Touch of Death",0,0,0,1,0,talents,0,critVers), //no
 
                     ]
