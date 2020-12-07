@@ -28,10 +28,24 @@ export default {
                     //TODO: (DECK)
                     let masteryRng = Math.floor(Math.random()*7)
                     if (masteryRng===0) {
+                        //conduit
+                        if (character.conduits.includes("resplendentMist")) {
+                            let randomIdk = Math.random()*100
+                            if (randomIdk<30) {
+                                masteryHeal = masteryHeal * 1.8 // 223ilvl conduit
+                            }
+                        }
                         returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
                         if (hots["Essence Font"].includes(target[0])) {
                             crit = this.critChance(stats.crit)
                             masteryHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                            //conduit
+                            if (character.conduits.includes("resplendentMist")) {
+                                let randomIdk = Math.random()*100
+                                if (randomIdk<30) {
+                                    masteryHeal = masteryHeal * 1.8 // 223ilvl conduit
+                                }
+                            }
                             returnData.runAfter.push("heal",masteryHeal,[target[0]],"Gust of Mists")
                         }
                     }

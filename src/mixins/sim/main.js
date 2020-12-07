@@ -41,7 +41,7 @@ export default {
             let tanks = [1,6] //TODO: change to threat ?????????
             let legendaries = {tearOfMorning:0, ancientTeachingOfTheMonastery:0, yulonWhisper:0, invokersDelight:0}
             let covenant = shadowlandsData.covenant
-            let conduits = {} //
+            let conduits = shadowlandsData.conduits
 
             //check for legendaries
             if (shadowlandsData.legendaries.length>0) {

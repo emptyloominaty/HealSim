@@ -87,6 +87,9 @@ export default {
                 usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
             }
 
+            if (usedAbility===0 && this.character.talents.risingMist===0 && this.character.buffs2.ancientTeachingOfTheMonastery>0) { //Rising Sun Kick
+                usedAbility = this.damages[damageList["Rising Sun Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData, this.enemyTargets, this.targets,mostInjuredTarget.id)
+            }
 
             if (usedAbility===0) { //Kyrian Covenant
                 usedAbility = this.heals[healList["Weapons of Order Activate"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)

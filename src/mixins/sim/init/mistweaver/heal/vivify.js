@@ -35,11 +35,29 @@ export default {
                     //heal
                     returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets]
 
+
+                    //conduit
+                    if (character.conduits.includes("resplendentMist")) {
+                        let randomIdk = Math.random()*100
+                        if (randomIdk<30) {
+                            masteryHeal = masteryHeal * 1.8 // 223ilvv conduit
+                        }
+                    }
+
                     //mastery
                     returnData.runAfter = ["heal",masteryHeal,[target[0]],"Gust of Mists"]
                     if (hots["Essence Font"].includes(target[0])) {
                         crit = this.critChance(stats.crit)
                         masteryHeal = (((spellpower * (stats.mastery / 100))) * crit)
+
+                        //conduit
+                        if (character.conduits.includes("resplendentMist")) {
+                            let randomIdk = Math.random()*100
+                            if (randomIdk<30) {
+                                    masteryHeal = masteryHeal * 1.8 // 223ilvv conduit
+                            }
+                        }
+
                         returnData.runAfter.push("heal",masteryHeal,[target[0]],"Gust of Mists")
                     }
 

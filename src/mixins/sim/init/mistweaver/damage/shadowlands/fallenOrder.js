@@ -7,12 +7,16 @@ export default {
                     let stats = character.stats
 
                     //config
-                    let damage = 5+(Math.random()*4) //TOTAL
-                    let heal = 24+(Math.random()*30) //TOTAL
+                    let damage = 5+(Math.random()*4)//TOTAL
+                    let heal = 35+(Math.random()*10) //TOTAL
 
                     let numberOfheals = 5
 
-
+                    //conduit
+                    if (character.conduits.includes("imbuedReflections")) {
+                        heal = heal * 1.58 // max conduit lvl?? 226
+                        damage = damage * 1.58// max conduit lvl?? 226
+                    }
 
                     //init
                     let crit

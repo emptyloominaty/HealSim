@@ -29,10 +29,25 @@ export default {
 
                     returnData.hotData = [{targetID:target[0], canJump:1, scaleWithHaste: 1,data: {heal: (spellpower * rmHeal), duration: rmDuration, maxDuration: rmDuration, extended: 0, name: "Renewing Mist"}}]
 
+                    //conduit
+                    if (character.conduits.includes("resplendentMist")) {
+                        let randomIdk = Math.random()*100
+                        if (randomIdk<30) {
+                            mainHeal = mainHeal * 1.8 // 223ilvl conduit
+                        }
+                    }
+
                     returnData.runAfter = ["heal",mainHeal,[target[0]],"Gust of Mists"]
                     if (hots["Essence Font"].includes(target[0])) {
                         crit = this.critChance(stats.crit)
                         mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
+                        //conduit
+                        if (character.conduits.includes("resplendentMist")) {
+                            let randomIdk = Math.random()*100
+                            if (randomIdk<30) {
+                                mainHeal = mainHeal * 1.8 // 223ilvl conduit
+                            }
+                        }
                         returnData.runAfter.push("heal",mainHeal,[target[0]],"Gust of Mists")
                     }
 
