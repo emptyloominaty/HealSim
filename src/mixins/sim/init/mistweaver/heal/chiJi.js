@@ -17,6 +17,10 @@ export default {
 
                     let mainHeal = (((spellpower * (stats.mastery / 100)) * (+(hots["Essence Font"].includes(target[0])) + 1)))
 
+                    if (character.conduits.includes("jadeBond") ) {
+                        mainHeal = mainHeal * 1.1008
+                    }
+
                     let healTargets = []
                     if (injuredTargets.length===0) {
                         healTargets = [0,1,2,3,4]

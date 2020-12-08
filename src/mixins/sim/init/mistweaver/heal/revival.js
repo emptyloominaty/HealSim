@@ -18,10 +18,20 @@ export default {
 
                     let mainHeal = spellpower * revHeal
 
+
+                    if (character.conduits.includes("risingSunRevival") ) {
+                        returnData.hotData = []
+                        for (let i = 0; i<target.length; i++) {
+                            returnData.hotData.push({targetID:i, canJump:0, scaleWithHaste: 1, data:{heal: mainHeal/5 /* 20% */ , duration: 10, maxDuration: 10, extended: 0, name: "Revival"}})
+                        }
+                    }
+
                     for (let i = 0; i<target.length; i++) {
                         crit = this.critChance(stats.crit)
                         returnData.healingToTargets[0].push({id: i, heal: mainHeal*crit})
                     }
+
+
 
                     this.setCd()
 

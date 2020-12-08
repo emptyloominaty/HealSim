@@ -159,6 +159,13 @@
                 <option value="necrolord"> Necrolord </option>
             </select>
             <!-- CONDUITS -->
+            <select v-model="conduit">
+                <option value=""> None </option>
+                <option value="imbuedReflections"> Imbued Reflections </option>
+                <option value="jadeBond"> Jade Bond </option>
+                <option value="risingSunRevival"> Rising Sun Revival </option>
+                <option value="resplendentMist"> Resplendent Mist </option>
+            </select>
         </section>
     </section>
 </template>
@@ -172,6 +179,7 @@
                 legendary1:"",
                 legendary2:"", // maybe in the next patch we can have 2 equipped legendaries hmm
                 covenant:"",
+                conduit:"",
                 bossFight:this.$store.state.healSetting.bossFight,
                 simModeInfinite: "time", //0 = rem 1 = rsk
                 fightLength:this.$store.state.healSetting.fightLength, //sec
@@ -232,6 +240,7 @@
                 //save legendaries to store
                 this.$store.state.shadowlandsData.legendaries = [this.legendary1,this.legendary2]
                 this.$store.state.shadowlandsData.covenant = this.covenant
+                this.$store.state.shadowlandsData.conduits = [this.conduit]
 
                 this.$store.state.global.test = []
 

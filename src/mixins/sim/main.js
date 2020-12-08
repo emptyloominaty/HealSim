@@ -139,6 +139,7 @@ export default {
                 damageList[this.damages[i].name] = i
             }
 
+            this.healList = healList
             //console.log(this.targets)
             //console.log(this.heals)
             this.db.push(this.character.stats)

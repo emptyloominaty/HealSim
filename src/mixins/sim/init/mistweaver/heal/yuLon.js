@@ -12,6 +12,10 @@ export default {
                     let yulonDuration = 25
 
 
+                    if (character.conduits.includes("jadeBond") ) {
+                        yulonHeal = yulonHeal * 1.1008
+                    }
+
                     //init
                     let crit
                     let returnData = {type:"heal",manaUsed: this.manaCost, healingToTargets: [[]], gcd: this.timeCast / (1 + (stats.haste / 100)), runAfter: 0, hotData: [], name: this.name}

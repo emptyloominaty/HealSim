@@ -112,6 +112,12 @@ export default {
                                 this.heals[t].cooldown=this.heals[t].maxCooldown
                             }
                         }
+                    } else if (runAfter[i] === "reduceCooldown") { //TODO:FIX THIS PLS
+                        for (let t=0; t<this.heals.length; t++) {
+                            if (runAfter[i+1]===this.heals[t].name) {
+                                this.heals[t].cooldown+=runAfter[i+2]
+                            }
+                        }
                     }
 
                     else if (runAfter[i] === "castHeal") {
