@@ -134,7 +134,6 @@ export default {
 
 
             this.getHots()
-            this.capHots("Enveloping Breath",6)
             this.capHots("Refreshing Jade Wind",6)
             this.capHots("Soothing Mist - Statue",1)
             do {

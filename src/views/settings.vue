@@ -71,7 +71,7 @@
                 vers: this.$store.state.stats.vers,
                 mastery: this.$store.state.stats.mastery,
                 int: this.$store.state.stats.int,
-                critFix: 0,
+                critFix: this.$store.state.settingsSim.critIsVers,
             }
         },
         methods: {

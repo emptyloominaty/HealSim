@@ -11,23 +11,40 @@ export default {
 
                     //(damage,name,target,who,dot = 0)
                     let dontInfiniteLoopPls = 0
-                    for (let t = 0; t<bAbility.targets; t++) {
-                        let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length))
-                        if (rngTarget===this.friendlyTargets.length) { rngTarget=0 }
 
-                        let target = this.friendlyTargets[rngTarget]
-                        if (this.targets[target].health>0) {
-                            this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
-                            if (bAbility.dot.isDot===1) {
-                                this.targets[target].applyDot(bAbility.dot.dotData)
+                    if (bAbility.targets==="all") {
+                        for (let tt=0; tt<this.friendlyTargets.length; tt++) {
+                            let target = this.friendlyTargets[tt]
+                            if (this.targets[target].health > 0) {
+                                this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
+                                if (bAbility.dot.isDot === 1) {
+                                    this.targets[target].applyDot(bAbility.dot.dotData)
+                                }
                             }
-                        } else {
-                            if (dontInfiniteLoopPls<100) {
-                                dontInfiniteLoopPls++
-                                t--
+                        }
+                    } else {
+                        for (let t = 0; t < bAbility.targets; t++) {
+                            let rngTarget = Math.round(Math.random() * (this.friendlyTargets.length))
+                            if (rngTarget === this.friendlyTargets.length) {
+                                rngTarget = 0
+                            }
+
+                            let target = this.friendlyTargets[rngTarget]
+                            if (this.targets[target].health > 0) {
+                                this.doDamage(bAbility.damage, bAbility.name, target, "enemy")
+                                if (bAbility.dot.isDot === 1) {
+                                    this.targets[target].applyDot(bAbility.dot.dotData)
+                                }
+                            } else {
+                                if (dontInfiniteLoopPls < 100) {
+                                    dontInfiniteLoopPls++
+                                    t--
+                                }
                             }
                         }
                     }
+
+
                     bAbility.used=1
                 }
                 if (bAbility.used===1) {

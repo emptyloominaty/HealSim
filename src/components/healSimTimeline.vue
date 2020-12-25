@@ -2,7 +2,7 @@
     <section>
         <div class="remDiv" v-for="item in timelineData" :key="item.id" v-bind:class="{rems3: item.rems===3, rems4: item.rems===4, rems5: item.rems===5, morethan5rems: item.rems>5}" >
             {{ item.time }}
-            <p>  <b>{{ item.rems }}</b> </p>
+            <p>  <b>{{ item.rems }}</b> <span class="emsText">{{ item.ems }}</span> </p>
 
             <img  class="tftImg" v-if="item.usedAbilityFileName2!==''" :src="'/img/'+item.usedAbilityFileName2+'.jpg'">
             <img  v-if="item.usedAbility!==0" :src="'/img/'+item.usedAbilityFileName+'.jpg'">
@@ -440,4 +440,9 @@ background-color: #00a53b;
 .morethan5rems {
 background-color: #006a26;
 }
+
+.emsText {
+    font-size:11px;
+}
+
 </style>

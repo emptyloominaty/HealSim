@@ -35,7 +35,7 @@ export default new Vuex.Store({
         bfaData:{essences:[], azeriteTraits:[],corruption:[]}, //no dont
         shadowlandsData: {legendaries:[],conduits:[],covenant:""},
         trinkets: [], //TODO
-        settingsSim: {critIsVers:0},
+        settingsSim: {critIsVers:1},
         global: {character:[], targets: [],test:[]}
     },
     mutations: {

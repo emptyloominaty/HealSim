@@ -8,7 +8,7 @@ export default {
 
                     //config
                     let damage = 5+(Math.random()*4)//TOTAL
-                    let heal = 35+(Math.random()*10) //TOTAL
+                    let heal = 20+(Math.random()*10) //TOTAL
 
                     let numberOfheals = 5
 

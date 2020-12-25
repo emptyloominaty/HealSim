@@ -77,7 +77,7 @@ export default {
                         new Damage("Chi Burst",0,1,30,1,0,talents, this.damageFuncChiBurst(),critVers), //
                         new Damage("Chi-Ji",0,0,0,1,0,talents,0,critVers), //passive
                         new Damage("Faeline Stomp",4.0,1.5,30,1,0,talents,this.damageFuncFaelineStomp(),critVers),
-                        new Damage("Fallen Order",0,0,180,1,0,talents,this.damageFuncFallenOrder(),critVers),
+                        new Damage("Fallen Order",1.0,1.5,180,1,0,talents,this.damageFuncFallenOrder(),critVers),
                         new Damage("Touch of Death",0,0,0,1,0,talents,0,critVers), //no
 
                     ]

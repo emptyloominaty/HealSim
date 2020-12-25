@@ -182,6 +182,7 @@ export default {
                     id:fl,
                     time:this.time.toFixed(1),
                     rems:this.hotsData["Renewing Mist"].length,
+                    ems:this.hotsData["Enveloping Mist"].length,
                     hots:JSON.parse(JSON.stringify(this.hotsData)),
                     manaUsed:this.usedAbility.manaUsed,
                     usedAbility:this.usedAbility.name,
