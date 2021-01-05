@@ -19,6 +19,7 @@
             </div>
         </div>
         <button v-on:click="reloadLmao()">ReSim</button>
+        <button v-on:click="massSim(10)">Mass Sim</button>
         <!--TEST
         <div style="color:#fff">
             {{ test[testb] }}
@@ -100,6 +101,11 @@ export default {
              this.tableData = this.getHealTableData()
              this.$store.state.simTime.afterSim=Date.now()
          },
+        massSim(num) {
+          for(let i = 0; i<num; i++) {
+              this.reloadLmao()
+          }
+        },
          formatNumber(num) {
              return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
          },

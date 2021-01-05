@@ -7,6 +7,7 @@
             Vers:  {{ $store.state.stats.vers }}
             Mastery:  {{ $store.state.stats.mastery }}
         </div>
+        <!-- MW MONK TABLES -->
         <div class="tables">
         <table v-for="(item,index) in tableData" :key="index" >
             <tr>
@@ -21,6 +22,23 @@
             </tr>
         </table>
         </div>
+        <!-- OTHER HEALERS TABLES -->
+        <p> - -
+        </p>
+        <div class="tables">
+            <table v-for="(item,index) in tableData2" :key="index" >
+                <tr>
+                    <th>Name</th>
+                    <th>Heal</th>
+                    <th>Mana Ef</th>
+                </tr>
+                <tr v-for="item2 in tableData2[index]" :key="item2.index" v-bind:style="{ backgroundColor: item2.color}" >
+                    <td>{{item2.name}}</td>
+                    <td>{{formatHeal(item2.heal)}}</td>
+                    <td>{{Math.round(item2.heal/item2.manaCost)/200}}</td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 </template>
@@ -32,7 +50,8 @@
         name: "heals",
         data() {
             return {
-                tableData: this.getTableData()
+                tableData: this.getTableData(),
+                tableData2: this.getTableData2()
             }
         },
         methods: {
@@ -98,6 +117,30 @@
                 data[6].push({name: "Faeline Stomp ",heal:Math.round((( (0.91*5)+(5*(0.472+0.168)) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.0,color:"#a8b3ff"})
                 data[6].push({name: "Weapons of Order ",heal:Math.round((( (3*(0.40*2)*6) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:5.0,color:"#a8fff3"})
                 //data[6].push({name: "Bonedust Brew ",heal:Math.round((( (6*42) )*stats.int)*(1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:0,color:"#a8fff3"})
+
+                return data
+            },
+            getTableData2() {
+                let stats = this.$store.state.stats
+                let data = [[], [], [], [], [], [], []]
+
+                // RESTO DRUID
+                for (let i = 0; i<5; i++) {
+                    data[0].push({name:"Regrowth + "+i+" Hots",heal:Math.round(((1.73+((0.432)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(((1) + i*((stats.mastery/8) / 100)))),manaCost:3.4,color:"#abff9e"})
+                }
+                for (let i = 0; i<5; i++) {
+                    data[0].push({name:"Rejuvenation + "+i+" Hots",heal:Math.round(((((1.04)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(((1) + i*((stats.mastery/8) / 100)))),manaCost:2.2,color:"rgb(235,149,255)"})
+                }
+                for (let i = 0; i<5; i++) {
+                    data[0].push({name:"Efflorescence + "+i+" Hots",heal:Math.round(((((10.485)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(((1) + i*((stats.mastery/8) / 100)))),manaCost:3.4,color:"rgb(255,158,160)"})
+                }
+                for (let i = 0; i<5; i++) {
+                    data[0].push({name:"Wild Growth  + "+i+" Hots",heal:Math.round(((((0.91*5)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(((1) + i*((stats.mastery/8) / 100)))),manaCost:4.4,color:"rgb(64,171,87)"})
+                }
+                //HOLY PRIEST
+
+
+
 
                 return data
             },

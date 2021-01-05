@@ -13,10 +13,10 @@ export default new Vuex.Store({
                 {time:0,everySec:1,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
                 {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
             ], simModeInfinite:"time", fightLength:240,
-            haste:14.5, crit:12.5, vers:6.5,
-            mastery:76.4, int:1161,simMode:"20-1"},
-        stats: {haste:14.5, crit:12.5, vers:6.5,
-            mastery:76.4, int:1161,},
+            haste:19.5, crit:19.9, vers:10.52,
+            mastery:56.2, int:1432,simMode:"20-1"},
+        stats: {haste:19.5, crit:19.9, vers:10.52,
+            mastery:56.2, int:1432,},
         classSettings: {extendRem:1},
         chartData: {},
         chartDataMana: {},
