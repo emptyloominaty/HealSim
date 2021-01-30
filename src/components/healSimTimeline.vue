@@ -33,6 +33,7 @@
                     <tr>
                         <th> Heal </th>
                         <th> Amount </th>
+                        <th> % </th>
                         <th> Hps </th>
                         <th> Casts </th>
                         <th> avg Cast </th>
@@ -43,6 +44,7 @@
                     <tr v-for="item in tableData" :key="item.id" >
                         <td> {{ item.name }} </td>
                         <td> {{ formatNumber2(item.amount) }} </td>
+                        <td> {{ item.percent }}% </td>
                         <td> {{ item.hps }} </td>
                         <td> {{ item.casts }} </td>
                         <td> {{ formatNumber2(item.avgCast) }} </td>
@@ -136,6 +138,9 @@ export default {
                  this.timelineData =this.mainSim()
              }*/
              let healsLength = this.timelineData[0].heals.length
+             let simTime = this.timelineData[0].simTime
+
+
              this.avgDps = this.timelineData[0].avgDps
              this.avgRem =  this.timelineData[0].avgRem
              let castsList = new Array(healsLength).fill(0)
@@ -143,6 +148,8 @@ export default {
              let hpsList = new Array(healsLength).fill(0)
              let avgCastList = new Array(healsLength).fill(0)
              let manaEfList = new Array(healsLength).fill(0)
+             let percentList = new Array(healsLength).fill(0)
+
              //heal names
              for (let i = 0; i<healsLength; i++) {
                  nameList.push(this.timelineData[0].heals[i].name)
@@ -192,6 +199,11 @@ export default {
              }
              avgHps = avgHps / fightlength
 
+             for(let i = 0; i<(Object.keys(this.timelineData[0].healArr).length); i++) {
+                 percentList[i] = (amountList[i] / (avgHps * fightlength))*100
+             }
+
+
              for(let i = 0; i<nameList.length; i++) {
                  if (amountList[i]!==0) {
                      data.push({
@@ -201,6 +213,7 @@ export default {
                          casts: castsList[i],
                          avgCast: Math.round(avgCastList[i]*10)/10,
                          manaEf: Math.round(manaEfList[i]*10)/10,
+                         percent: Math.round(percentList[i]*10)/10,
                      })
                  }
              }
@@ -219,7 +232,9 @@ export default {
 
              //test avgHps-----------------------------------------------------------------
              this.$store.state.global.test.push(avgHps)
+             this.$store.state.global.avgrems.push(this.avgRem)
              let avgHpsArray = this.$store.state.global.test
+             let avgRemsArray = this.$store.state.global.avgrems
 
              let avgTotal = 0
 
@@ -228,6 +243,14 @@ export default {
                  item = +item
                  avgTotal += item
              });
+
+             let remAvgAvg = 0
+             avgRemsArray.forEach(function(item){
+                 remAvgAvg += item
+             });
+             remAvgAvg = remAvgAvg / avgRemsArray.length
+            console.log("ReM: "+remAvgAvg+" - - - - - RSK every: "+ (simTime/rskCasts) + "s" )
+
 
              let avgMin = 0
              let avgMax = 0

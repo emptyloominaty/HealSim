@@ -64,16 +64,18 @@
                     data[0].push({name:"Vivify + "+i+" ReMs",heal:Math.round(((1.41 + (i * 1.04))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.1,color:"#abff9e"})
                 }
 
-                data[1].push({name: "Essence Font + "+0+" ",heal:Math.round((((0.472 * 18)+(0.168 * 13))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
+                data[1].push({name: "Essence Font "+0+" ",heal:Math.round((((0.472 * 18)+(0.168 * 13))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
+                data[1].push({name: "Essence Font "+0+" +4s",heal:Math.round((((0.472 * 18)+(0.168*1.5 * 13))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
+                data[1].push({name: "Essence Font "+0+" +8s",heal:Math.round((((0.472 * 18)+(0.168*2 * 13))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
 
                 for (let i = 1; i<19; i++) {
-                    data[1].push({name: "Essence Font + "+i+" ",heal:Math.round((((0.472 * (18+i) + ((0.168*1.5) * (13+(i/6)))))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
+                    data[1].push({name: "Essence Font "+i+" ",heal:Math.round((((0.472 * (18+i) + ((0.168*1.5) * (13+(i/6)))))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
                 }
 
-                data[1].push({name: "Refreshing Jade Wind ",heal:Math.round((( (13.572) )*stats.int)*(1 + (stats.vers / 100))),manaCost:3.5,color:"#78ff79"})
+
 
                 for (let i = 1; i<21; i++) {
-                    data[2].push({name: "Rising Mist + "+i+" ",heal:Math.round(((i*0.28)*stats.int)*(1 + (stats.vers / 100))),manaCost:1.5,color:"#ffbb9a"})
+                    data[2].push({name: "Rising Mist "+i+" ",heal:Math.round(((i*0.28)*stats.int)*(1 + (stats.vers / 100))),manaCost:1.5,color:"#ffbb9a"})
                 }
 
                 data[3].push({name: "Renewing Mist 20s ",heal:Math.round((( ((2.25/20)*20)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:2.2,color:"#7cff99"})
@@ -85,21 +87,24 @@
                 data[3].push({name: "Enveloping Mist 7s (MistWrap)",heal:Math.round((( ((3.60/6)*7)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
                 data[3].push({name: "Enveloping Mist 12s (ext)",heal:Math.round((( ((3.60/6)*12)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
                 data[3].push({name: "Enveloping Mist 14s (MistWrap+ext)",heal:Math.round((( ((3.60/6)*14)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
+                data[3].push({name: "Refreshing Jade Wind ",heal:Math.round((( (13.572) )*stats.int)*(1 + (stats.vers / 100))),manaCost:3.5,color:"#78ff79"})
 
                 for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
-                    data[4].push({name: "Enveloping Mist + ToM + "+i+" Rems 6s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*6)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#adffe4"})
-                }
-
-                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
-                    data[4].push({name: "Enveloping Mist + ToM + "+i+" Rems 7s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*7)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#c5ffa6"})
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 6s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*6)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#adffe4"})
                 }
 
                 for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
-                    data[4].push({name: "Enveloping Mist + ToM + "+i+" Rems 12s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*12)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#fff399"})
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 7s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*7)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#c5ffa6"})
+                }
+
+                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 12s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*12)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#fff399"})
                 }
                 for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
-                    data[4].push({name: "Enveloping Mist + ToM + "+i+" Rems 14s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*14)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#ffb1a0"})
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 14s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*14)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#ffb1a0"})
                 }
+
+
 
                 for (let i = 0; i<21; i++) {
                     data[5].push({name:"Vivify + ToM + "+i+" ReMs",heal:Math.round(((1.41 + (i * (1.04*1.2)))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.1,color:"#abff9e"})
@@ -137,9 +142,29 @@
                 for (let i = 0; i<5; i++) {
                     data[0].push({name:"Wild Growth  + "+i+" Hots",heal:Math.round(((((0.91*5)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(((1) + i*((stats.mastery/8) / 100)))),manaCost:4.4,color:"rgb(64,171,87)"})
                 }
-                //HOLY PRIEST
+                //RESTO SHAMAN
+                for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Healing Wave + "+(i*20)+"% HP",heal:Math.round(((3)*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:3,color:"#f792ff"})
+                }
 
-
+                for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Healing Surge + "+(i*20)+"% HP",heal:Math.round(((2.48)*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:4.8,color:"#90ffa1"})
+                }
+                for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Riptide + "+(i*20)+"% HP",heal:Math.round(((1.7+((1.32)* (1 + (stats.haste / 100))))*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:2,color:"#71afff"})
+                }
+                for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Chain Heal + "+(i*20)+"% HP",heal:Math.round(((2.1+1.61+1.242+0.95)*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:6,color:"#4d52ff"})
+                }
+                 for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Chain Heal(HT) + "+(i*20)+"% HP",heal:Math.round((((2.1*4)*1.1)*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:6,color:"#313fff"})
+                }
+                 for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Healing Rain + "+(i*20)+"% HP",heal:Math.round((((1.59*6))*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:4.3,color:"#9ff3ff"})
+                }
+                 for (let i = 4; i>0; i--) {
+                    data[1].push({name:"Wellspring + "+(i*20)+"% HP",heal:Math.round((((1.9*6))*stats.int) * (1 + (stats.vers / 100))*(1+((1 - (i*0.2))*((stats.mastery/1.39) / 100)))),manaCost:5,color:"#80ffb0"})
+                }
 
 
                 return data

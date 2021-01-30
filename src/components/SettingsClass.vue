@@ -6,6 +6,28 @@
                 <label> Extend Rem </label>
                 <input type="number"  step="any" v-model="extendRem">
             </div>
+            <div class="inputDiv">
+                <label> use Tft on </label>
+                <select v-model="useTftOn">
+                    <option value="random">Random</option>
+                    <option value="rsk">Rising Sun Kick</option>
+                    <option value="rem">Renewing Mist</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <label> use Mana Tea </label>
+                <select v-model="useManaTea">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="inputDiv">
+                <label> use Cds (Revival, Chi-Ji, Yu'lon) </label>
+                <select v-model="useCds">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
             <button v-on:click="saveData()">Save</button>
         </div>
     </div>
@@ -17,11 +39,15 @@
         data() {
             return {
                 extendRem: this.$store.state.classSettings.extendRem,
+                useTftOn: this.$store.state.classSettings.useTftOn,
+                useManaTea: this.$store.state.classSettings.useManaTea,
+                useCds: this.$store.state.classSettings.useCds
+                // useTftOn:"random", useManaTea: 1, useCds: 1
             }
         },
         methods: {
             saveData() {
-                let data = {extendRem:this.extendRem}
+                let data = {extendRem:this.extendRem, useTftOn:this.useTftOn, useManaTea:this.useManaTea, useCds:this.useCds}
                 this.$store.commit('setClassSettings',data)
             }
         }

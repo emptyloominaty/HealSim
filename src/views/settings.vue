@@ -4,7 +4,6 @@
         <div>
             <select>
                 <option>Mistweaver Monk</option>
-                <option disabled>----------NO----------</option>
                 <option disabled>Restoration Druid</option>
                 <option disabled>Restoration Shaman</option>
                 <option disabled>Holy Paladin</option>

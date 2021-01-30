@@ -17,7 +17,7 @@ export default new Vuex.Store({
             mastery:56.2, int:1432,simMode:"20-1"},
         stats: {haste:19.5, crit:19.9, vers:10.52,
             mastery:56.2, int:1432,},
-        classSettings: {extendRem:1},
+        classSettings: {extendRem:1, useTftOn:"random", useManaTea: 1, useCds: 1 },
         chartData: {},
         chartDataMana: {},
         chartDataDamage: {},
@@ -36,7 +36,7 @@ export default new Vuex.Store({
         shadowlandsData: {legendaries:[],conduits:[],covenant:""},
         trinkets: [], //TODO
         settingsSim: {critIsVers:1},
-        global: {character:[], targets: [],test:[]}
+        global: {character:[], targets: [],test:[],avgrems:[]}
     },
     mutations: {
         setData(state, newData) {

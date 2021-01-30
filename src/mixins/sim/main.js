@@ -18,6 +18,7 @@ export default {
             this.$store.state.simTime.sim = Date.now()
             let endTime,endTime2,endTime3
             this.db = []
+            let avgRemCount = 0
 //Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
             let storeClassData = this.$store.state.classSettings
@@ -145,7 +146,7 @@ export default {
             this.db.push(this.character.stats)
             endTime = Date.now()
 //LOOP START------------------------
-            for (let fl = 0; fl<fightLength; fl++) {
+            for (let fl = 0; this.time<fightLength; fl++) {
                 this.fl = fl
 //Loop Init---------------------------------------------------------------------------------------------
                 let healGcd = this.healingDone
@@ -158,7 +159,7 @@ export default {
 //loop--------------------------------------------------------------------------------------------------
 
             //Heal AI
-                this.usedAbility = this.healAi(healList,damageList,fightLength,fl,infiniteHp)
+                this.usedAbility = this.healAi(healList,damageList,fightLength,fl,infiniteHp,storeClassData)
 
                 this.useAbility(healList,damageList)
 
@@ -177,7 +178,7 @@ export default {
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
                 avgRem += this.hotsData["Renewing Mist"].length
-
+                avgRemCount ++
                 timeline[fl] = {
                     id:fl,
                     time:this.time.toFixed(1),
@@ -206,6 +207,7 @@ export default {
                     avgDps: 0,
                     avgRem: 0,
                     friendlyTargets: [],
+                    simTime: fightLength,
                 }
                 // eslint-disable-next-line no-prototype-builtins
                 if (this.usedAbility.hasOwnProperty('upwelling')) {
@@ -227,7 +229,7 @@ export default {
 
             }
 //LOOP END (create charts, redraw timeline)----------------------------------------------------------------------
-            avgRem = avgRem / this.time
+            avgRem = avgRem / avgRemCount
             //console.log(this.healingDoneArr)
             //console.log(this.damageDoneArr)
             let totalHealingDone = (Math.round(this.healingDone))-this.overhealingDone

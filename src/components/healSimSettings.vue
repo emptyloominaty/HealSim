@@ -259,6 +259,7 @@
                 this.$store.state.shadowlandsData.conduits = [this.conduit]
 
                 this.$store.state.global.test = []
+                this.$store.state.global.avgrems = []
 
                 this.$store.commit('setHealData',data)
             },
