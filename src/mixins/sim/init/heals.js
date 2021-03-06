@@ -91,9 +91,9 @@ export default {
             switch(healSpec) {
                 //MW Monk
                 case "mistweaver":
-                    heals = [new Heal("Vivify",4.1,1.5,0,1,0,talents,this.healFuncViv(),critVers), //0
+                    heals = [new Heal("Vivify",3.8,1.5,0,1,0,talents,this.healFuncViv(),critVers), //0
                         new Heal("Enveloping Mist",6.0,2.0,0,1,0,talents,this.healFuncEm(),critVers),
-                        new Heal("Renewing Mist",2.2,1.5,9,2,0,talents,this.healFuncRM(),critVers),
+                        new Heal("Renewing Mist",1.8,1.5,9,2,0,talents,this.healFuncRM(),critVers),
                         new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival(),critVers),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon(),critVers),
                         new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf(),critVers) ,

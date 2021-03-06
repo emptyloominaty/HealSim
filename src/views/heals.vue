@@ -61,7 +61,7 @@
                 let data = [[],[],[],[],[],[],[]]
 
                 for (let i = 0; i<21; i++) {
-                    data[0].push({name:"Vivify + "+i+" ReMs",heal:Math.round(((1.41 + (i * 1.04))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.1,color:"#abff9e"})
+                    data[0].push({name:"Vivify + "+i+" ReMs",heal:Math.round(((1.41 + (i * 1.04))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:3.8,color:"#abff9e"})
                 }
 
                 data[1].push({name: "Essence Font "+0+" ",heal:Math.round((((0.472 * 18)+(0.168 * 13))*stats.int)*(1 + (stats.vers / 100))),manaCost:7.2,color:"#a0ffee"})
@@ -78,10 +78,10 @@
                     data[2].push({name: "Rising Mist "+i+" ",heal:Math.round(((i*0.28)*stats.int)*(1 + (stats.vers / 100))),manaCost:1.5,color:"#ffbb9a"})
                 }
 
-                data[3].push({name: "Renewing Mist 20s ",heal:Math.round((( ((2.25/20)*20)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:2.2,color:"#7cff99"})
-                data[3].push({name: "Renewing Mist 30s (tft)",heal:Math.round((( ((2.25/20)*30)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:2.2,color:"#7cff99"})
-                data[3].push({name: "Renewing Mist 40s (ext)",heal:Math.round((( ((2.25/20)*40)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:2.2,color:"#7cff99"})
-                data[3].push({name: "Renewing Mist 60s (tft+ext)",heal:Math.round((( ((2.25/20)*60)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:2.2,color:"#7cff99"})
+                data[3].push({name: "Renewing Mist 20s ",heal:Math.round((( ((2.25/20)*20)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:1.8,color:"#7cff99"})
+                data[3].push({name: "Renewing Mist 30s (tft)",heal:Math.round((( ((2.25/20)*30)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:1.8,color:"#7cff99"})
+                data[3].push({name: "Renewing Mist 40s (ext)",heal:Math.round((( ((2.25/20)*40)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:1.8,color:"#7cff99"})
+                data[3].push({name: "Renewing Mist 60s (tft+ext)",heal:Math.round((( ((2.25/20)*60)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:1.8,color:"#7cff99"})
 
                 data[3].push({name: "Enveloping Mist 6s ",heal:Math.round((( ((3.60/6)*6)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
                 data[3].push({name: "Enveloping Mist 7s (MistWrap)",heal:Math.round((( ((3.60/6)*7)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
@@ -107,7 +107,7 @@
 
 
                 for (let i = 0; i<21; i++) {
-                    data[5].push({name:"Vivify + ToM + "+i+" ReMs",heal:Math.round(((1.41 + (i * (1.04*1.2)))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:4.1,color:"#abff9e"})
+                    data[5].push({name:"Vivify + ToM + "+i+" ReMs",heal:Math.round(((1.41 + (i * (1.04*1.2)))*stats.int) * (1 + (stats.vers / 100))+(stats.int * (1 + (stats.mastery / 100)))),manaCost:3.8,color:"#abff9e"})
                 }
 
                 data[6].push({name: "Soothing Mist ",heal:Math.round((( ((4.40/8)*8)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:0.4*8,color:"#7cff99"})

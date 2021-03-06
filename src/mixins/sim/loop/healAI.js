@@ -224,9 +224,9 @@ export default {
                 usedAbility = this.damages[damageList["Blackout Kick"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget*1.6 < mana && rems > 1 && raidMissingHealthPercent > 0.01 && this.character.buffs2.chiJi===0) { //Vivify
+          /*  if (usedAbility===0 && canHeal > 0 && manaTarget*1.6 < mana && rems > 1 && raidMissingHealthPercent > 0.2 && this.character.buffs2.chiJi===0) { //Vivify
                 usedAbility = this.heals[healList["Vivify"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets,this.targets)
-            }
+            }*/
 
             if (usedAbility===0) { //Tiger Palm
                 usedAbility = this.damages[damageList["Tiger Palm"]].dmgFunc(this.character, [fistThisTarget], 0, this.hotsData,this.enemyTargets,mostInjuredTarget.id)
