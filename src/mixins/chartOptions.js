@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            chartOptionsRems:  {
+            chartOptionsRems: {
                 responsive: true,
                 maintainAspectRatio: false,
                 legend: { labels: {fontColor:'#fff'}},
@@ -20,7 +20,7 @@ export default {
                             stepSize: 1
                         }
                     }],
-                        yAxes: [{
+                    yAxes: [{
                         display: true,
                         ticks: {
                             beginAtZero: true,
@@ -290,6 +290,43 @@ export default {
                         },
                         ticks: {
                             min: 1,
+                        }
+                    }]
+                }
+            }
+            ,
+            chartOptionshpsruns:  {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: { labels: {fontColor:'#fff'}},
+                scales: {
+                    xAxes: [{
+                        type: "linear",
+                        display: true,
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: ''
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value) {
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            },
+                        },
+                        gridLines: {
+                            color: '#555'
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'HPS'
                         }
                     }]
                 }

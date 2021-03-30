@@ -7,7 +7,7 @@ export default {
                     let stats = character.stats
 
                     //config
-                    let damage = 5+(Math.random()*4)//TOTAL
+                    let damage = 3+(Math.random()*2)//TOTAL
                     let heal = 20+(Math.random()*10) //TOTAL
 
                     let numberOfheals = 5

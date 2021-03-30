@@ -94,6 +94,8 @@ export default {
          avgHps: 0,
          avgDps: 0,
          avgRem: 0,
+         arrayHpsGraph: [],
+         arrayDpsGraph: []
      }
     },
     methods: {
@@ -238,7 +240,13 @@ export default {
 
              let avgTotal = 0
 
+             //---------------------29-03-2021 hps graph
+             //this.arrayHpsGraph.push(avgHps)
+             let storehpsData = this.$store.state.global.test
+             this.generateChartDataHps(storehpsData,"#78f871",0)
 
+             //this.$store.commit("setHpsData",this.$store.state.global.test)
+             //---------------------
              avgHpsArray.forEach(function(item){
                  item = +item
                  avgTotal += item
@@ -298,7 +306,31 @@ export default {
 
              this.avgHps = avgHps
              return data
-         }
+         },
+        generateChartDataHps(timeline,lineColor,lineTension) {
+            let data = []
+            for (let i=0; i<timeline.length ; i++) {
+                data.push({y:timeline[i], x:i})
+            }
+
+            let chartdata = {
+                datasets: [
+                    {
+                        label: "HPS",
+                        fontColor: '#ffffff',
+                        borderColor: lineColor,
+                        data: data,
+                        pointStyle: "circle",
+                        pointBorderColor: "rgba(0,0,0,0)",
+                        pointBackgroundColor: "rgba(0,0,0,0)",
+                        pointRadius: 6,
+                        lineTension:lineTension,
+                        pointHoverRadius: 7,
+                    },
+                ]
+            }
+            this.$store.commit("setHpsData",chartdata)
+        }
 
     },
     watch: {

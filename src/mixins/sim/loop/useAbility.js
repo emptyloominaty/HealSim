@@ -21,7 +21,6 @@ export default {
                     targets.push(this.usedAbility.damageToTargets[0][0].id)
                     //targets=["Enemy"]
                 }
-
                 this.db.push("Casted: <b style=\"color:#4fff61\">"+this.usedAbility.name +"</b> ----- Target: <b style=\"color:#ff000f\">"+ targets +"</b>")
                 //------------------------------------------------
                 if (this.usedAbility.type === "heal") {//----------------------------------------------------------------------------------------------------------Heal

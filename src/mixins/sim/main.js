@@ -18,6 +18,7 @@ export default {
             this.$store.state.simTime.sim = Date.now()
             let endTime,endTime2,endTime3
             this.db = []
+            this.timelinedb = []
             let avgRemCount = 0
 //Init------------------------------------------------------------------------------------------------------
             let storeData = this.$store.state.healSetting
@@ -175,8 +176,14 @@ export default {
                     }
                 }
 
+
                 healGcd = this.healingDone - healGcd
                 dmgGcd = this.damageDone - dmgGcd
+
+                this.timelinedb.push("Casted: <b style=\"color:#a3cdff\">"+this.usedAbility.name+" </b>"+
+                    " | Healing: <b style=\"color:#4fff61\">"+((healGcd/1000).toFixed(2))+"</b>k"+
+                    " | Damage: <b style=\"color:#ff3e57\">"+((dmgGcd/1000).toFixed(2))+"</b>k")
+
                 avgRem += this.hotsData["Renewing Mist"].length
                 avgRemCount ++
                 timeline[fl] = {
@@ -242,6 +249,12 @@ export default {
 
             if (this.$store.state.debug===1) {
                 this.$store.commit('debug',this.db)
+            }
+
+
+            this.timelinedb.push("----------------------------------------------")
+            if (this.$store.state.debug===0) {
+                this.$store.commit('debug',this.timelinedb)
             }
 
 

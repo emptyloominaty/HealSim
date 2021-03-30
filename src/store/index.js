@@ -13,10 +13,10 @@ export default new Vuex.Store({
                 {time:0,everySec:1,damage:1000,targets:1,name:"bigdmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}}, //1-dmg
                 {time:0,everySec:2,damage:100,targets:10,name:"dmg",dot:{isDot:0,dotData:{damage:0,duration:0,maxDuration:0,dispellable:0,dotType:"enemy"}}} //2-dmg
             ], simModeInfinite:"time", fightLength:240,
-            haste:19.5, crit:19.9, vers:10.52,
-            mastery:56.2, int:1432,simMode:"20-1"},
-        stats: {haste:19.5, crit:19.9, vers:10.52,
-            mastery:56.2, int:1432,},
+            haste:19.7, crit:23.7, vers:9.88,
+            mastery:57.4, int:1724,simMode:"20-1"},
+        stats: {haste:19.7, crit:23.7, vers:9.88,
+            mastery:57.4, int:1724,},
         classSettings: {extendRem:1, useTftOn:"random", useManaTea: 1, useCds: 1 },
         chartData: {},
         chartDataMana: {},
@@ -26,6 +26,7 @@ export default new Vuex.Store({
         chartDataMastery: {},
         chartDataStacked: {},
         chartDataRaidHp: {},
+        chartDataHps: {},
         talents: [],
         buffs: [],
         db : [],
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     mutations: {
         setData(state, newData) {
             state.remSetting = newData
+        },
+        setHpsData(state, newData) {
+            state.chartDataHps = newData
         },
         setStats(state, newData) {
             state.stats = newData

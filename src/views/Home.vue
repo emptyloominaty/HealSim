@@ -2,7 +2,7 @@
   <div class="home">
     <Settings/>
     <Timeline/>
-    <Chart style="height:700px;" :chart-data="stackedData" :options="chartOptionsStacked"  />
+    <Chart  :chart-data="stackedData" :options="chartOptionsStacked"  /> <!--style="height:700px;"-->
     <Chart :chart-data="healData" :options="chartOptionsHeal"  />
     <Chart :chart-data="damageData" :options="chartOptionsDamage"  />
     <Chart :chart-data="raidHpData" :options="chartOptionsRaidHp"  />
@@ -10,6 +10,7 @@
     <Chart :chart-data="remsData" :options="chartOptionsRems"  />
     <Chart :chart-data="hasteData" :options="chartOptionsHaste"  />
     <Chart :chart-data="masteryData" :options="chartOptionsMastery"  />
+    <Chart :chart-data="hpsData" :options="chartOptionshpsruns"  />
     <Debug/>
   </div>
 </template>
@@ -40,6 +41,7 @@ export default {
       manaData:[],
       raidHpData:[],
       masteryData:[],
+      hpsData:[],
       testData:{a:0,b:0,c:0,d:0,e:0,f:0,g:0,h:0},
     }
   },
@@ -66,6 +68,9 @@ export default {
     '$store.state.chartDataStacked': function() {
       this.stackedData = this.$store.state.chartDataStacked
     },
+    '$store.state.chartDataHps': function() {
+      this.hpsData = this.$store.state.chartDataHps
+    },
     '$store.state.chartDataRaidHp': function() {
       this.$store.state.simTime.end = Date.now()
       let time = this.$store.state.simTime
@@ -76,3 +81,5 @@ export default {
   }
 }
 </script>
+<style scoped>
+</style>
