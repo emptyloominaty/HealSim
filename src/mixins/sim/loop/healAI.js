@@ -36,6 +36,11 @@ export default {
                     }
                 }
             }
+            if (infiniteHp===1) {
+                mostInjuredTarget.id = 1+Math.floor((Math.random()*(this.targets.length-2)))
+            }
+
+
             let raidMissingHealthPercent = raidMissingHealth/totalRaidHealth
             this.raidHealth = totalRaidHealth - raidMissingHealth
 
@@ -167,7 +172,7 @@ export default {
                 usedAbility = this.heals[healList["Essence Font"]].healFunc(this.character, [0], 0, this.hotsData, this.injuredTargets)
             }
 
-            if (usedAbility===0 && canHeal > 0 && manaTarget/1.1 < mana && this.character.legendaries.tearOfMorning===1 && this.character.talents.upwelling===0 && raidMissingHealthPercent > 0.02) { //Enveloping Mist
+            if (usedAbility===0 && canHeal > 0 && manaTarget*1.25 < mana && this.character.legendaries.tearOfMorning===1 && this.character.talents.upwelling===0 && raidMissingHealthPercent > 0.02) { //Enveloping Mist
                 usedAbility = this.heals[healList["Enveloping Mist"]].healFunc(this.character, [mostInjuredTarget.id], 0, this.hotsData, this.injuredTargets,this.targets)
             }
 

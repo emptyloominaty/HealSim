@@ -10,6 +10,8 @@ export default {
                     let emDuration = 6
                     let emBonus = 0.3
 
+                    let tomCleave =  0.72
+
                     //enveloping breath
                     let envelopingBreathTargets = 6
                     let ebHeal = 1.8
@@ -62,6 +64,9 @@ export default {
                         returnData.runAfter.push("heal",mainHeal,[target[0]],"Gust of Mists")
                     }
 
+
+
+
                     if (character.buffs2.chiJiEnveloping>0) {
                         returnData.manaUsed =  returnData.manaUsed - (((character.buffs2.chiJiEnveloping*33)/100)*returnData.manaUsed)
                         returnData.gcd = returnData.gcd  - (((character.buffs2.chiJiEnveloping*33)/100)*returnData.gcd )
@@ -104,6 +109,17 @@ export default {
                                 }
                             }
                         }
+                        //rem loop
+                        let cleaveTargets = []
+                        for (let i = 0; i < hots["Renewing Mist"].length; i++) {
+                            crit = this.critChance(stats.crit)
+                            cleaveTargets.push({id: hots["Renewing Mist"][i], heal: (tomCleave * crit)})
+                        }
+
+                        //heal
+                        returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets]
+
+
                     }
 
                     return returnData

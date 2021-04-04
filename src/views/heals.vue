@@ -89,6 +89,9 @@
                 data[3].push({name: "Enveloping Mist 14s (MistWrap+ext)",heal:Math.round((( ((3.60/6)*14)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#e9ff8e"})
                 data[3].push({name: "Refreshing Jade Wind ",heal:Math.round((( (13.572) )*stats.int)*(1 + (stats.vers / 100))),manaCost:3.5,color:"#78ff79"})
 
+
+
+                /*
                 for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
                     data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 6s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*6)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#adffe4"})
                 }
@@ -103,7 +106,22 @@
                 for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
                     data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 14s",heal:Math.round((( (((3.60+((3.60*0.2)*i))/6)*14)* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#ffb1a0"})
                 }
+                */
 
+                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 6s",heal:Math.round(((((((3.60)/6)*6)+((3.60*0.2)*i))* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#adffe4"})
+                }
+
+                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 7s",heal:Math.round(((((((3.60)/6)*7)+((3.60*0.2)*i))* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#c5ffa6"})
+                }
+
+                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 12s",heal:Math.round(((((((3.60)/6)*12)+((3.60*0.2)*i))* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#fff399"})
+                }
+                for (let i = 1; i<7; i++) { // EM REM (Tear Of Morning)
+                    data[4].push({name: "Enveloping Mist + ToM + "+i+" ReMs 14s",heal:Math.round(((((((3.60)/6)*14)+((3.60*0.2)*i))* (1 + (stats.haste / 100)) )*stats.int)*(1 + (stats.vers / 100))),manaCost:6.0,color:"#ffb1a0"})
+                }
 
 
                 for (let i = 0; i<21; i++) {
