@@ -35,6 +35,7 @@ export default {
                     let mainHeal = (((spellpower * (stats.mastery / 100))) * crit)
                     let emHotHeal = spellpower * emHeal
                     let ebHotHeal = spellpower * ebHeal
+                    let tomCleaveHeal = spellpower * tomCleave
 
                     returnData.healingToTargets = [[{id: target[0], heal: 0}]]
 
@@ -99,7 +100,8 @@ export default {
                     }
 
                     //legendaries
-                    if (character.legendaries.tearOfMorning===1 && hots["Renewing Mist"].indexOf(target[0])!==-1) {
+                    if (character.legendaries.tearOfMorning===1) {
+                        if (hots["Renewing Mist"].indexOf(target[0])!==-1) {}
                         let spreadChance = (Math.random()*100)
                         if (spreadChance < 10) {
                             for (let hh = 0; hh<targetsData[target[0]].hots.length; hh++)  {
@@ -109,18 +111,15 @@ export default {
                                 }
                             }
                         }
-                        //rem loop
-                        let cleaveTargets = []
-                        for (let i = 0; i < hots["Renewing Mist"].length; i++) {
-                            crit = this.critChance(stats.crit)
-                            cleaveTargets.push({id: hots["Renewing Mist"][i], heal: (tomCleave * crit)})
-                        }
-
-                        //heal
-                        returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets]
-
-
+                    //rem loop
+                    let cleaveTargets = []
+                    for (let i = 0; i < hots["Renewing Mist"].length; i++) {
+                        crit = this.critChance(stats.crit)
+                        cleaveTargets.push({id: hots["Renewing Mist"][i], heal: (tomCleaveHeal * crit)})
                     }
+                    //heal
+                    returnData.healingToTargets = [[{id: target[0], heal: mainHeal}], cleaveTargets]
+                }
 
                     return returnData
                 }

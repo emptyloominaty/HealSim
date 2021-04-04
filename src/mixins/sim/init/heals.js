@@ -91,22 +91,24 @@ export default {
             switch(healSpec) {
                 //MW Monk
                 case "mistweaver":
-                    heals = [new Heal("Vivify",3.8,1.5,0,1,0,talents,this.healFuncViv(),critVers), //0
+                    heals = [new Heal("Renewing Mist",1.8,1.5,9,2,0,talents,this.healFuncRM(),critVers),
+                        //----------------passive
+                        new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0},critVers),
+                        //----------------
+                        new Heal("Vivify",3.8,1.5,0,1,0,talents,this.healFuncViv(),critVers), //0
                         new Heal("Enveloping Mist",6.0,2.0,0,1,0,talents,this.healFuncEm(),critVers),
-                        new Heal("Renewing Mist",1.8,1.5,9,2,0,talents,this.healFuncRM(),critVers),
-                        new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival(),critVers),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon(),critVers),
                         new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf(),critVers) ,
                         new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM(),critVers), //cooldown for the statue
                         new Heal("Yu'lon",5.0,1.5,180,1,0,talents,this.healFuncYulon(),critVers),
                         new Heal("Expel Harm",3.0,1.5,15,1,0,talents,0,critVers), //no
                         new Heal("Chi-Ji Activate",5.0,1.5,180,1,0,talents,this.healFuncChiJiActivate(),critVers),
-
+                        new Heal("Revival",4.374,1.5,180,1,0,talents,this.healFuncRevival(),critVers),
+                        
                         //----------------talents
                         new Heal("Refreshing Jade Wind",3.5,1.5,9,1,1,talents,this.healFuncRJW(),critVers),
                         new Heal("Chi Burst",0,0,0,1,0,talents,function() {return 0},critVers),
                         //----------------passive
-                        new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0},critVers),
                         new Heal("Soothing Mist - Yu'Lon",0,0,0,1,0,talents,function() {return 0},critVers),
                         new Heal("Soothing Mist - Statue",0,0,0,1,0,talents,function() {return 0},critVers),
                         new Heal("Chi-Ji",0,0,0,1,0,talents,this.healFuncChiJi(),critVers),
