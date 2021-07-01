@@ -7,7 +7,8 @@ export default {
                 if (this.cooldown>=this.maxCooldown && targets.length > 0 && this.manaCost < character.mana) {
                     let stats = character.stats
                     //config
-                    let revHeal = 3.15
+                    let revHeal = 2.83
+
 
                     //init
                     let crit
@@ -17,7 +18,7 @@ export default {
                     //-------heal-------
 
                     let mainHeal = spellpower * revHeal
-
+                    let masteryHeal = (((spellpower * (stats.mastery / 100))))
 
                     if (character.conduits.includes("risingSunRevival") ) {
                         returnData.hotData = []
@@ -26,12 +27,32 @@ export default {
                         }
                     }
 
+
+                    let revivalHealTargets = []
+                    for (let i = 0; i < target.length; i++) {
+                        revivalHealTargets.push(target[i])
+                    }
+                    returnData.runAfter = ["heal",masteryHeal,revivalHealTargets,"Gust of Mists"]
+
+
                     for (let i = 0; i<target.length; i++) {
                         crit = this.critChance(stats.crit)
                         returnData.healingToTargets[0].push({id: i, heal: mainHeal*crit})
+
+                        if (hots["Essence Font"].includes(target[i])) {
+                            crit = this.critChance(stats.crit)
+                            let masteryHeal2 = ((masteryHeal) * crit)
+
+                            //conduit
+                            if (character.conduits.includes("resplendentMist")) {
+                                let randomIdk = Math.random()*100
+                                if (randomIdk<30) {
+                                    masteryHeal2 = masteryHeal * 1.8 // 223ilvl conduit
+                                }
+                            }
+                            returnData.runAfter.push("heal",masteryHeal2,[target[i]],"Gust of Mists")
+                        }
                     }
-
-
 
                     this.setCd()
 

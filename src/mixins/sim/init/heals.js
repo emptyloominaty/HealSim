@@ -96,7 +96,7 @@ export default {
                         new Heal("Rising Mist",0,0,0,1,0,talents,function() {return 0},critVers),
                         //----------------
                         new Heal("Vivify",3.8,1.5,0,1,0,talents,this.healFuncViv(),critVers), //0
-                        new Heal("Enveloping Mist",6.0,2.0,0,1,0,talents,this.healFuncEm(),critVers),
+                        new Heal("Enveloping Mist",5.6,2.0,0,1,0,talents,this.healFuncEm(),critVers),
                         new Heal("Life Cocoon",2.4,1.5,120,1,0,talents,this.healFuncLifeCocoon(),critVers),
                         new Heal("Essence Font",7.2,3.0,12,1,0,talents,this.healFuncEf(),critVers) ,
                         new Heal("Soothing Mist",0.4,1,8,1,0,talents,this.healFuncSM(),critVers), //cooldown for the statue
@@ -133,7 +133,7 @@ export default {
                         //----------------tft
                         new Heal ("Thunder Focus Tea",0,0,30,1,0,talents,this.healFuncTFT(),critVers),
                         new Heal ("Mana Tea",0,0,120,1,0,talents,this.healFuncManaTea(),critVers),
-                        new Heal ("Mana Potion",0,0,300,1,0,talents,this.healFuncManaPotion(),critVers),
+                        new Heal ("Mana Potion",0,0,240,1,0,talents,this.healFuncManaPotion(),critVers),
 
                     ]
                     break;
